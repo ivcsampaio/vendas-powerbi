@@ -7999,7 +7999,7 @@
           },
           {
             "name": "Faturamento Líquido copy",
-            "description": "TESTE LOCAL GIT - Faturamento real da empresa (Faturamento Bruto menos Valor Devolvido).",
+            "description": "ALTERADO MANUALMENTE - TESTE LOCAL",
             "expression": "SUM('Vendas (Dia)'[VLR_VENDA_TOTAL_C_IMP]) - SUM('Vendas (Dia)'[VLR_DEVOLUCAO_TOTAL_C_IMP])",
             "formatString": "R$ #,##0;(R$ #,##0); -",
             "displayFolder": "Vendas Diárias\\Faturamento",

@@ -1,0 +1,154 @@
+/// Tabela fato contendo lançamentos de ajustes gerenciais aplicados sobre vendas.
+table 'Ajustes Gerenciais (Dia)'
+	lineageTag: 3c78941b-2270-4c53-8154-d80b685c5d99
+	sourceLineageTag: [bi_vendas].[FAT_AJUSTES_GERENCIAIS_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 632832d4-33c6-407f-a0a3-698c985245f8
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_AJUSTE_GERENCIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 225dbdd6-db24-484c-8973-3d3af4ad1fbf
+		sourceLineageTag: COD_TIPO_AJUSTE_GERENCIAL
+		summarizeBy: none
+		sourceColumn: COD_TIPO_AJUSTE_GERENCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_AJUSTE_GERENCIAL
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 4996ab09-6f07-4145-bb51-15a5826f1e1d
+		sourceLineageTag: VALOR_AJUSTE_GERENCIAL
+		summarizeBy: sum
+		sourceColumn: VALOR_AJUSTE_GERENCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_AJUSTE_GERENCIAL_PERDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: af0126b9-dcf7-4dc4-bc42-b8784473c290
+		sourceLineageTag: VALOR_AJUSTE_GERENCIAL_PERDA
+		summarizeBy: sum
+		sourceColumn: VALOR_AJUSTE_GERENCIAL_PERDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_AJUSTE_GERENCIAL_MARGEM_CONTRIBUICAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: f839704e-ec71-4d96-a381-409aabb88328
+		sourceLineageTag: VALOR_AJUSTE_GERENCIAL_MARGEM_CONTRIBUICAO
+		summarizeBy: sum
+		sourceColumn: VALOR_AJUSTE_GERENCIAL_MARGEM_CONTRIBUICAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VALOR_AJUSTE_GERENCIAL_MARGEM_PDV
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 269a571c-8dc4-49ba-b3ed-3e815d081603
+		sourceLineageTag: VALOR_AJUSTE_GERENCIAL_MARGEM_PDV
+		summarizeBy: sum
+		sourceColumn: VALOR_AJUSTE_GERENCIAL_MARGEM_PDV
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6757c59a-6231-4c5a-b12b-9da5d020444d
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 1e3303a9-1475-46c0-9fe9-3724fbb6c762
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 1200e87c-a770-495d-89f0-b020990a749e
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 8c5b2de8-0842-4d27-b489-ab72ade67f63
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Ajustes Gerenciais (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_AJUSTES_GERENCIAIS_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

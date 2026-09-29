@@ -1,0 +1,154 @@
+/// Tabela fato de metas diárias por categoria de produto e subfilial.
+table 'Metas (Dia)'
+	lineageTag: 3e0d0a4a-c5c0-4266-8bd7-e33b39667729
+	sourceLineageTag: [bi_vendas].[FAT_METAS_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 58df1efc-9fb0-4f55-9b90-0db20674e117
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column META_CATEGORIA_QTD_TONELAGEM
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: ed8febfd-dca5-405c-8bd2-9d7097e4b6dc
+		sourceLineageTag: META_CATEGORIA_QTD_TONELAGEM
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_QTD_TONELAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column META_CATEGORIA_VALOR_EMBALAGEM
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: c8664be5-1ab6-4129-ac12-a3b2b9e0960e
+		sourceLineageTag: META_CATEGORIA_VALOR_EMBALAGEM
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_VALOR_EMBALAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column META_CATEGORIA_VALOR_MARGEM_COMERCIAL
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 7aeb75a3-c01e-4a42-819c-0cf6bf19ab24
+		sourceLineageTag: META_CATEGORIA_VALOR_MARGEM_COMERCIAL
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_VALOR_MARGEM_COMERCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column META_CATEGORIA_VALOR_MARGEM_CONTRIBUICAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: d0c64a97-cc6e-4688-a482-c8cb0ee4ae5d
+		sourceLineageTag: META_CATEGORIA_VALOR_MARGEM_CONTRIBUICAO
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_VALOR_MARGEM_CONTRIBUICAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column META_CATEGORIA_VALOR_PERDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 2ffe6268-4382-4df1-b287-41db31df283d
+		sourceLineageTag: META_CATEGORIA_VALOR_PERDA
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_VALOR_PERDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column META_CATEGORIA_VALOR_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 284a075b-01ff-44af-9c2f-5b77349d00d2
+		sourceLineageTag: META_CATEGORIA_VALOR_VENDA
+		summarizeBy: sum
+		sourceColumn: META_CATEGORIA_VALOR_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: a5df99a0-39a4-4f73-8bfb-b2c2fcc31443
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: none
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: beb4fcca-0b09-42c1-9440-1d3b90a532a1
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 87aa8685-e91f-48a1-aba8-90dd1ac6d8a2
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: none
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Metas (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_METAS_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

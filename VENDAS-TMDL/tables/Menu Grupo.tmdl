@@ -1,0 +1,52 @@
+/// Tabela dimensional de parametrização contendo os macro-grupos lógicos do menu do relatório (ex: Venda, Perda, Compra).
+table 'Menu Grupo'
+	lineageTag: 631c9b4c-e568-42f5-9518-314e3bb60127
+	sourceLineageTag: [bi_wh_corporativo].[DIM_MENU_GRUPO]
+
+	/// Identificador único numérico do grupo do menu.
+	column 'ID Grupo'
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		lineageTag: d56496ce-c1d3-474f-87b7-704477028357
+		sourceLineageTag: ID_GRUPO
+		summarizeBy: none
+		sourceColumn: ID_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome/Descrição descritiva textual do macro-grupo de menu.
+	column 'Grupo Macro'
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: 30cbf56f-04b2-438e-b445-d3ef787bd935
+		sourceLineageTag: DS_GRUPO
+		summarizeBy: none
+		sourceColumn: DS_GRUPO
+		sortByColumn: 'Ordem Grupo'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número sequencial utilizado para fixar a ordenação visual dos botões no painel.
+	column 'Ordem Grupo'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b904add3-0b6b-4df1-8103-a8825ad43b4b
+		sourceLineageTag: NU_ORDEM_GRUPO
+		summarizeBy: none
+		sourceColumn: NU_ORDEM_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Menu Grupo' = entity
+		mode: directLake
+		source
+			entityName: DIM_MENU_GRUPO
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

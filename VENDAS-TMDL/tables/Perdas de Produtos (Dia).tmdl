@@ -1,0 +1,114 @@
+/// Tabela fato com o registro detalhado de quebras, avarias e perdas físicas de produtos.
+table 'Perdas de Produtos (Dia)'
+	lineageTag: a9acef2c-6786-4032-8a6e-f467ff584641
+	sourceLineageTag: [bi_vendas].[FAT_PERDAS_PRODUTO_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 2243ffa0-7fc4-4d96-8d5e-a617c65f08ee
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Valor monetário total apurado em perdas/quebras.
+	column VALOR_TOTAL_PERDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: e02c7961-a000-416b-abf1-040e205172c3
+		sourceLineageTag: VALOR_TOTAL_PERDA
+		summarizeBy: sum
+		sourceColumn: VALOR_TOTAL_PERDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantidade de unidades perdidas/avariadas.
+	column QTD_PERDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 14642982-8dfd-4962-865d-93efdfd99dda
+		sourceLineageTag: QTD_PERDA
+		summarizeBy: sum
+		sourceColumn: QTD_PERDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 39741bf1-06b4-48f9-9b98-8688e0491e8a
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: ddb97581-4f38-46bc-9944-97d58aefa773
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 909c3a65-765c-4b64-b4ef-070323f8319c
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 43afe3da-20ab-49fb-b7ea-301c3867c783
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Perdas de Produtos (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_PERDAS_PRODUTO_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

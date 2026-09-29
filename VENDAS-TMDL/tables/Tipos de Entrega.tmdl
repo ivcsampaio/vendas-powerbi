@@ -1,0 +1,66 @@
+/// Dimensão descritiva com as modalidades e tipos de entrega logística.
+table 'Tipos de Entrega'
+	lineageTag: 8276f173-4b20-4e98-be0d-dbf59318df16
+	sourceLineageTag: [bi_wh_corporativo].[DIM_TIPO_ENTREGA]
+
+	/// Identificador único da modalidade de entrega.
+	column 'Código Tipo Entrega'
+		dataType: int64
+		isKey
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: f0a0de43-aca2-4e21-bc99-809fa49d1dae
+		sourceLineageTag: COD_TIPO_ENTREGA
+		summarizeBy: none
+		sourceColumn: COD_TIPO_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição da modalidade/tipo de entrega logística.
+	column 'Tipo Entrega'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 6ed1fc6a-317a-4a1c-8da7-f47f5d29edef
+		sourceLineageTag: DESC_TIPO_ENTREGA
+		summarizeBy: none
+		sourceColumn: DESC_TIPO_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CANAL_VENDA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6026f8ee-a444-435d-b5a0-09bbbacf708e
+		sourceLineageTag: COD_CANAL_VENDA
+		summarizeBy: none
+		sourceColumn: COD_CANAL_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GRUPO_TIPO_ENTREGA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 96ffd983-7f04-4907-a9c5-449bf5d0fd30
+		sourceLineageTag: COD_GRUPO_TIPO_ENTREGA
+		summarizeBy: none
+		sourceColumn: COD_GRUPO_TIPO_ENTREGA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tipos de Entrega' = entity
+		mode: directLake
+		source
+			entityName: DIM_TIPO_ENTREGA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

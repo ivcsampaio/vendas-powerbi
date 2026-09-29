@@ -1,0 +1,250 @@
+/// Dimensão de tempo padrão (tabela calendário) estruturada para inteligência temporal.
+table Calendário
+	lineageTag: 134782b0-7ddd-4856-beb9-fff4c30296f3
+	sourceLineageTag: [bi_wh_corporativo].[DIM_DATA]
+	dataCategory: Time
+
+	/// Data civil completa no formato padrão (ex: 2022-01-01).
+	column Dia
+		dataType: dateTime
+		isKey
+		formatString: dd/MM/yyyy
+		sourceProviderType: date
+		lineageTag: 9de58b95-ce86-4896-bb58-cba3d042dbd4
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation TabularEditor_MarkAsDateKey = 1
+
+	column COD_MES
+		dataType: int64
+		isHidden
+		formatString: 0
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: ca446a30-dc98-41d2-9c53-50009b89a900
+		sourceLineageTag: COD_MES
+		summarizeBy: sum
+		sourceColumn: COD_MES
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome abreviado do mês e o ano correspondente (ex: Jan/2022).
+	column Mês
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: d0a43a0d-117a-48c7-bdd8-06a58b50fe45
+		sourceLineageTag: DESC_MES
+		summarizeBy: none
+		sourceColumn: DESC_MES
+		sortByColumn: COD_MES
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Ano civil com quatro dígitos (ex: 2022).
+	column Ano
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2fa3a96a-df20-47cf-8756-6e15424162ae
+		sourceLineageTag: COD_ANO
+		summarizeBy: none
+		sourceColumn: COD_ANO
+		sortByColumn: 'Ord Ano Filtro'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificação do trimestre e o ano correspondente (ex: T1-2022).
+	column Trimestre
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 1cf2670d-c342-4ac4-ac28-2dd5473c5db9
+		sourceLineageTag: DESC_TRIMESTRE
+		summarizeBy: none
+		sourceColumn: DESC_TRIMESTRE
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome descritivo do dia da semana.
+	column 'Dia da Semana'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: a4af83e6-e10a-441e-a6cb-ff0805cb258c
+		sourceLineageTag: DESC_SEMANA_ABREV
+		summarizeBy: none
+		sourceColumn: DESC_SEMANA_ABREV
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número sequencial da semana no ano civil.
+	column 'Semana do Ano'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 58fb183c-f409-4757-b6d4-e5058620c119
+		sourceLineageTag: DESC_SEMANA_ANO_ABREV
+		summarizeBy: none
+		sourceColumn: DESC_SEMANA_ANO_ABREV
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 8f11bfd9-7661-422f-9089-94f9cb2bf529
+		sourceLineageTag: COD_DIA
+		summarizeBy: sum
+		sourceColumn: COD_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TRIMESTRE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 09983f81-8356-4d37-9967-b09173ca963d
+		sourceLineageTag: COD_TRIMESTRE
+		summarizeBy: sum
+		sourceColumn: COD_TRIMESTRE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SEMANA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 5bd3603d-b71c-4ed7-b5aa-c6d927aa8353
+		sourceLineageTag: COD_SEMANA
+		summarizeBy: sum
+		sourceColumn: COD_SEMANA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SEMANA_ANO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: f0b70edf-3dda-45ed-912e-64cbc051dd05
+		sourceLineageTag: COD_SEMANA_ANO
+		summarizeBy: sum
+		sourceColumn: COD_SEMANA_ANO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indica se a data é menor ou igual a ontem (1 = Passado/Até Ontem, 0 = Hoje ou Futuro). Útil para filtros dinâmicos de visuais.
+	column 'Flag Data Passada'
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d5f027e7-9241-4e72-a735-14dd67f0c878
+		sourceLineageTag: FLG_PASSADO
+		summarizeBy: none
+		sourceColumn: FLG_PASSADO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Filtro dinâmico que exibe 'Ano Atual' para o ano corrente e o ano físico para os anos anteriores.
+	column 'Ano Filtro'
+		dataType: string
+		isHidden
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 450ec998-675c-4d49-a9ae-c16cc08c6632
+		sourceColumn: DESC_ANO_FILTRO
+		sortByColumn: 'Ord Ano Filtro'
+
+	/// Coluna técnica oculta utilizada para ordenar o filtro dinâmico de ano.
+	column 'Ord Ano Filtro'
+		dataType: int64
+		isHidden
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4cf68ff4-0628-43c2-9441-853bef2b2208
+		sourceColumn: ORD_ANO_FILTRO
+
+	/// Coluna auxiliar contendo apenas o número do dia, utilizada exclusivamente para otimização visual de eixos categóricos em gráficos.
+	column 'Dia Reduzido'
+		dataType: dateTime
+		formatString: dd
+		lineageTag: 2553a6f9-1038-4943-bb5d-d968435ca356
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+	/// Coluna de ano isolada para ordenação cronológica estritamente crescente nos eixos dos gráficos.
+	column Ano_Eixo_Grafico
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a9afb4c-77ae-4ab3-ae3a-b3a06258ded5
+		summarizeBy: none
+		sourceColumn: COD_ANO
+
+	hierarchy 'Calendário Semanal'
+		lineageTag: 7af379fa-2372-4539-9420-f5b1f38959e0
+
+		level Ano
+			lineageTag: e83610bc-c14a-4a56-9794-94dd6ed2e3b8
+			column: 'Ano Filtro'
+
+		level 'Semana do Ano'
+			lineageTag: 50e23370-ffa4-4e0a-9973-11ef0fa2e15d
+			column: 'Semana do Ano'
+
+		level Dia
+			lineageTag: 8f1beaf7-fec9-47cf-8efd-fcef1e57fb1d
+			column: Dia
+
+	hierarchy 'Calendário Trimestral'
+		lineageTag: b38ae684-772d-427e-987a-98962a029e6a
+
+		level Trimestre
+			lineageTag: d9b85990-1208-4da2-a449-f6d9d72e399c
+			column: Trimestre
+
+		level Mês
+			lineageTag: 92a3a3fd-2bec-47fe-9e85-54d0fe9bdd51
+			column: Mês
+
+	hierarchy 'Calendário Padrão'
+		lineageTag: 2a7f1bd6-b575-4b41-8242-0f4e18e80bb4
+
+		level Ano
+			lineageTag: 436fc36a-0425-461a-8519-2a921f4d883e
+			column: 'Ano Filtro'
+
+		level Trimestre
+			lineageTag: eff08a33-9b0f-414d-a15e-0e194f1b0bf7
+			column: Trimestre
+
+		level Mês
+			lineageTag: d837bde4-a26a-4023-92a7-5e869207df73
+			column: Mês
+
+		level Dia
+			lineageTag: a0ac542f-7595-4650-b300-7f2e03ab9511
+			column: Dia
+
+	partition Calendário = entity
+		mode: directLake
+		source
+			entityName: DIM_DATA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

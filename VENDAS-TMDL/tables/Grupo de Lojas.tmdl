@@ -1,0 +1,52 @@
+/// Dimensão contendo agrupamentos personalizados de lojas.
+table 'Grupo de Lojas'
+	lineageTag: 19d7143d-d1fe-4abb-b02d-fbd781bb4dc9
+	sourceLineageTag: [bi_wh_corporativo].[DIM_GRUPO_LOJA]
+
+	column COD_GRUPO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 208626c3-02e9-4901-83e5-06db6aaf032f
+		sourceLineageTag: COD_GRUPO
+		summarizeBy: sum
+		sourceColumn: COD_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome do grupo de lojas ou agrupamento comercial.
+	column 'Grupo de Lojas'
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 2b488b5e-e55a-43ac-9df4-f3818ec613b8
+		sourceLineageTag: NOME_GRUPO
+		summarizeBy: none
+		sourceColumn: NOME_GRUPO
+		sortByColumn: 'Ordem Grupo'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código numérico de ordenação para exibição do grupo de lojas nos relatórios.
+	column 'Ordem Grupo'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c9af1425-3bb1-4805-b8bf-46df0ed97824
+		sourceLineageTag: ORDEM_GRUPO
+		summarizeBy: none
+		sourceColumn: ORDEM_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Grupo de Lojas' = entity
+		mode: directLake
+		source
+			entityName: DIM_GRUPO_LOJA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

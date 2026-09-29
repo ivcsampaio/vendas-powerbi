@@ -1,0 +1,82 @@
+/// Dimensão de fornecedores representando o ponto de destino físico ou fiscal.
+table 'Agenda - Fornecedor Destino'
+	lineageTag: 742e0501-fe71-4f33-9787-642da4d0d2ca
+	sourceLineageTag: [bi_wh_corporativo].[DIM_FORNECEDOR_DESTINO]
+
+	/// Nome do fornecedor apontado como destino.
+	column 'Fornecedor Destino'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 0e9c0c6f-ea9f-474e-9b41-b669b109ced0
+		sourceLineageTag: DESC_FORNECEDOR
+		summarizeBy: none
+		sourceColumn: DESC_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: be2ca423-c390-4b96-bb56-c1b65c9242f5
+		sourceLineageTag: COD_FORNECEDOR
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR_MASTER
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: a7f20f68-d8c8-48e1-8227-45cbca793efd
+		sourceLineageTag: COD_FORNECEDOR_MASTER
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR_MASTER
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FORNECEDOR_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: dc531646-8079-4fbf-aaa9-1460fde45e91
+		sourceLineageTag: KEY_FORNECEDOR_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FORNECEDOR_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 49fe0516-6dc7-4f18-82ee-02910e909b49
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: none
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Agenda - Fornecedor Destino' = entity
+		mode: directLake
+		source
+			entityName: DIM_FORNECEDOR_DESTINO
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

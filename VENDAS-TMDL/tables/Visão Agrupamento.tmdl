@@ -1,0 +1,23 @@
+/// Ativa o agrupamento de subfiliais para todas as medidas sem alterar o DAX original
+table 'Visão Agrupamento'
+	lineageTag: fa0e9e64-f6b7-492f-a03e-b3099c0b7a7c
+
+	calculationGroup
+		precedence: 1
+
+		calculationItem 'Ativar Agrupamento' = CALCULATE(SELECTEDMEASURE(), CROSSFILTER('Lojas Agrupadas'[KEY_SUBFILIAL_INT], 'Lojas'[KEY_SUBFILIAL_INT], Both))
+
+	/// Nome do tipo de agrupamento de lojas para exibição em filtros.
+	column Name
+		dataType: string
+		isHidden
+		lineageTag: 6a5bf747-da35-4f82-8104-daa0ed6ba88e
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 0a9a0d85-47de-4445-85a2-8d06c6806138
+		sourceColumn: Ordinal
+

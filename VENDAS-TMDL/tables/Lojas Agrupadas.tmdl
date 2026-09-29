@@ -1,0 +1,71 @@
+/// Tabela de apoio para o relacionamento entre lojas e seus agrupamentos.
+table 'Lojas Agrupadas'
+	isHidden
+	lineageTag: 4b9cf619-979d-4e1c-ae6e-a733bb36fb9e
+	sourceLineageTag: [bi_wh_corporativo].[DIM_LOJA_AGRUPADA]
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6789983b-b6a7-4d92-b380-b2a3d76428b5
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: f117c626-c64c-4ea1-9066-47cae68e2227
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GRUPO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 0b704413-bbae-456e-8812-0bbd02ed3eea
+		sourceLineageTag: COD_GRUPO
+		summarizeBy: sum
+		sourceColumn: COD_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Índice de ordenação customizada para a segmentação de dados (Slicer).
+	column ORDEM_SLICER
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		lineageTag: d9975d50-bd71-49d0-ad3c-484c25b0bc58
+		sourceLineageTag: ORDEM_SLICER
+		summarizeBy: none
+		sourceColumn: ORDEM_SLICER
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Lojas Agrupadas' = entity
+		mode: directLake
+		source
+			entityName: DIM_LOJA_AGRUPADA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

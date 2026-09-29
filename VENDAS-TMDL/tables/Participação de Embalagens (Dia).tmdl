@@ -1,0 +1,84 @@
+/// Tabela fato com índices e rateios do custo de embalagens no volume diário.
+table 'Participação de Embalagens (Dia)'
+	lineageTag: aaec34d1-83dd-4cf8-a3a7-0a06a8278b61
+	sourceLineageTag: [bi_vendas].[FAT_PART_EMBALAGEM_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: a2015c7b-d4c1-4feb-abc6-29b7a4a9bb3e
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALOR_EMBALAGEM
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: b56ed638-97ce-4420-ba4e-9f8f8d56c5c0
+		sourceLineageTag: VALOR_EMBALAGEM
+		summarizeBy: sum
+		sourceColumn: VALOR_EMBALAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 634cc3da-0869-43e9-90b7-f3b177143e75
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: e0661307-7890-45e8-b31c-fea574b943d2
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 0bf8bc93-da94-4f49-9e8d-f949a37a3099
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Participação de Embalagens (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_PART_EMBALAGEM_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

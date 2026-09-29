@@ -1,0 +1,668 @@
+/// Tabela fato com o controle diário e detalhamento de agendamentos logísticos.
+table 'Agendamentos (Dia)'
+	lineageTag: 73ba407c-6747-4579-95ac-c63cea11af89
+	sourceLineageTag: [bi_agendas].[FAT_AGENDAS_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 11260f6e-6e89-4daf-a988-30d225aa8f83
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTD_EMBALAGEM
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 923cad5a-8371-4dc1-befb-be0ae2917af7
+		sourceLineageTag: QTD_EMBALAGEM
+		summarizeBy: sum
+		sourceColumn: QTD_EMBALAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTD_NOTA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 037b52b9-46d5-4986-af30-a312b6f4848a
+		sourceLineageTag: QTD_NOTA
+		summarizeBy: sum
+		sourceColumn: QTD_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTD_EMBALAGEM_FORNECEDOR
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 984559f3-ee58-4936-951b-0cf56a387858
+		sourceLineageTag: QTD_EMBALAGEM_FORNECEDOR
+		summarizeBy: sum
+		sourceColumn: QTD_EMBALAGEM_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTD_PESO_LIQUIDO_DIA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: a7628d0c-5fa2-492b-aa22-c33a13f5fef2
+		sourceLineageTag: QTD_PESO_LIQUIDO_DIA
+		summarizeBy: sum
+		sourceColumn: QTD_PESO_LIQUIDO_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column QTD_PESO_LIQUIDO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 338629b3-04c4-48ea-b5a0-c41c81369f08
+		sourceLineageTag: QTD_PESO_LIQUIDO
+		summarizeBy: sum
+		sourceColumn: QTD_PESO_LIQUIDO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_CUSTO_UNITARIO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 2303bf66-e54d-4153-aa10-dd16522efe00
+		sourceLineageTag: VLR_CUSTO_UNITARIO
+		summarizeBy: sum
+		sourceColumn: VLR_CUSTO_UNITARIO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_ICMS
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 41fea18d-488d-4d39-a6f7-ee8d1c3c92da
+		sourceLineageTag: VLR_ICMS
+		summarizeBy: sum
+		sourceColumn: VLR_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_PIS_COFINS
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 5dd5aa81-8e57-4016-91e3-2b2524f3e8e9
+		sourceLineageTag: VLR_PIS_COFINS
+		summarizeBy: sum
+		sourceColumn: VLR_PIS_COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_TOTAL
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: ed4152f3-d3b4-4302-86e5-72cca2422901
+		sourceLineageTag: VLR_TOTAL
+		summarizeBy: sum
+		sourceColumn: VLR_TOTAL
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_BASE_CALC_ICMS
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 9bb3d835-6150-4093-9f3b-ccd8e8285fb3
+		sourceLineageTag: VLR_BASE_CALC_ICMS
+		summarizeBy: sum
+		sourceColumn: VLR_BASE_CALC_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_IPI
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		displayFolder: Logística e Embalagem
+		lineageTag: ba07b74c-bc2c-4033-b89f-0837f13aedc6
+		sourceLineageTag: VLR_IPI
+		summarizeBy: sum
+		sourceColumn: VLR_IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+		annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["REMOVE_REDUNDANT_COLUMNS_IN_RELATED_TABLES"]}
+
+	column VLR_ST
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 144af4de-9eeb-4c77-9ebc-ed89231bbb88
+		sourceLineageTag: VLR_ST
+		summarizeBy: sum
+		sourceColumn: VLR_ST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_PRECO_UNITARIO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: dea5bca8-8e73-408a-b781-d7fa4db9e8cf
+		sourceLineageTag: VLR_PRECO_UNITARIO
+		summarizeBy: sum
+		sourceColumn: VLR_PRECO_UNITARIO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PERC_PIS_COFINS
+		dataType: decimal
+		isHidden
+		formatString: 0.00%
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: a4780cea-0753-4310-bd14-3531c606412f
+		sourceLineageTag: PERC_PIS_COFINS
+		summarizeBy: sum
+		sourceColumn: PERC_PIS_COFINS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PERC_ICMS
+		dataType: decimal
+		isHidden
+		formatString: 0.00%
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 33550268-d638-48c7-b33d-ac4ae5c92c5d
+		sourceLineageTag: PERC_ICMS
+		summarizeBy: sum
+		sourceColumn: PERC_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Número do documento fiscal.
+	column 'Número da Nota'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: Dados da Nota
+		lineageTag: a81e8419-f6c3-40bc-85ac-5f04db5c7558
+		sourceLineageTag: NUM_NOTA
+		summarizeBy: none
+		sourceColumn: NUM_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Série do documento fiscal.
+	column 'Série da Nota'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: Dados da Nota
+		lineageTag: 2dae3b34-7f6a-43c3-a251-2b51a6c933c7
+		sourceLineageTag: SER_NOTA
+		summarizeBy: none
+		sourceColumn: SER_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Classificação do tipo de agendamento.
+	column 'Tipo de Agenda'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: Informações da Agenda
+		lineageTag: be045aac-0d90-44a7-8168-614771aa7685
+		sourceLineageTag: TIP_AGENDA
+		summarizeBy: none
+		sourceColumn: TIP_AGENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tipo físico da embalagem utilizada.
+	column 'Tipo de Embalagem'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: Informações da Agenda
+		lineageTag: 47d2ccb7-f23f-4214-9433-601647316f1f
+		sourceLineageTag: TIP_EMBALAGEM
+		summarizeBy: none
+		sourceColumn: TIP_EMBALAGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Regime ou tipo de tributação aplicada.
+	column 'Tipo de Tributo'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: Informações da Agenda
+		lineageTag: b459f3d2-50dc-454e-8684-709d94185da9
+		sourceLineageTag: TIP_TRIBUTO
+		summarizeBy: none
+		sourceColumn: TIP_TRIBUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número de identificação do pedido de origem vinculado à agenda.
+	column 'Código do Pedido'
+		dataType: int64
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: Informações da Agenda
+		lineageTag: 31a9d19b-1f1c-4356-b450-78c18b826dfa
+		sourceLineageTag: COD_PEDIDO
+		summarizeBy: none
+		sourceColumn: COD_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Notas e comentários adicionais do documento fiscal.
+	column 'Observações da Nota'
+		dataType: string
+		isAvailableInMdx: false
+		sourceProviderType: varchar(100)
+		displayFolder: Dados da Nota
+		lineageTag: 5e3e4cc7-5e3d-471e-b326-fdde571a2324
+		sourceLineageTag: OBS_NOTA
+		summarizeBy: none
+		sourceColumn: OBS_NOTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PRODUTO_SK
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 42dec358-cfb2-4592-b708-9b90dbb83cef
+		sourceLineageTag: COD_PRODUTO_SK
+		summarizeBy: sum
+		sourceColumn: COD_PRODUTO_SK
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ORIGEM
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: efeef326-c8ad-4e73-91b8-50f8d1ba4d17
+		sourceLineageTag: COD_ORIGEM
+		summarizeBy: sum
+		sourceColumn: COD_ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DESTINO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 824c6a0c-674f-4d9b-96f6-0e019ae6585a
+		sourceLineageTag: COD_DESTINO
+		summarizeBy: sum
+		sourceColumn: COD_DESTINO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_AGENDA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: c04bcee5-36b1-4081-ad06-d658d2529536
+		sourceLineageTag: COD_AGENDA
+		summarizeBy: sum
+		sourceColumn: COD_AGENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_REPRESENTANTE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 60104d6b-5f7f-4c70-9ea8-fad35058fde9
+		sourceLineageTag: COD_REPRESENTANTE
+		summarizeBy: sum
+		sourceColumn: COD_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CFOP
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 97a7663d-1f14-4f96-83a9-6091a68eb063
+		sourceLineageTag: COD_CFOP
+		summarizeBy: sum
+		sourceColumn: COD_CFOP
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FIGURA_FISCAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: deabf340-7dd9-47ad-ad70-7f5610309ba3
+		sourceLineageTag: COD_FIGURA_FISCAL
+		summarizeBy: sum
+		sourceColumn: COD_FIGURA_FISCAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ESTADO_ORIGEM
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 831b25f1-3215-4111-a1ea-1f0d76884348
+		sourceLineageTag: COD_ESTADO_ORIGEM
+		summarizeBy: none
+		sourceColumn: COD_ESTADO_ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_ESTADO_DESTINO
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 950d7c5e-4afd-4173-8c6f-0572a5073361
+		sourceLineageTag: COD_ESTADO_DESTINO
+		summarizeBy: none
+		sourceColumn: COD_ESTADO_DESTINO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CST_ICMS
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 438e0bcc-0992-47d3-afe7-c0768676a033
+		sourceLineageTag: COD_CST_ICMS
+		summarizeBy: sum
+		sourceColumn: COD_CST_ICMS
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EVENTO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d6666197-f58f-4bcb-9972-d5d845e41045
+		sourceLineageTag: COD_EVENTO
+		summarizeBy: sum
+		sourceColumn: COD_EVENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_AUTONOMIA
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(8000)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 79fba139-8489-4f04-9fc3-3f6e1d77b942
+		sourceLineageTag: COD_AUTONOMIA
+		summarizeBy: none
+		sourceColumn: COD_AUTONOMIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL_ORIGEM
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4d2861c2-7b24-4ed5-8b0c-1ad521eebe48
+		sourceLineageTag: COD_SUBFILIAL_ORIGEM
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL_ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL_DESTINO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 56915f8a-e0e7-4ea3-ae48-cfb2120f8439
+		sourceLineageTag: COD_SUBFILIAL_DESTINO
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL_DESTINO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR_ORIGEM
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: ea266f14-82cc-4dff-aa40-86cf7f362c97
+		sourceLineageTag: COD_FORNECEDOR_ORIGEM
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR_ORIGEM
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR_DESTINO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: efcf4206-6d22-449d-ba6b-47d7df8cf8d0
+		sourceLineageTag: COD_FORNECEDOR_DESTINO
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR_DESTINO
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b52ff7ca-2e2b-437d-a4c9-5813258bf1ba
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 9b2c1ab6-fec2-447e-ab53-b7d2761a218c
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b452c10e-5e4b-4110-88ce-a347550d4290
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_ORIGEM_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 0e3e3aac-090b-42f4-9a79-c514323c6848
+		sourceLineageTag: KEY_SUBFILIAL_ORIGEM_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_ORIGEM_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_DESTINO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 06b247bb-4667-4722-9f9e-3e77c729007b
+		sourceLineageTag: KEY_SUBFILIAL_DESTINO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_DESTINO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FORNECEDOR_ORIGEM_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: ca830e1d-ac90-441b-a97b-b2aacbdad01a
+		sourceLineageTag: KEY_FORNECEDOR_ORIGEM_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FORNECEDOR_ORIGEM_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FORNECEDOR_DESTINO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d0cb73d1-9c01-492b-a6e5-f8c252a88cb8
+		sourceLineageTag: KEY_FORNECEDOR_DESTINO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FORNECEDOR_DESTINO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_AGENDA_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: f28300f5-51cb-4fa4-9f5d-b7bee6ee2ac3
+		sourceLineageTag: KEY_AGENDA_INT
+		summarizeBy: sum
+		sourceColumn: KEY_AGENDA_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Agendamentos (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_AGENDAS_DIA
+			schemaName: bi_agendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

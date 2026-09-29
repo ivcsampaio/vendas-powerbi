@@ -1,0 +1,278 @@
+/// Tabela fato principal de vendas diárias com faturamento, impostos e custos.
+table 'Vendas (Dia)'
+	lineageTag: 5173a92b-f6f2-4320-8e55-988e8a0e1f91
+	sourceLineageTag: [bi_vendas].[FAT_VENDAS_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 28efa9d2-128d-468f-b696-7039d4a5946a
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quantidade total de itens vendidos.
+	column QTD_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 79fa219e-0030-485b-aa82-84984c3bbec5
+		sourceLineageTag: QTD_VENDA
+		summarizeBy: sum
+		sourceColumn: QTD_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Volume total vendido convertido em tonelagem.
+	column QTD_TONELAGEM_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: c1b4f9ca-3074-4a4d-9d52-d071b7741295
+		sourceLineageTag: QTD_TONELAGEM_VENDA
+		summarizeBy: sum
+		sourceColumn: QTD_TONELAGEM_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor bruto total de vendas com impostos inclusos.
+	column VLR_VENDA_TOTAL_C_IMP
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 754ea831-7f0a-42c5-b680-fe8e9b2b3fbc
+		sourceLineageTag: VLR_VENDA_TOTAL_C_IMP
+		summarizeBy: sum
+		sourceColumn: VLR_VENDA_TOTAL_C_IMP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor do imposto ICMS incidente sobre as vendas.
+	column VLR_ICMS_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 46f8e54b-2f67-4d99-a67c-1171b049d8ae
+		sourceLineageTag: VLR_ICMS_VENDA
+		summarizeBy: sum
+		sourceColumn: VLR_ICMS_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor dos impostos PIS e COFINS incidentes sobre as vendas.
+	column VLR_PIS_COFINS_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: aefce5df-01bd-4d72-a6b6-b2a78a6369e4
+		sourceLineageTag: VLR_PIS_COFINS_VENDA
+		summarizeBy: sum
+		sourceColumn: VLR_PIS_COFINS_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Custo total das mercadorias vendidas (CMV).
+	column VLR_CUSTO_TOTAL_VENDA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: ac61289b-0e4b-4b22-af22-a831423f72aa
+		sourceLineageTag: VLR_CUSTO_TOTAL_VENDA
+		summarizeBy: sum
+		sourceColumn: VLR_CUSTO_TOTAL_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Quantidade de itens devolvidos.
+	column QTD_DEVOLUCAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 6582ab14-0501-4feb-b82e-4aa0c4f054ce
+		sourceLineageTag: QTD_DEVOLUCAO
+		summarizeBy: sum
+		sourceColumn: QTD_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Volume total devolvido em tonelagem.
+	column QTD_TONELAGEM_DEVOLUCAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: bcf59fe2-dcd6-475b-9051-928adf5991af
+		sourceLineageTag: QTD_TONELAGEM_DEVOLUCAO
+		summarizeBy: sum
+		sourceColumn: QTD_TONELAGEM_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor total de devoluções com impostos.
+	column VLR_DEVOLUCAO_TOTAL_C_IMP
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 7d4773b2-46b2-4720-9922-ba2d0d0c79d3
+		sourceLineageTag: VLR_DEVOLUCAO_TOTAL_C_IMP
+		summarizeBy: sum
+		sourceColumn: VLR_DEVOLUCAO_TOTAL_C_IMP
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor do ICMS estornado nas devoluções.
+	column VLR_ICMS_DEVOLUCAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 38a24c2f-8585-4593-bd9b-491941dd1a1e
+		sourceLineageTag: VLR_ICMS_DEVOLUCAO
+		summarizeBy: sum
+		sourceColumn: VLR_ICMS_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Valor do PIS/COFINS estornado nas devoluções.
+	column VLR_PIS_COFINS_DEVOLUCAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: ae69a2d7-baa9-41d2-a113-d24a7e0f6315
+		sourceLineageTag: VLR_PIS_COFINS_DEVOLUCAO
+		summarizeBy: sum
+		sourceColumn: VLR_PIS_COFINS_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Custo total das mercadorias devolvidas.
+	column VLR_CUSTO_TOTAL_DEVOLUCAO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 0110e6bb-5daa-4330-b0eb-adca5c68c749
+		sourceLineageTag: VLR_CUSTO_TOTAL_DEVOLUCAO
+		summarizeBy: sum
+		sourceColumn: VLR_CUSTO_TOTAL_DEVOLUCAO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COD_REPRESENTANTE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: c31b32a1-61b8-4e65-b39c-41a1b25ad80f
+		sourceLineageTag: COD_REPRESENTANTE
+		summarizeBy: sum
+		sourceColumn: COD_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d7205ff3-4c24-433a-ba4c-b8203e2ef309
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6492c813-976a-42b4-bd1e-064f4f2548d1
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 60a23c3c-123d-4180-8d71-ad3c26ddda73
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: dd142d2a-a621-437e-aa28-ad280f4b9beb
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Vendas (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_VENDAS_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,113 @@
+/// Tabela fato com controle de verbas comerciais e acordos de fornecedores.
+table 'Verbas e Acordos (Dia)'
+	lineageTag: 222da818-0db5-43f1-ac6f-da721dc0c94f
+	sourceLineageTag: [bi_vendas].[FAT_VERBAS_ACORDOS_DIA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 720ecdc3-cffd-4cca-a413-7ef1190a31f5
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Valor monetário total da verba/acordo comercial.
+	column VALOR_VERBA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 2607e488-b576-4373-9cef-0f3a05f60c5b
+		sourceLineageTag: VALOR_VERBA
+		summarizeBy: sum
+		sourceColumn: VALOR_VERBA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COD_REPRESENTANTE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: c38a1833-b9ca-4127-8c11-fceacfe354ab
+		sourceLineageTag: COD_REPRESENTANTE
+		summarizeBy: sum
+		sourceColumn: COD_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 19866ea9-6193-42bd-b24f-62e7a14dd723
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 32e1e732-acfa-42d6-915f-c22433ad2959
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 41105881-9973-49c7-adf7-27ee0bf8add9
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 00ecbb3a-4b2e-4856-b75d-8d0dac12770c
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Verbas e Acordos (Dia)' = entity
+		mode: directLake
+		source
+			entityName: FAT_VERBAS_ACORDOS_DIA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

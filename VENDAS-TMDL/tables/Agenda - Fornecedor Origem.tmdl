@@ -1,0 +1,88 @@
+/// Dimensão de fornecedores representando o ponto de origem nos agendamentos.
+table 'Agenda - Fornecedor Origem'
+	lineageTag: 115d1b9d-20cd-4b46-a600-13843ffb5ba1
+	sourceLineageTag: [bi_wh_corporativo].[DIM_FORNECEDOR_ORIGEM]
+
+	/// Nome do fornecedor apontado como origem.
+	column 'Fornecedor Origem'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ec393f0f-ab7b-4b69-8300-47646cb7d30b
+		sourceLineageTag: DESC_FORNECEDOR
+		summarizeBy: none
+		sourceColumn: DESC_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 45b3b18e-17a0-4e22-a2e3-b8f939c06104
+		sourceLineageTag: COD_FORNECEDOR
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR_MASTER
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 53299be7-7d5b-4c6d-b658-0656341bf656
+		sourceLineageTag: COD_FORNECEDOR_MASTER
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR_MASTER
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FORNECEDOR_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 2e766684-b411-4a74-b228-2994f4dbc8e3
+		sourceLineageTag: KEY_FORNECEDOR_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FORNECEDOR_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 41b00365-b905-4c96-8c40-cfc1fcb0ef44
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: none
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome do fornecedor apontado como master de origem.
+	column 'Fornecedor Master Origem'
+		dataType: string
+		lineageTag: 2d36ad53-651a-49ba-9957-5163a8daeb86
+		sourceColumn: DESC_FORNECEDOR_MASTER
+
+	partition 'Agenda - Fornecedor Origem' = entity
+		mode: directLake
+		source
+			entityName: DIM_FORNECEDOR_ORIGEM
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

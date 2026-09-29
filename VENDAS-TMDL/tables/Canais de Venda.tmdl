@@ -1,0 +1,66 @@
+/// Dimensão contendo as segmentações dos canais de escoamento e atendimento.
+table 'Canais de Venda'
+	lineageTag: 15082e97-c706-4ffc-99e0-23021d083457
+	sourceLineageTag: [bi_wh_corporativo].[DIM_CANAL_VENDA]
+
+	/// Identificador único do canal de venda.
+	column 'Código Canal Venda'
+		dataType: int64
+		isKey
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d536c2c8-a000-40a2-8074-c25280d73c8b
+		sourceLineageTag: COD_CANAL_VENDA
+		summarizeBy: none
+		sourceColumn: COD_CANAL_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição do canal de atendimento/escoamento.
+	column 'Canal Venda'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 2ebf17f8-a792-4c26-8b29-603e711017b7
+		sourceLineageTag: DESC_CANAL_VENDA
+		summarizeBy: none
+		sourceColumn: DESC_CANAL_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_GRUPO_CANAL_VENDA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 62fb35ec-7279-459c-afa7-9e9da18e4205
+		sourceLineageTag: COD_GRUPO_CANAL_VENDA
+		summarizeBy: none
+		sourceColumn: COD_GRUPO_CANAL_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 91cf9da3-3280-4f91-a115-3c66824a2749
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: none
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Canais de Venda' = entity
+		mode: directLake
+		source
+			entityName: DIM_CANAL_VENDA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

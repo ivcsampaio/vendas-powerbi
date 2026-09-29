@@ -1,0 +1,108 @@
+/// Dimensão com o cadastro, identificação e dados de contato dos representantes comerciais.
+table Representantes
+	lineageTag: d19da101-b9b6-4b57-942c-c934692c6b84
+	sourceLineageTag: [bi_wh_corporativo].[DIM_REPRESENTANTE]
+
+	/// Identificador único do representante comercial.
+	column 'Código Representante'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 850995da-2fa1-4289-83b0-367eb8b673cf
+		sourceLineageTag: COD_REPRESENTANTE
+		summarizeBy: none
+		sourceColumn: COD_REPRESENTANTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome completo do representante comercial ou agente de vendas.
+	column Representante
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 19bbaa28-5467-4d16-82ee-8ef49bdac8e9
+		sourceLineageTag: DESC_REPRESENTANTE
+		summarizeBy: none
+		sourceColumn: DESC_REPRESENTANTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Canal de atuação ou modelo de atendimento do representante comercial.
+	column 'Tipo de Representante'
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: e9c5ff64-4276-4cd4-93c6-a32e8dd6b364
+		sourceLineageTag: DESC_TIPO_REPRESENTANTE
+		summarizeBy: none
+		sourceColumn: DESC_TIPO_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_REPRESENTANTE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: aa2e1d26-7e0b-4fe5-b08f-734ac13edd14
+		sourceLineageTag: COD_TIPO_REPRESENTANTE
+		summarizeBy: sum
+		sourceColumn: COD_TIPO_REPRESENTANTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 51c1f5ce-85c4-4dff-a33b-0ac47a39e889
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 2ca46ab7-c5be-475d-8b43-33078898b6d0
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: sum
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Hierarquia de Representantes'
+		lineageTag: 1f65940e-e85d-403e-85b0-5232fa349918
+
+		level 'Tipo de Representante'
+			lineageTag: ba99972c-5bce-4c3c-9a88-c62028a17162
+			column: 'Tipo de Representante'
+
+		level Representante
+			lineageTag: 5ef75863-aa64-4d76-874e-2c95df22e76f
+			column: Representante
+
+	partition Representantes = entity
+		mode: directLake
+		source
+			entityName: DIM_REPRESENTANTE
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

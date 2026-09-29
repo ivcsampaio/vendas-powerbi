@@ -1,0 +1,124 @@
+/// Dimensão descritiva do local/subfilial de origem.
+table 'Agenda - Subfilial Origem'
+	lineageTag: fbcac062-17b5-4b67-ad98-ae6951a76e42
+	sourceLineageTag: [bi_wh_corporativo].[DIM_SUBFILIAL_ORIGEM]
+
+	/// Nome/Descrição da subfilial apontada como origem.
+	column 'Subfilial Origem'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: e7f45e8a-484e-47fb-bad4-afccabb907eb
+		sourceLineageTag: DESC_SUBFILIAL_CURTA
+		summarizeBy: none
+		sourceColumn: DESC_SUBFILIAL_CURTA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6e1ce265-d5ed-42d4-8813-10b153a369f9
+		sourceLineageTag: COD_FILIAL
+		summarizeBy: sum
+		sourceColumn: COD_FILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_BANDEIRA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 5b88983e-1990-424b-a10c-43974c25b3dc
+		sourceLineageTag: COD_BANDEIRA
+		summarizeBy: sum
+		sourceColumn: COD_BANDEIRA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_REGIAO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 3d77396d-3beb-4890-b665-2694b8c2e83a
+		sourceLineageTag: COD_REGIAO
+		summarizeBy: sum
+		sourceColumn: COD_REGIAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4e37a284-a222-485f-84cc-9b5c3338a541
+		sourceLineageTag: KEY_FILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: c55529a5-2656-4848-9a81-7e265f74336d
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 25dae80b-4f84-4b65-8b21-4f447b593fdd
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: none
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4cf17686-68f0-4758-9028-da460f583855
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: none
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Agenda - Subfilial Origem' = entity
+		mode: directLake
+		source
+			entityName: DIM_SUBFILIAL_ORIGEM
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

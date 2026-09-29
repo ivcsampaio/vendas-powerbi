@@ -1,0 +1,180 @@
+relationship a94c5458-8d7f-8520-4131-9069b85b13d7
+	fromColumn: 'Vendas (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship d36fd64a-7735-f9b6-4383-ddc34c76562b
+	fromColumn: 'Vendas por Hora'.COD_CANAL_VENDA
+	toColumn: 'Canais de Venda'.'Código Canal Venda'
+
+relationship b6757cf8-ebc3-5d71-f84c-a1436e1ecd77
+	fromColumn: 'Vendas por Hora'.COD_TIPO_ENTREGA
+	toColumn: 'Tipos de Entrega'.'Código Tipo Entrega'
+
+relationship 292e9d33-515f-de63-df26-e0ee17470102
+	fromColumn: 'Vendas por Hora'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship b02aeb3e-65c3-d0d2-6de7-12f52e18510d
+	fromColumn: 'Ajustes de Custo (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship 767b777c-2fa0-d608-cd74-0c957248acbb
+	fromColumn: 'Ajustes Gerenciais (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship 4b7e39f8-58e1-255e-0bc0-314d08c3f7ca
+	fromColumn: 'Metas (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship c5e31249-5ecb-8e3e-a1c1-45f234215174
+	fromColumn: 'Participação de Embalagens (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship fd1e6456-bfd5-149a-db4d-d7704628238e
+	fromColumn: 'Perdas de Produtos (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship 7736b966-7092-e2ce-6843-cd2de5d9e38a
+	fromColumn: 'Ajustes Gerenciais (Dia)'.COD_TIPO_AJUSTE_GERENCIAL
+	toColumn: 'Tipo de Ajustes Gerenciais'.'Código Ajuste Gerencial'
+
+relationship 6b10d283-8d3d-0d6b-a115-547c0e0fe71b
+	fromColumn: 'Verbas e Acordos (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship 002f3881-5345-79d1-3d79-d5d4465807ad
+	fromColumn: 'Agendamentos (Dia)'.DESC_DIA
+	toColumn: Calendário.Dia
+
+relationship 84daa591-2c12-443d-852e-03a8b7be3e67
+	fromColumn: 'Vendas (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship 396f3acf-6a91-47d2-a4e7-b3538d4088e7
+	fromColumn: 'Perdas de Produtos (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship 67877a7e-2dfc-4bcb-98ce-2c0fa8303a4d
+	fromColumn: 'Participação de Embalagens (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship 935bbac9-faa3-4031-a58c-8438bcc7b4ad
+	fromColumn: 'Ajustes Gerenciais (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship d0f69ae0-861b-48a8-99b6-30bb5c7bc09f
+	fromColumn: 'Ajustes de Custo (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship 8235c002-cdf6-4e17-bdad-e996306c658c
+	fromColumn: 'Verbas e Acordos (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship 63743ca0-93b8-4229-a1a1-6e0df0987704
+	fromColumn: 'Agendamentos (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship a8c3cf2b-fe58-43fa-a955-a72152bee0b5
+	fromColumn: 'Vendas (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship 77d1af79-a65e-4c69-9135-85a80043600b
+	fromColumn: 'Perdas de Produtos (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship 2f8bfc37-f3cf-4dab-83c1-d6a634f9bb5e
+	fromColumn: 'Metas (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship f412e48c-5941-42e2-87bb-ff878d0f589d
+	fromColumn: 'Participação de Embalagens (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship a6181283-bc0e-4846-a41c-d761ce9942af
+	fromColumn: 'Ajustes Gerenciais (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship 0b3e3403-4663-4ee0-a97f-e44a304c3c2f
+	fromColumn: 'Ajustes de Custo (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship e9e40afb-ce4a-424d-9698-c049b7df2949
+	fromColumn: 'Verbas e Acordos (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship 96fcefa5-102b-4840-aab1-5a5959ac262d
+	fromColumn: 'Agendamentos (Dia)'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship f6dfd737-264c-44bd-a4a3-82aa556fd9a6
+	fromColumn: 'Vendas (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship b82642c3-2d9a-485f-92e1-e7305e7f02d4
+	fromColumn: 'Agendamentos (Dia)'.KEY_SUBFILIAL_DESTINO_INT
+	toColumn: 'Agenda - Subfilial Destino'.KEY_SUBFILIAL_INT
+
+relationship 40a34c29-1832-4e0c-95cd-61352134d720
+	fromColumn: 'Agendamentos (Dia)'.KEY_SUBFILIAL_ORIGEM_INT
+	toColumn: 'Agenda - Subfilial Origem'.KEY_SUBFILIAL_INT
+
+relationship 589024cb-c6a1-4f23-aebd-d85c857ec74c
+	fromColumn: 'Agendamentos (Dia)'.KEY_FORNECEDOR_DESTINO_INT
+	toColumn: 'Agenda - Fornecedor Destino'.KEY_FORNECEDOR_INT
+
+relationship f64f7acb-d8e8-48ca-bf8a-5c071359da2b
+	fromColumn: 'Agendamentos (Dia)'.KEY_FORNECEDOR_ORIGEM_INT
+	toColumn: 'Agenda - Fornecedor Origem'.KEY_FORNECEDOR_INT
+
+relationship b7e3d94d-5181-441a-8085-11501b920f27
+	fromColumn: 'Agendamentos (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship 0504c9b5-6b4a-4c89-90c1-cb817dd73d63
+	fromColumn: 'Vendas por Hora'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship cd26d405-56c5-49fa-a149-731f7312c917
+	fromColumn: 'Vendas por Hora'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship 2c054396-7d61-45d1-abb7-aeba2d8a666b
+	fromColumn: 'Agendamentos (Dia)'.KEY_AGENDA_INT
+	toColumn: 'Agenda - Cadastro'.KEY_AGENDA_INT
+
+relationship 40ad08fd-fb40-431d-88cf-9b5b57384f48
+	fromColumn: 'Ajustes Gerenciais (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship c39bc85b-26e8-4fa9-b279-ccada73d40cc
+	fromColumn: 'Ajustes de Custo (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship ec06e835-235c-4e44-98bd-531ef2167bde
+	fromColumn: 'Perdas de Produtos (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship adba8e52-33ec-47c7-8d64-5bf4ed75dab3
+	fromColumn: 'Vendas por Hora'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship 2dc6384e-9915-4df8-9a13-2dd665aa39c6
+	fromColumn: 'Verbas e Acordos (Dia)'.KEY_REPRESENTANTE_INT
+	toColumn: Representantes.KEY_REPRESENTANTE_INT
+
+relationship 2b23a081-94ae-3846-1ba6-aac7fdfee838
+	fromColumn: 'Metas (Dia)'.KEY_PRODUTO_INT
+	toColumn: Produto.KEY_PRODUTO_INT
+
+relationship e0c63293-046e-47aa-af1f-9fbe0438e483
+	fromColumn: 'Lojas Agrupadas'.KEY_SUBFILIAL_INT
+	toColumn: Lojas.KEY_SUBFILIAL_INT
+
+relationship c0c7785f-0a15-4693-bcb5-86fc46e3bf60
+	fromColumn: 'Lojas Agrupadas'.COD_GRUPO
+	toColumn: 'Grupo de Lojas'.COD_GRUPO
+
+relationship bc7ff63c-b7b9-2dc6-2ea0-3cd8d4727422
+	fromColumn: 'Menu Métrica'.'ID Grupo Pai'
+	toColumn: 'Menu Grupo'.'ID Grupo'
+

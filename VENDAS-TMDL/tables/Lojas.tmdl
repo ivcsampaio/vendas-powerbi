@@ -1,0 +1,260 @@
+/// Dimensão centralizadora do cadastro de filiais, marcas, bandeiras e localizações.
+table Lojas
+	lineageTag: ede16b13-02d1-4ba3-aa7f-ff4269855a84
+	sourceLineageTag: [bi_wh_corporativo].[DIM_LOJA]
+
+	/// Medida utilizada para exibir o nome da filial em dicas de ferramenta de visuais.
+	measure 'Filial Visual' = SELECTEDVALUE('Lojas'[Filial])
+		formatString: @
+		displayFolder: Medidas de Suporte
+		lineageTag: efea8a01-1ee7-40e2-9619-65c9c7526ac5
+
+	measure Cor_Grafico_Filial = ```
+			VAR _Texto = MAX('Lojas'[Filial])
+			-- Pega o código ASCII da última letra/número da filial para garantir variação de cores
+			VAR _UltimoCaractere = RIGHT(_Texto, 1)
+			VAR _Comprimento = LEN(_Texto)
+			-- Lógica matemática simples e leve para gerar um ID de 0 a 11
+			VAR _CorId = MOD(_Comprimento + INT(UNICODE(_UltimoCaractere)), 12)
+			RETURN
+			IF(
+			    NOT(ISFILTERED('Lojas'[Filial])),
+			    "#A6A6A6", -- Cinza para o Total Geral
+			    SWITCH(
+			        _CorId,
+			        0, "#118DFF",  -- Azul Real
+			        1, "#12CDD9",  -- Ciano Neon
+			        2, "#70A114",  -- Verde Alface
+			        3, "#F2CD13",  -- Amarelo Ouro
+			        4, "#E04444",  -- Vermelho Coral
+			        5, "#8A44E0",  -- Roxo Executivo
+			        6, "#E07B44",  -- Laranja Quente
+			        7, "#00A86B",  -- Verde Esmeralda
+			        8, "#FF6B6B",  -- Salmão Pastel
+			        9, "#4D4DFF",  -- Azul Elétrico
+			        10, "#9B59B6", -- Ametista
+			        "#34495E"      -- Grafite
+			    )
+			)
+			
+			```
+		isHidden
+		displayFolder: Medidas de Suporte
+		lineageTag: a9c6cd81-70b1-4d8e-84d1-7d3926664a90
+
+	/// Código do ponto de venda/subfilial.
+	column 'Subfilial Código'
+		dataType: int64
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		lineageTag: 0c7b6d00-c52b-410f-b1a7-930a46907897
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: none
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Razão social ou divisão jurídica corporativa.
+	column Empresa
+		dataType: string
+		sourceProviderType: varchar(30)
+		lineageTag: decc6a92-07f7-4af9-a1a4-b369b3f3ba60
+		sourceLineageTag: Empresa
+		summarizeBy: none
+		sourceColumn: Empresa
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Marca comercial ou selo do ponto de venda.
+	column Bandeira
+		dataType: string
+		sourceProviderType: varchar(20)
+		lineageTag: a4eb3ff8-41ae-4baa-a89c-a51cfaf969fb
+		sourceLineageTag: Bandeira
+		summarizeBy: none
+		sourceColumn: Bandeira
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Macrolocalização geográfica da filial.
+	column Regiao
+		dataType: string
+		sourceProviderType: varchar(14)
+		lineageTag: ee4e0638-9b0b-4041-8470-460d137c5c24
+		sourceLineageTag: Regiao
+		summarizeBy: none
+		sourceColumn: Regiao
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome/Descrição textual legível da subfilial.
+	column Subfilial
+		dataType: string
+		sourceProviderType: varchar(10)
+		lineageTag: 61a851bb-c10c-4ea0-b4b4-47f15324fe73
+		sourceLineageTag: Subfilial
+		summarizeBy: none
+		sourceColumn: Subfilial
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código descritivo oficial da loja/filial.
+	column Filial
+		dataType: string
+		sourceProviderType: varchar(32)
+		lineageTag: 5dd6909e-3487-48fc-ba5c-41118f077870
+		sourceLineageTag: Filial
+		summarizeBy: none
+		sourceColumn: Filial
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 1975964d-d8a1-4b94-8591-fa0f710287af
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: sum
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: db03b959-4ce5-4846-8a60-737cbf83efde
+		sourceLineageTag: COD_FILIAL
+		summarizeBy: sum
+		sourceColumn: COD_FILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_BANDEIRA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b56c0d37-f408-45b2-a8d8-10915b277f57
+		sourceLineageTag: COD_BANDEIRA
+		summarizeBy: sum
+		sourceColumn: COD_BANDEIRA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_REGIAO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 620af08e-e2d8-4fa3-9e17-d489c7a40b93
+		sourceLineageTag: COD_REGIAO
+		summarizeBy: sum
+		sourceColumn: COD_REGIAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_FILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d31c15a7-29ce-4b50-bd02-80a34aa70694
+		sourceLineageTag: KEY_FILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 150f48c4-119c-43fb-b711-a48c9c5ba0d6
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Coordenada de latitude da filial para análises de mapas e geolocalização.
+	column Latitude
+		dataType: string
+		displayFolder: Logística e Localização
+		lineageTag: eae25c80-5a0f-4529-94e5-3e7ba3e6c47e
+		dataCategory: Latitude
+		sourceColumn: COD_LATITUDE
+
+	/// Coordenada de longitude da filial para análises de mapas e geolocalização.
+	column Longitude
+		dataType: string
+		displayFolder: Logística e Localização
+		lineageTag: 01d114d2-aa8f-444c-952c-3d017de33a89
+		dataCategory: Longitude
+		sourceColumn: COD_LONGITUDE
+
+	hierarchy 'Hierarquia de Lojas'
+		lineageTag: d62c2998-63ab-4203-a27b-2ae5d4b06071
+
+		level Empresa
+			lineageTag: 406ca716-3a31-4cea-b12c-80037d24e9f7
+			column: Empresa
+
+		level Bandeira
+			lineageTag: 082167c6-b3f4-43f2-9ea1-46e89c07d5e7
+			column: Bandeira
+
+		level Regiao
+			lineageTag: 6084b105-eb73-4d2a-9438-852c25c3ae5e
+			column: Regiao
+
+		level Filial
+			lineageTag: 1fc13496-459e-4d13-b6ce-bec32666e4db
+			column: Filial
+
+		level Subfilial
+			lineageTag: 0041c7cd-63bb-4eed-b7a7-f79eebc36ddc
+			column: Subfilial
+
+	hierarchy 'Hierarquia Bandeira e Filiais'
+		lineageTag: 84c65a3a-af7f-430d-9d33-4711f4eeb9c5
+
+		level Bandeira
+			lineageTag: 3c167873-0de2-43bb-8112-128fd04c16e0
+			column: Bandeira
+
+		level Filial
+			lineageTag: fc7f9d1f-8d82-486c-a222-8ebbb85cce3e
+			column: Filial
+
+		level Subfilial
+			lineageTag: fd813599-a73b-4632-8b11-6bef356b3a6d
+			column: Subfilial
+
+	partition Lojas = entity
+		mode: directLake
+		source
+			entityName: DIM_LOJA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

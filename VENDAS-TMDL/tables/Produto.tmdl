@@ -1,0 +1,927 @@
+/// Tabela dimensão de produtos com hierarquia comercial e dados de fornecedores.
+table Produto
+	lineageTag: 0f69178d-637c-4e52-a90a-f3087514fbb8
+	sourceLineageTag: [bi_wh_corporativo].[DIM_PRODUTO]
+
+	/// Nome/Descrição principal do produto.
+	column Produto
+		dataType: string
+		sourceProviderType: varchar(8000)
+		displayFolder: Produto - Identificação
+		lineageTag: 39aa1790-20d8-4598-a743-143596459abd
+		sourceLineageTag: DESC_PRODUTO
+		summarizeBy: none
+		sourceColumn: DESC_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Dígito verificador do código do produto utilizado para validações operacionais.
+	column Dígito
+		dataType: string
+		sourceProviderType: varchar(8000)
+		displayFolder: Produto - Identificação
+		lineageTag: 04989d2a-a2b5-427c-a965-596ba359fcc1
+		sourceLineageTag: DIGITO
+		summarizeBy: none
+		sourceColumn: DIGITO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código identificador do produto já concatenado com o seu respectivo dígito verificador.
+	column 'Produto Código e Dígito'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		displayFolder: Produto - Identificação
+		lineageTag: 18b7aa7e-3758-4078-bfe3-41e8a2518f21
+		sourceLineageTag: PRODUTO_DIGITO
+		summarizeBy: none
+		sourceColumn: PRODUTO_DIGITO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Razão social ou divisão jurídica corporativa.
+	column Empresa
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Produto - Identificação
+		lineageTag: c7732934-cd69-474e-abf5-00c1d77d0ae1
+		sourceLineageTag: DESC_EMPRESA
+		summarizeBy: none
+		sourceColumn: DESC_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Primeiro nível da hierarquia comercial (Macro-grupo).
+	column Categoria
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: 54a7a27a-d7aa-458d-8533-f3e4107665f6
+		sourceLineageTag: DESC_CATEGORIA
+		summarizeBy: none
+		sourceColumn: DESC_CATEGORIA
+		sortByColumn: 'Ordem Categoria'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Segundo nível da hierarquia comercial.
+	column Subcategoria
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: 04fb289b-ca0b-4118-bf5b-2b19a35e3dd0
+		sourceLineageTag: DESC_SUBCATEGORIA
+		summarizeBy: none
+		sourceColumn: DESC_SUBCATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Terceiro nível da hierarquia comercial.
+	column Segmento
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: c70d3306-5e96-48d0-a79e-c5eee29ca613
+		sourceLineageTag: DESC_SEGMENTO_CATEGORIA
+		summarizeBy: none
+		sourceColumn: DESC_SEGMENTO_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Quarto nível de quebra da hierarquia comercial para análises micro-segmentadas.
+	column Subsegmento
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: 45c9c704-06ca-4800-b02f-3bf14b50ff7d
+		sourceLineageTag: DESC_SUBSEGMENTO
+		summarizeBy: none
+		sourceColumn: DESC_SUBSEGMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Classificação operacional da categoria do produto (ex: Área Comercial, Área Gastronômica).
+	column 'Área da Categoria'
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: ac47fd24-d8bb-4994-af2d-258da7852002
+		sourceLineageTag: DESC_AREA_CATEGORIA
+		summarizeBy: none
+		sourceColumn: DESC_AREA_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome da marca comercial do produto.
+	column Marca
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Fornecedor
+		lineageTag: 751a84f7-5992-43c4-babf-9fd6020ec8cf
+		sourceLineageTag: DESC_MARCA
+		summarizeBy: none
+		sourceColumn: DESC_MARCA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Indicador de origem logística e fiscal do produto (ex: Nacional, Estrangeira).
+	column Procedência
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Fornecedor
+		lineageTag: e79bf534-5b5c-4755-8e94-e7429fbeac07
+		sourceLineageTag: DESC_PROCEDENCIA
+		summarizeBy: none
+		sourceColumn: DESC_PROCEDENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome do profissional (comprador interno) responsável pela negociação e abastecimento deste item.
+	column Comprador
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Fornecedor
+		lineageTag: 63d857db-54f0-4ac7-a37a-04318c913a63
+		sourceLineageTag: DESC_COMPRADOR
+		summarizeBy: none
+		sourceColumn: DESC_COMPRADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Razão social ou nome fantasia do fornecedor.
+	column Fornecedor
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Fornecedor
+		lineageTag: fb7b62b6-16f4-49e7-ad22-168c9e905f25
+		sourceLineageTag: DESC_FORNECEDOR
+		summarizeBy: none
+		sourceColumn: DESC_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Identificação do grupo econômico majoritário ou holding responsável pelo fornecedor.
+	column 'Fornecedor Master'
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Fornecedor
+		lineageTag: 892b9948-02aa-476f-812a-83903b9e5c26
+		sourceLineageTag: DESC_FORNECEDOR_MASTER
+		summarizeBy: none
+		sourceColumn: DESC_FORNECEDOR_MASTER
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição textual legível do status de descontinuidade do item (ex: Sim, Não).
+	column 'Status Fora de Linha'
+		dataType: string
+		sourceProviderType: varchar(50)
+		displayFolder: Classificações
+		lineageTag: 8da2445c-229e-4da2-b890-d70f9074a799
+		sourceLineageTag: DESC_FORALINHA
+		summarizeBy: none
+		sourceColumn: DESC_FORALINHA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome descritivo e amigável do produto padronizado para exibição em canais digitais e e-commerce.
+	column 'Descrição Web'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		displayFolder: Produto - Identificação
+		lineageTag: 1f732344-4d48-46c9-9131-6476bf5cf641
+		sourceLineageTag: DESCRICAO_WEB
+		summarizeBy: none
+		sourceColumn: DESCRICAO_WEB
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Unidade de medida padrão ou tipo de embalagem utilizada pelo fornecedor no faturamento (ex: CX, KG).
+	column 'Embalagem Fornecedor'
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Logística e Embalagem
+		lineageTag: b5cc49d7-a724-4f27-878f-e7d4ef8ce728
+		sourceLineageTag: DESC_EMBALAGEM_FORN
+		summarizeBy: none
+		sourceColumn: DESC_EMBALAGEM_FORN
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tipo de embalagem padrão utilizada nas movimentações e transferências entre subfiliais logísticas.
+	column 'Embalagem Transferência'
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Logística e Embalagem
+		lineageTag: a87e19bd-3c00-4365-ab37-d10108b8ae3d
+		sourceLineageTag: DESC_EMBALAGEM_TRANSF
+		summarizeBy: none
+		sourceColumn: DESC_EMBALAGEM_TRANSF
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Classificação estatística do produto (A, B ou C) baseada na curva de representatividade de faturamento ou giro.
+	column 'Classe ABC'
+		dataType: string
+		sourceProviderType: varchar(10)
+		displayFolder: Classificações
+		lineageTag: 6a2a8170-84dd-4f76-bd78-1014008330d7
+		sourceLineageTag: COD_CLASSE_ABC
+		summarizeBy: none
+		sourceColumn: COD_CLASSE_ABC
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Valor de custo bruto nominal tabelado junto ao fornecedor para a unidade de compra.
+	column 'Custo Fornecedor'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(10, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 8d2d25bd-9a57-4262-8146-dce38a67c238
+		sourceLineageTag: CUSTO_FORN
+		summarizeBy: none
+		sourceColumn: CUSTO_FORN
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Medida física da altura da embalagem do produto em metros/centímetros para cálculo de volumetria.
+	column 'Altura Embalagem'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(13, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 95bf58c0-53ba-45e1-a463-e0569dea3fcf
+		sourceLineageTag: EMBALAGEM_ALTURA
+		summarizeBy: none
+		sourceColumn: EMBALAGEM_ALTURA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Medida física da largura da embalagem do produto para fins de cubagem e armazenagem.
+	column 'Largura Embalagem'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(13, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 3ae68b47-d63d-4951-86af-ea2af78fef56
+		sourceLineageTag: EMBALAGEM_LARGURA
+		summarizeBy: none
+		sourceColumn: EMBALAGEM_LARGURA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Medida física do comprimento da embalagem do produto para planejamento de malha logística.
+	column 'Comprimento Embalagem'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(13, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 34f3c462-afd3-4138-82ce-776b0877cd56
+		sourceLineageTag: EMBALAGEM_COMPRIMENTO
+		summarizeBy: none
+		sourceColumn: EMBALAGEM_COMPRIMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Quantidade de caixas ou unidades do produto que compõem a camada base de um pallet padrão.
+	column 'Pallet Base'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(13, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 384663e1-8843-4e54-acba-0aa1592a2aac
+		sourceLineageTag: PALLET_BASE
+		summarizeBy: none
+		sourceColumn: PALLET_BASE
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Quantidade total de camadas ou caixas empilhadas verticalmente que completam um pallet fechado.
+	column 'Pallet Altura'
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		sourceProviderType: numeric(13, 2)
+		displayFolder: Logística e Embalagem
+		lineageTag: 89d7e4fb-3132-4bdc-b37b-2a69cc6b949c
+		sourceLineageTag: PALLET_ALTURA
+		summarizeBy: none
+		sourceColumn: PALLET_ALTURA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	/// Data e hora do último recebimento ou emissão de pedido de compra deste produto no estoque.
+	column 'Data Última Compra'
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: datetime2
+		displayFolder: Fornecedor
+		lineageTag: ef8dfcac-d5f2-4191-bad8-ea7478c87723
+		sourceLineageTag: DATA_ULTIMA_COMPRA
+		summarizeBy: none
+		sourceColumn: DATA_ULTIMA_COMPRA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código de barras padrão internacional (EAN/GTIN) utilizado na leitura óptica do PDV (Frente de Loja).
+	column 'Código de Barras EAN'
+		dataType: string
+		sourceProviderType: varchar(50)
+		displayFolder: Logística e Embalagem
+		lineageTag: 6195a772-ce80-4673-9ee6-8fe7216d8ae8
+		sourceLineageTag: EAN_PDV
+		summarizeBy: none
+		sourceColumn: EAN_PDV
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Classificação gerencial associada à natureza e posicionamento estratégico da categoria.
+	column 'Tipo de Categoria'
+		dataType: string
+		sourceProviderType: varchar(100)
+		displayFolder: Categorias
+		lineageTag: 578501a2-9c1d-4cf8-ab8b-9017a4132558
+		sourceLineageTag: DESC_TIPO_CATEGORIA
+		summarizeBy: none
+		sourceColumn: DESC_TIPO_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// String combinada contendo o código, o dígito e a descrição textual completa do produto.
+	column 'Produto Completo'
+		dataType: string
+		sourceProviderType: varchar(250)
+		displayFolder: Produto - Identificação
+		lineageTag: 802b695a-2ece-4f01-9ee1-c84791b15226
+		sourceLineageTag: PRODUTO_COMPLETO
+		summarizeBy: none
+		sourceColumn: PRODUTO_COMPLETO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: e34d647b-be29-4b4a-af60-48b2aa2b6528
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: sum
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PRODUTO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 24358f18-2e3d-4b98-9180-cfd171d65ac4
+		sourceLineageTag: COD_PRODUTO
+		summarizeBy: sum
+		sourceColumn: COD_PRODUTO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Código identificador numérico da categoria do produto.
+	column 'Código Categoria'
+		dataType: int64
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: Categorias
+		lineageTag: d926b041-e9b2-4896-b92c-48b89412465d
+		sourceLineageTag: COD_CATEGORIA
+		summarizeBy: none
+		sourceColumn: COD_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBCATEGORIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4594fbce-27ea-4fff-902e-0b15c5594887
+		sourceLineageTag: COD_SUBCATEGORIA
+		summarizeBy: sum
+		sourceColumn: COD_SUBCATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SEGMENTO_CATEGORIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6179618f-aa8f-4737-8f70-2259e59a7426
+		sourceLineageTag: COD_SEGMENTO_CATEGORIA
+		summarizeBy: sum
+		sourceColumn: COD_SEGMENTO_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBSEGMENTO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 85adfe59-8a46-4250-8f84-6e3e5cdc7488
+		sourceLineageTag: COD_SUBSEGMENTO
+		summarizeBy: sum
+		sourceColumn: COD_SUBSEGMENTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_MARCA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 98299a19-7c0d-4624-89a5-b4329f1052bd
+		sourceLineageTag: COD_MARCA
+		summarizeBy: sum
+		sourceColumn: COD_MARCA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PROCEDENCIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 9cf5cef2-c81f-42c2-b2a0-7672aecf1fc7
+		sourceLineageTag: COD_PROCEDENCIA
+		summarizeBy: sum
+		sourceColumn: COD_PROCEDENCIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_COMPRADOR
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 58abf430-a9bb-47d0-ad55-546bd33d6ffa
+		sourceLineageTag: COD_COMPRADOR
+		summarizeBy: sum
+		sourceColumn: COD_COMPRADOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORALINHA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: ce4c6abd-944b-4b8f-9475-14820113d056
+		sourceLineageTag: COD_FORALINHA
+		summarizeBy: sum
+		sourceColumn: COD_FORALINHA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: abf8f9cc-2f40-415b-9b99-d449a8c0637e
+		sourceLineageTag: COD_FORNECEDOR
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column DAT_ATUALIZACAO
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: datetime2
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: d713d808-5043-4b72-ad35-83138071eb1b
+		sourceLineageTag: DAT_ATUALIZACAO
+		summarizeBy: none
+		sourceColumn: DAT_ATUALIZACAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_FORNECEDOR_MASTER
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 8b5ee15c-ad34-4a04-99cc-c420c7f292bc
+		sourceLineageTag: COD_FORNECEDOR_MASTER
+		summarizeBy: sum
+		sourceColumn: COD_FORNECEDOR_MASTER
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_AREA_CATEGORIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b940b333-834d-42f6-9daa-6c2f413bcd47
+		sourceLineageTag: COD_AREA_CATEGORIA
+		summarizeBy: sum
+		sourceColumn: COD_AREA_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_PRODUTO_PAI_FAMILIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 10c8db12-e720-410c-a6c6-e63874f18748
+		sourceLineageTag: COD_PRODUTO_PAI_FAMILIA
+		summarizeBy: sum
+		sourceColumn: COD_PRODUTO_PAI_FAMILIA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CATEGORIA_ANTIGA
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(50)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 06b25eef-d96a-46b4-bddf-a9041223ecf8
+		sourceLineageTag: COD_CATEGORIA_ANTIGA
+		summarizeBy: none
+		sourceColumn: COD_CATEGORIA_ANTIGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CATEGORIA_ANTIGA_RMS
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(50)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 405f7cdb-0950-4e74-b7ff-c2373a20637d
+		sourceLineageTag: COD_CATEGORIA_ANTIGA_RMS
+		summarizeBy: none
+		sourceColumn: COD_CATEGORIA_ANTIGA_RMS
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_DIA_PEDIDO
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: e7330f42-05e5-4a9e-86c8-7fbac549b047
+		sourceLineageTag: COD_DIA_PEDIDO
+		summarizeBy: sum
+		sourceColumn: COD_DIA_PEDIDO
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cod_Pais
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 4a3415c3-fad6-4cce-b5e0-20df069ef26b
+		sourceLineageTag: Cod_Pais
+		summarizeBy: sum
+		sourceColumn: Cod_Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Cod_Qualificacao
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 516c511a-492a-4d74-99b1-dea8635f3db6
+		sourceLineageTag: Cod_Qualificacao
+		summarizeBy: sum
+		sourceColumn: Cod_Qualificacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column COND_PGTO
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(100)
+		displayFolder: Classificações
+		lineageTag: fd017aba-ab40-4c0e-ac25-ff61ce4232c0
+		sourceLineageTag: COND_PGTO
+		summarizeBy: none
+		sourceColumn: COND_PGTO
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ind_Parcelavel
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(5)
+		displayFolder: Classificações
+		lineageTag: 50c7623d-e204-43fd-b193-a56bc6fd05e2
+		sourceLineageTag: Ind_Parcelavel
+		summarizeBy: none
+		sourceColumn: Ind_Parcelavel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CFOP
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(20)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 39289fd8-052d-48a0-ae2e-da7945ccc85b
+		sourceLineageTag: CFOP
+		summarizeBy: none
+		sourceColumn: CFOP
+
+		annotation SummarizationSetBy = Automatic
+
+	column VLR_IPI
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: numeric(18, 6)
+		displayFolder: Logística e Embalagem
+		lineageTag: c37db08b-6cdd-49d9-a25f-ce659e1ad381
+		sourceLineageTag: VLR_IPI
+		summarizeBy: sum
+		sourceColumn: VLR_IPI
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column FLG_PRODUTO_ST
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: varchar(5)
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 38c7a4a9-c545-42ae-bb3f-104c5b4e90d5
+		sourceLineageTag: FLG_PRODUTO_ST
+		summarizeBy: none
+		sourceColumn: FLG_PRODUTO_ST
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_PERC_FECOP
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 8521116f-d5e7-4cd5-a21f-e496dde9c417
+		sourceLineageTag: FLG_PERC_FECOP
+		summarizeBy: sum
+		sourceColumn: FLG_PERC_FECOP
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_CATEGORIA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 832ca4a1-355d-426b-9ad4-d4c46c3d9f8c
+		sourceLineageTag: COD_TIPO_CATEGORIA
+		summarizeBy: sum
+		sourceColumn: COD_TIPO_CATEGORIA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Chave técnica de relacionamento do produto.
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 290450bc-da0e-4427-adbb-7bbe82bfbd9d
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: none
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Chave técnica de relacionamento do fornecedor.
+	column KEY_FORNECEDOR_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: af55e320-cb03-4095-b7c9-988227aa4663
+		sourceLineageTag: KEY_FORNECEDOR_INT
+		summarizeBy: sum
+		sourceColumn: KEY_FORNECEDOR_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição abreviada da categoria comercial do produto.
+	column 'Categoria Abreviada'
+		dataType: string
+		sourceProviderType: varchar(50)
+		displayFolder: Categorias
+		lineageTag: 4b75ff38-b291-4464-b475-c7a65ba31a34
+		sourceLineageTag: DESC_CATEGORIA_ABREV
+		summarizeBy: none
+		sourceColumn: DESC_CATEGORIA_ABREV
+		sortByColumn: 'Ordem Categoria'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Coluna de ordenação personalizada das categorias no MicroStrategy/Power BI.
+	column 'Ordem Categoria'
+		dataType: int64
+		isHidden
+		displayFolder: Categorias
+		lineageTag: be3d8d92-c3cf-4942-a4d9-96d8fc69ae84
+		summarizeBy: none
+		sourceColumn: ORDEM_CATEGORIA
+
+	/// Código identificador do tipo de fornecedor do produto (Ex: F = Fornecedor Comercial / Fornecedor de Compra).
+	column 'Tipo de Fornecedor'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		displayFolder: Fornecedor
+		lineageTag: 93e31bea-e1cc-42c0-9406-05f08065bc49
+		sourceColumn: COD_TIPO_FORNECEDOR
+
+	/// Nome completo do coordenador comercial responsável pela categoria do produto.
+	column 'Coordenador Comercial'
+		dataType: string
+		displayFolder: Fornecedor
+		lineageTag: 2ff370fe-624a-450e-8be5-52dc37efed17
+		sourceColumn: DESC_COMPRADOR_COORDENADOR
+
+	/// Nome completo do gerente ou gestor comercial direto associado ao produto.
+	column 'Gestor Comercial'
+		dataType: string
+		displayFolder: Fornecedor
+		lineageTag: 5ed70e2c-ebc5-43cd-bebe-0a003010f327
+		sourceColumn: DESC_COMPRADOR_GESTOR
+
+	hierarchy 'Produtos por Categoria'
+		displayFolder: Categorias
+		lineageTag: 133f61b4-b5ae-4f12-b7bd-b5020fa12653
+
+		level 'Tipo de Categoria'
+			lineageTag: f2eeccc4-a3ed-416e-9fd5-7578bb5dba6e
+			column: 'Tipo de Categoria'
+
+		level Categoria
+			lineageTag: 3dffa110-8542-41bd-91aa-c801be16347e
+			column: Categoria
+
+		level Subcategoria
+			lineageTag: 76a5ac97-52a5-4d42-ad1a-58bf4addb333
+			column: Subcategoria
+
+		level Segmento
+			lineageTag: 0e3b6797-ac43-46e6-bf1d-86e4df9c94d0
+			column: Segmento
+
+		level Subsegmento
+			lineageTag: 75c19174-a690-4a21-a14e-0018a5db728e
+			column: Subsegmento
+
+		level 'Produto Completo'
+			lineageTag: 1cfe8d5b-45db-4fca-93d9-5f2261a2c8f2
+			column: 'Produto Completo'
+
+	hierarchy 'Fornecedor e Marca'
+		displayFolder: Fornecedor
+		lineageTag: 616c91be-10e0-4ad6-8bd7-8fd0dbfb88d7
+
+		level 'Fornecedor Master'
+			lineageTag: 7fa9d559-b608-4ab2-88d4-3d749e03d68f
+			column: 'Fornecedor Master'
+
+		level Fornecedor
+			lineageTag: 0b2501e0-a717-42ec-9ca4-5585f064a41d
+			column: Fornecedor
+
+		level Marca
+			lineageTag: 0b828d0e-ddb3-446e-a856-ea431a64c513
+			column: Marca
+
+		level 'Produto Completo'
+			lineageTag: 7cc32613-d05f-4ff3-820c-28ad347545ab
+			column: 'Produto Completo'
+
+	hierarchy 'Comprador por Categoria'
+		displayFolder: Fornecedor
+		lineageTag: 5e61b209-76c5-418f-b76d-0d705135dff9
+
+		level 'Coordenador Comercial'
+			lineageTag: 61e69b5c-2f39-4976-9aa3-2bda7cd0ba06
+			column: 'Coordenador Comercial'
+
+		level 'Gestor Comercial'
+			lineageTag: 92b0a6ec-2e81-4c94-9e47-41c103873e2c
+			column: 'Gestor Comercial'
+
+		level Comprador
+			lineageTag: 4cb0890c-daea-4446-a109-70e796ec4732
+			column: Comprador
+
+		level Categoria
+			lineageTag: ae4d50ff-b5e1-4e07-b418-ca3be68c12ee
+			column: Categoria
+
+		level 'Produto Completo'
+			lineageTag: 692b4903-c542-4d73-bacc-3bc0a9702c0a
+			column: 'Produto Completo'
+
+	hierarchy 'Hierarquia de Categorias'
+		displayFolder: Categorias
+		lineageTag: f966fe41-eeb6-4895-8762-d5775e64d891
+
+		level 'Tipo de Categoria'
+			lineageTag: 666c5570-121e-4232-83bc-202777a1c7f4
+			column: 'Tipo de Categoria'
+
+		level Categoria
+			lineageTag: 57bd374e-f935-4010-abfe-68357dc9dc16
+			column: Categoria
+
+		level Subcategoria
+			lineageTag: 93e72c0f-16e5-4483-896d-ffee27171c97
+			column: Subcategoria
+
+		level Segmento
+			lineageTag: 3af72c3c-8220-475e-b2e2-a18b759e52d5
+			column: Segmento
+
+		level Subsegmento
+			lineageTag: 3aa80c6c-64ac-462c-9c2a-19b3b30883eb
+			column: Subsegmento
+
+	partition Produto = entity
+		mode: directLake
+		source
+			entityName: DIM_PRODUTO
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

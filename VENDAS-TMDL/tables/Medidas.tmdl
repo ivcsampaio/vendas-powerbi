@@ -1,0 +1,2605 @@
+/// Tabela de medidas centralizada
+table Medidas
+	lineageTag: 91191ee1-9a46-4963-973d-057009375897
+
+	/// Valor total acumulado de verbas e acordos comerciais negociados.
+	measure 'Valor Verba' = SUM('Verbas e Acordos (Dia)'[VALOR_VERBA])
+		formatString: R$ #,##0;-R$ #,##0;"-"
+		displayFolder: Verbas e Acordos
+		lineageTag: a7803bb5-61bc-45f7-b092-981f4788b37f
+
+	/// Valor total acumulado referente ao custo apurado dos produtos.
+	measure 'Valor Custo Apurado' = SUM('Ajustes de Custo (Dia)'[VLR_CUSTO_APURADO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajuste de Custo
+		lineageTag: 17465112-511a-4ff0-8987-223bc1e23376
+
+	/// Valor total acumulado de ajustes gerenciais gerais.
+	measure 'Valor Ajuste Gerencial' = SUM('Ajustes Gerenciais (Dia)'[VALOR_AJUSTE_GERENCIAL])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais
+		lineageTag: 3965a01d-86e0-4f13-b337-769e2d4084c5
+
+	/// Valor total de ajustes gerenciais aplicados especificamente à margem de contribuição.
+	measure 'Valor Ajuste Margem Contribuição' = SUM('Ajustes Gerenciais (Dia)'[VALOR_AJUSTE_GERENCIAL_MARGEM_CONTRIBUICAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais
+		lineageTag: 32c30f57-3207-458a-987d-019781ad6392
+
+	/// Valor total de ajustes gerenciais aplicados à margem do Ponto de Venda (PDV).
+	measure 'Valor Ajuste Margem PDV' = SUM('Ajustes Gerenciais (Dia)'[VALOR_AJUSTE_GERENCIAL_MARGEM_PDV])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais
+		lineageTag: fffd9479-fdf2-4174-aa48-ce19e7abb642
+
+	/// Valor total de ajustes gerenciais associados a perdas.
+	measure 'Valor Ajuste Perda Gerencial' = SUM('Ajustes Gerenciais (Dia)'[VALOR_AJUSTE_GERENCIAL_PERDA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais
+		lineageTag: d2299784-591e-4072-802d-ea504f9e34f8
+
+	/// Soma do valor da meta de venda acumulada estritamente até o dia de ontem.
+	measure 'Meta Venda (Até Ontem)' =
+			CALCULATE(
+			    SUM('Metas (Dia)'[META_CATEGORIA_VALOR_VENDA]),
+			    'Calendário'[Flag Data Passada] = 1
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras
+		lineageTag: 16f9a34e-0a82-4fd3-ba70-c140a73a7e1b
+
+	/// Soma do valor da meta de perda acumulada estritamente até o dia de ontem.
+	measure 'Meta Perda (Até Ontem)' =
+			CALCULATE(
+			    SUM('Metas (Dia)'[META_CATEGORIA_VALOR_PERDA]),
+			    'Calendário'[Flag Data Passada] = 1
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Metas\Metas Financeiras
+		lineageTag: 959e284a-10ab-4f63-8ffc-4c0b54dfc12a
+
+	/// Soma do valor da meta de embalagem acumulada estritamente até o dia de ontem.
+	measure 'Meta Embalagem (Até Ontem)' = CALCULATE( SUM('Metas (Dia)'[META_CATEGORIA_VALOR_EMBALAGEM]), KEEPFILTERS('Calendário'[Flag Data Passada] = 1) )
+		formatString: #,##0;-#,##0;0
+		displayFolder: Metas\Metas de Volume
+		lineageTag: 3b95f25f-e4f3-4e08-be3f-4106ce16b26e
+
+	/// Soma do valor da meta de margem comercial acumulada estritamente até o dia de ontem.
+	measure 'Margem Comercial Meta (Até Ontem)' =
+			CALCULATE(
+			    SUM('Metas (Dia)'[META_CATEGORIA_VALOR_MARGEM_COMERCIAL]),
+			    'Calendário'[Flag Data Passada] = 1
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Metas\Metas Financeiras
+		lineageTag: c90bc9f2-22ae-4779-88b2-73802624f42e
+
+	/// Soma do valor da meta de margem de contribuição acumulada estritamente até o dia de ontem.
+	measure 'Margem Contribuição Meta (Até Ontem)' =
+			CALCULATE(
+			    SUM('Metas (Dia)'[META_CATEGORIA_VALOR_MARGEM_CONTRIBUICAO]),
+			    'Calendário'[Flag Data Passada] = 1
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Metas\Metas Financeiras
+		lineageTag: ef70e01a-6e85-41e1-b7e3-259271ccf5a7
+
+	/// Meta total estipulada em volume/tonelagem.
+	measure 'Meta Categoria - Qtd Tonelagem (Até Ontem)' = CALCULATE( SUM('Metas (Dia)'[META_CATEGORIA_QTD_TONELAGEM]), KEEPFILTERS('Calendário'[Flag Data Passada] = 1) )
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Metas\Metas de Volume
+		lineageTag: 976cbb36-08af-4a41-9571-71f909182be3
+
+	/// Valor total acumulado referente aos custos ou participações de embalagens.
+	measure 'Valor Embalagem' = SUM('Participação de Embalagens (Dia)'[VALOR_EMBALAGEM])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Participação de Embalagem
+		lineageTag: acf00292-b3e8-436f-af6f-683a7519670d
+
+	/// Quantidade física total de produtos perdidos ou quebrados.
+	measure 'Quantidade Perda' = SUM('Perdas de Produtos (Dia)'[QTD_PERDA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Perdas por Produto
+		lineageTag: 92f1ae80-dda9-4516-8bf5-c8018084d30f
+
+	/// Custo/valor total financeiro acumulado com as perdas de produtos.
+	measure 'Valor Total Perda' = SUM('Perdas de Produtos (Dia)'[VALOR_TOTAL_PERDA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Perdas por Produto
+		lineageTag: f6541200-62f2-4925-b144-f5abb1ccbb90
+
+	/// Quantidade bruta de vendas faturadas no período. ATENÇÃO: Este indicador NÃO desconta as devoluções de mercadorias.
+	measure 'Quantidade Vendida' = SUM('Vendas (Dia)'[QTD_VENDA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: 25dab783-8164-4a94-861d-f0d9cfc2fb5c
+
+	/// Quantidade líquida faturada (Quantidade Vendida menos a Quantidade Devolvida). Use este indicador para análises reais de volume entregue.
+	measure 'Quantidade Líquida Vendida' = SUM('Vendas (Dia)'[QTD_VENDA]) - SUM('Vendas (Dia)'[QTD_DEVOLUCAO])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: e8719d3b-d474-4a77-b8b4-207661564d8b
+
+	/// Quantidade total de itens devolvidos no período.
+	measure 'Quantidade Devolvida' = SUM('Vendas (Dia)'[QTD_DEVOLUCAO])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: 46c21e4b-78e5-47ec-8ac2-d7c51ac6d8c0
+
+	/// Peso total bruto das mercadorias vendidas em toneladas. Não deduz devoluções.
+	measure 'Tonelagem Vendida' = SUM('Vendas (Dia)'[QTD_TONELAGEM_VENDA])
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: 0ad54039-7d45-4782-8d37-21b2a6a62449
+
+	/// Peso total das mercadorias devolvidas em toneladas.
+	measure 'Tonelagem Devolvida' = SUM('Vendas (Dia)'[QTD_TONELAGEM_DEVOLUCAO])
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: e53a7347-b8e7-4d7c-864a-263fe381c01a
+
+	/// Peso líquido real das mercadorias entregues (Tonelagem Vendida menos Tonelagem Devolvida).
+	measure 'Tonelagem Líquida Vendida' = SUM('Vendas (Dia)'[QTD_TONELAGEM_VENDA]) - SUM('Vendas (Dia)'[QTD_TONELAGEM_DEVOLUCAO])
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume
+		lineageTag: 0efe9a85-f131-4874-9fc3-88703bfce953
+
+	/// Valor total bruto faturado com impostos. Não desconta devoluções.
+	measure 'Faturamento Bruto' = SUM('Vendas (Dia)'[VLR_VENDA_TOTAL_C_IMP])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: 89ed238e-4f29-44d8-a161-b809a49d8540
+
+	/// Valor total bruto das devoluções de vendas ocorridas no período (com impostos).
+	measure 'Valor Devolvido' = SUM('Vendas (Dia)'[VLR_DEVOLUCAO_TOTAL_C_IMP])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: 722bc797-d8f0-4ab3-8434-68351eeea94a
+
+	/// Faturamento real da empresa (Faturamento Bruto menos Valor Devolvido).
+	measure 'Faturamento Líquido' = SUM('Vendas (Dia)'[VLR_VENDA_TOTAL_C_IMP]) - SUM('Vendas (Dia)'[VLR_DEVOLUCAO_TOTAL_C_IMP])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: 1a7ffa9f-5003-4402-a735-af8dd4224db7
+
+	/// Valor total do custo das mercadorias vendidas. Não abate o custo das devoluções.
+	measure 'Custo Bruto' = SUM('Vendas (Dia)'[VLR_CUSTO_TOTAL_VENDA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos
+		lineageTag: 1393d0d5-49d1-4b80-86da-12412dd94c0f
+
+	/// Valor total do custo que retornou ao estoque através de devoluções no período.
+	measure 'Custo Devolvido' = SUM('Vendas (Dia)'[VLR_CUSTO_TOTAL_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos
+		lineageTag: 2aaa63d2-7378-4637-897b-e350ec1df77b
+
+	/// Custo real da operação comercial (Custo Bruto menos Custo Devolvido).
+	measure 'Custo Líquido' = SUM('Vendas (Dia)'[VLR_CUSTO_TOTAL_VENDA]) - SUM('Vendas (Dia)'[VLR_CUSTO_TOTAL_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos
+		lineageTag: 78aa833a-5077-4e06-9aa3-d60678d105a8
+
+	/// Valor total de ICMS destacado sobre as vendas brutas.
+	measure 'ICMS Bruto' = SUM('Vendas (Dia)'[VLR_ICMS_VENDA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: 81fe1ca1-71ac-410d-83fb-30363f0d4d2b
+
+	/// Valor de crédito de ICMS recuperado através de devoluções.
+	measure 'ICMS Devolvido' = SUM('Vendas (Dia)'[VLR_ICMS_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: 3cd6a111-d0a6-4e09-9221-40a6763f8206
+
+	/// ICMS real devido (ICMS Bruto menos ICMS Devolvido).
+	measure 'ICMS Líquido' = SUM('Vendas (Dia)'[VLR_ICMS_VENDA]) - SUM('Vendas (Dia)'[VLR_ICMS_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: bbee4c85-7b6e-4632-8966-de4087a1de54
+
+	/// Valor total de PIS/COFINS incidente sobre o faturamento bruto.
+	measure 'PIS COFINS Bruto' = SUM('Vendas (Dia)'[VLR_PIS_COFINS_VENDA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: 1c7ce6c2-bd1a-4ffa-9382-28cc7e53811f
+
+	/// Crédito de PIS/COFINS estornado por motivo de devolução.
+	measure 'PIS COFINS Devolvido' = SUM('Vendas (Dia)'[VLR_PIS_COFINS_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: 649dd230-2ff1-4e60-84ed-5f62b3fa1253
+
+	/// PIS/COFINS líquido gerado na operação comercial.
+	measure 'PIS COFINS Líquido' = SUM('Vendas (Dia)'[VLR_PIS_COFINS_VENDA]) - SUM('Vendas (Dia)'[VLR_PIS_COFINS_DEVOLUCAO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos
+		lineageTag: 62440e71-2e40-4dc9-9f57-2f7c0c937492
+
+	/// Quantidade total de itens/produtos vendidos por hora.
+	measure 'Quantidade Venda Hora' = SUM('Vendas por Hora'[QTD_VENDA_HORA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora
+		lineageTag: 429bd901-879b-40b8-b463-5dad5f1dd4d8
+
+	/// Valor total de descontos aplicados nas vendas por hora.
+	measure 'Valor Desconto Venda Hora' = SUM('Vendas por Hora'[VLR_DESCONTO])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora
+		lineageTag: 86ada5ed-a80b-4fa5-86b0-9a4f9af8eb52
+
+	/// Valor total bruto das vendas registradas por hora.
+	measure 'Valor Venda Hora' = SUM('Vendas por Hora'[VLR_VENDA_HORA])
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora
+		lineageTag: f7dc50d1-af9c-42a9-a5ee-d09d89f71a1c
+
+	/// Quantidade total de embalagens movimentadas nas agendas.
+	measure 'Qtd Embalagens' = SUM('Agendamentos (Dia)'[QTD_EMBALAGEM])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 2b694f91-4b7a-4fe5-ade6-673d29366358
+
+	/// Quantidade total de notas fiscais emitidas.
+	measure 'Qtd Notas' = SUM('Agendamentos (Dia)'[QTD_NOTA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 7989aecf-31f1-4533-a6cf-e3ceca3d18d3
+
+	/// Quantidade de embalagens registradas pelo fornecedor.
+	measure 'Qtd Embalagens Fornecedor' = SUM('Agendamentos (Dia)'[QTD_EMBALAGEM_FORNECEDOR])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: bf44d869-bdde-4c7d-bae2-27fbacd29636
+
+	/// Peso líquido total processado no dia em quilogramas.
+	measure 'Peso Líquido Dia (Kg)' = SUM('Agendamentos (Dia)'[QTD_PESO_LIQUIDO_DIA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 0c0cad45-35d2-43cd-a927-e4d3f17c592f
+
+	/// Peso líquido total acumulado em quilogramas.
+	measure 'Peso Líquido Total (Kg)' = SUM('Agendamentos (Dia)'[QTD_PESO_LIQUIDO])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: f36e917f-1d0d-4cea-b882-4a3c043d922b
+
+	/// Valor total bruto das agendas registradas.
+	measure Total = SUM('Agendamentos (Dia)'[VLR_TOTAL])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 9582c0bf-1fbe-48f1-8dc3-0052628645f9
+
+	/// Valor total de ICMS creditado/debitado.
+	measure ICMS = SUM('Agendamentos (Dia)'[VLR_ICMS])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 4bc7abbd-6cec-4ad6-8404-082501520c9a
+
+	/// Valor total de contribuição de PIS e COFINS.
+	measure PIS/COFINS = SUM('Agendamentos (Dia)'[VLR_PIS_COFINS])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 06603c5e-6cd6-4c5a-82ad-666f420c4dae
+
+	/// Valor total da base de cálculo utilizada para o ICMS.
+	measure 'Base Cálculo ICMS' = SUM('Agendamentos (Dia)'[VLR_BASE_CALC_ICMS])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 47a836bc-201f-4b39-8d8d-3cd8ecba97d2
+
+	/// Valor total de IPI gerado.
+	measure IPI = SUM('Agendamentos (Dia)'[VLR_IPI])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: a1ed435e-2ebb-462d-b998-194c37c521cc
+
+	/// Valor total de Substituição Tributária (ST).
+	measure ST = SUM('Agendamentos (Dia)'[VLR_ST])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: fa799e6d-512b-4edc-b9d0-dce61966868b
+
+	/// Valor total acumulado do custo unitário dos itens acordados.
+	measure 'Custo Unitário Médio' = SUM('Agendamentos (Dia)'[VLR_CUSTO_UNITARIO])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: b1c45f40-167a-4fb6-9525-a49c0a32308a
+
+	/// Valor total acumulado do preço unitário de venda/transferência.
+	measure 'Preço Unitário Médio' = SUM('Agendamentos (Dia)'[VLR_PRECO_UNITARIO])
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 13cc016d-f248-4dd7-830a-5b6f60b6cd11
+
+	/// Valor acumulado da alíquota de ICMS registrado nas agendas (armazenado em valor inteiro/nominal na origem, ex: 39.00).
+	measure 'Alíquota ICMS' = SUM('Agendamentos (Dia)'[PERC_ICMS])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio
+		lineageTag: 9b39a328-a692-463f-87d5-6fef8d26d0ff
+
+	/// Valor acumulado da alíquota de PIS/COFINS registrado nas agendas (armazenado em valor inteiro/nominal na origem)
+	measure 'Alíquota PIS/COFINS' = SUM('Agendamentos (Dia)'[PERC_PIS_COFINS])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio
+		lineageTag: fb0a9521-eb73-401a-9a3e-08dc157112cb
+
+	/// Retorna o valor de Valor Verba para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Verba Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Verba],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;"-"
+		displayFolder: Verbas e Acordos\Ano Anterior
+		lineageTag: ada4cf05-1299-4fda-b3af-c61741fe8498
+
+	/// Retorna o valor de Valor Custo Apurado para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Custo Apurado Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Custo Apurado],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajuste de Custo\Ano Anterior
+		lineageTag: 98d30290-753f-404b-9fc4-56ef59bd80d3
+
+	/// Retorna o valor de Valor Ajuste Gerencial para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Ajuste Gerencial Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Ajuste Gerencial],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Ano Anterior
+		lineageTag: aabf0e82-cb8c-4caa-8b61-190b70c2a47b
+
+	/// Retorna o valor de Valor Ajuste Margem Contribuição para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Ajuste Margem Contribuição Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Ajuste Margem Contribuição],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Ano Anterior
+		lineageTag: c465686f-f27d-4a2b-8199-fa01ffe5608a
+
+	/// Retorna o valor de Valor Ajuste Margem PDV para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Ajuste Margem PDV Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Ajuste Margem PDV],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Ano Anterior
+		lineageTag: 13de2918-3245-455f-afe4-3e8cf7eb3bc7
+
+	/// Retorna o valor de Valor Ajuste Perda Gerencial para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Ajuste Perda Gerencial Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Ajuste Perda Gerencial],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Ano Anterior
+		lineageTag: 37465d0d-e682-4f8d-8ecb-b15d393fd218
+
+	/// Retorna o valor de Meta Venda (Até Ontem) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Meta Venda (Até Ontem) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Meta Venda (Até Ontem)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Metas\Metas Financeiras\Ano Anterior
+		lineageTag: 853de59b-2651-4f72-b471-2af3cc42dc95
+
+	/// Retorna o valor de Meta Embalagem para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Meta Embalagem Ano Anterior (Até Ontem)' = CALCULATE([Meta Embalagem (Até Ontem)], SAMEPERIODLASTYEAR('Calendário'[Dia]))
+		formatString: #,##0;-#,##0;0
+		displayFolder: Metas\Metas de Volume\Ano Anterior
+		lineageTag: ec43e676-33af-4b76-9ecb-4553ef88fe33
+
+	/// Retorna o valor de Meta Categoria - Qtd Tonelagem para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Meta Categoria - Qtd Tonelagem Ano Anterior (Até Ontem)' = CALCULATE([Meta Categoria - Qtd Tonelagem (Até Ontem)], SAMEPERIODLASTYEAR('Calendário'[Dia]))
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Metas\Metas de Volume\Ano Anterior
+		lineageTag: ce380be9-a7fd-4d91-9d38-62626606b986
+
+	/// Retorna o valor de Valor Embalagem para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Embalagem Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Embalagem],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Participação de Embalagem\Ano Anterior
+		lineageTag: b7162e98-fcc2-4a07-9a98-20f80a68075e
+
+	/// Retorna o valor de Quantidade Perda para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Quantidade Perda Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Quantidade Perda],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Perdas por Produto\Ano Anterior
+		lineageTag: 314846eb-5717-4ed2-a6f7-5d73be54edb5
+
+	/// Retorna o valor de Valor Total Perda para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Total Perda Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Total Perda],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Perdas por Produto\Ano Anterior
+		lineageTag: 962c39c2-6a07-4c3c-b125-14bc506fa587
+
+	/// Retorna o valor de Quantidade Vendida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Quantidade Vendida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Quantidade Vendida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: ba1ccd75-2f38-4025-8d20-37ad28067fbb
+
+	/// Retorna o valor de Quantidade Líquida Vendida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Quantidade Líquida Vendida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Quantidade Líquida Vendida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: 08e69f08-f439-428e-baaf-e6e978ebb6d2
+
+	/// Retorna o valor de Quantidade Devolvida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Quantidade Devolvida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Quantidade Devolvida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: 1552b65c-9984-4da7-86b7-c3525d927c3f
+
+	/// Retorna o valor de Tonelagem Vendida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Tonelagem Vendida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Tonelagem Vendida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: 37815b63-5dbe-4243-a320-419bc947da53
+
+	/// Retorna o valor de Tonelagem Devolvida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Tonelagem Devolvida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Tonelagem Devolvida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: 26164a0c-b731-4fb7-9919-d685800b96a8
+
+	/// Retorna o valor de Tonelagem Líquida Vendida para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Tonelagem Líquida Vendida Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Tonelagem Líquida Vendida],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Ano Anterior
+		lineageTag: 437c0047-b4db-4d48-aed4-eab7b6d10406
+
+	/// Retorna o valor de Faturamento Bruto para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Faturamento Bruto Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Faturamento Bruto],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Ano Anterior
+		lineageTag: 6269d612-18fb-4019-8dd9-494936ce7c2e
+
+	/// Retorna o valor de Valor Devolvido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Devolvido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Devolvido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Ano Anterior
+		lineageTag: dd660bf5-958d-40cb-94d1-b6bf555fd4a4
+
+	/// Retorna o valor de Faturamento Líquido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Faturamento Líquido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Faturamento Líquido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Ano Anterior
+		lineageTag: 554da8d4-4c73-4838-99da-abb50921fd93
+
+	/// Retorna o valor de Custo Bruto para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Custo Bruto Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Custo Bruto],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Ano Anterior
+		lineageTag: 563e1f3f-a232-4b0a-aa4f-fa853d911f81
+
+	/// Retorna o valor de Custo Devolvido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Custo Devolvido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Custo Devolvido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Ano Anterior
+		lineageTag: 0dc9adef-af1c-4700-943f-776dc1d47ece
+
+	/// Retorna o valor de Custo Líquido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Custo Líquido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Custo Líquido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Ano Anterior
+		lineageTag: 6b033b27-807f-4206-8c29-95fdadf475e3
+
+	/// Retorna o valor de ICMS Bruto para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'ICMS Bruto Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [ICMS Bruto],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: fa7dc89a-3649-46e6-8f43-fcc1612e9fb0
+
+	/// Retorna o valor de ICMS Devolvido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'ICMS Devolvido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [ICMS Devolvido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: 1089ee53-a112-4145-8d9c-78b7a35ad1e0
+
+	/// Retorna o valor de ICMS Líquido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'ICMS Líquido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [ICMS Líquido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: b4e288e7-194e-4a5e-b4ae-30842710ecbe
+
+	/// Retorna o valor de PIS COFINS Bruto para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'PIS COFINS Bruto Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [PIS COFINS Bruto],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: a8214d34-ea93-48e3-9330-ba6eb7010019
+
+	/// Retorna o valor de PIS COFINS Devolvido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'PIS COFINS Devolvido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [PIS COFINS Devolvido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: 283dc640-d363-4524-94e5-ab08d75e1af5
+
+	/// Retorna o valor de PIS COFINS Líquido para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'PIS COFINS Líquido Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [PIS COFINS Líquido],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Ano Anterior
+		lineageTag: 631c48f4-735b-43ab-9738-59b934eb5283
+
+	/// Retorna o valor de Quantidade Venda Hora para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Quantidade Venda Hora Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Quantidade Venda Hora],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Ano Anterior
+		lineageTag: 9cdc260c-0042-4d44-9af7-cec02f62a1d2
+
+	/// Retorna o valor de Valor Desconto Venda Hora para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Desconto Venda Hora Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Desconto Venda Hora],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora\Ano Anterior
+		lineageTag: 945c4ae1-78a9-4b21-b5ac-631d0aa04005
+
+	/// Retorna o valor de Valor Venda Hora para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Venda Hora Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Venda Hora],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora\Ano Anterior
+		lineageTag: 08c71c14-1f05-4e2d-9316-06563905d9c3
+
+	/// Retorna o valor de Qtd Embalagens para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Qtd Embalagens Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Embalagens],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: e8402b0b-f3e5-4e55-93b9-bb1cba43229c
+
+	/// Retorna o valor de Qtd Notas para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Qtd Notas Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Notas],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: ef44ab24-9140-40a4-86f7-74679e8b711c
+
+	/// Retorna o valor de Qtd Embalagens Fornecedor para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Qtd Embalagens Fornecedor Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Embalagens Fornecedor],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: a1ca99a9-6d88-4756-a335-f7b4310bc01a
+
+	/// Retorna o valor de Peso Líquido Dia (Kg) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Peso Líquido Dia (Kg) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Peso Líquido Dia (Kg)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: 707baf2f-df34-4171-b406-61c326d68799
+
+	/// Retorna o valor de Peso Líquido Total (Kg) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Peso Líquido Total (Kg) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Peso Líquido Total (Kg)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: 52c4c471-f252-42f1-919c-8aa61af03cdc
+
+	/// Retorna o valor de Total para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Total Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Total],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: f4c3c3fa-3317-402f-80c6-b803cd6da3ee
+
+	/// Retorna o valor de ICMS para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'ICMS Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [ICMS],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: 213bc7c9-2f6e-4f5c-a405-8bd798942c12
+
+	/// Retorna o valor de PIS/COFINS para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'PIS/COFINS Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [PIS/COFINS],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: c3066fd9-abfb-4f00-ac61-d988a3c9b150
+
+	/// Retorna o valor de Base Cálculo ICMS para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Base Cálculo ICMS Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Base Cálculo ICMS],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: 2b42edeb-57d7-428d-bfec-c81cc6d50e17
+
+	/// Retorna o valor de IPI para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'IPI Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [IPI],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: acf1d98b-5b2a-4f9a-aa80-295c8eda4496
+
+	/// Retorna o valor de ST para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'ST Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [ST],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: 2c63dab9-fec1-4bef-98ab-148e825bcc86
+
+	/// Retorna o valor de Custo Unitário Médio para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Custo Unitário Médio Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Custo Unitário Médio],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: da71af9c-11ae-4f18-ad70-b8bcd917230c
+
+	/// Retorna o valor de Preço Unitário Médio para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Preço Unitário Médio Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Preço Unitário Médio],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: f3eb7d75-7670-4413-a33a-86a0e36788cf
+
+	/// Retorna o valor de Alíquota ICMS para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Alíquota ICMS Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Alíquota ICMS],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Ano Anterior
+		lineageTag: 7ccf5d9d-2d1f-431a-9ade-e73772eecbd7
+
+	/// Retorna o valor de Alíquota PIS/COFINS para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Alíquota PIS/COFINS Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Alíquota PIS/COFINS],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Ano Anterior
+		lineageTag: 98a9ad92-9d1d-4dea-9dcb-d596a12b56dd
+
+	/// Diferença absoluta entre o valor atual de Valor Verba e o mesmo período do ano anterior.
+	measure 'Valor Verba Var R$' = [Valor Verba] - [Valor Verba Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;"-"
+		displayFolder: Verbas e Acordos\Variações
+		lineageTag: 3533295e-6c88-4876-a23f-cc04485bf1f8
+
+	/// Variação percentual de Valor Verba em relação ao mesmo período do ano anterior.
+	measure 'Valor Verba Var %' = DIVIDE([Valor Verba Var R$], [Valor Verba Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Verbas e Acordos\Variações
+		lineageTag: ca747adc-59e0-4841-ae91-a925e2a1e58b
+
+	/// Diferença absoluta entre o valor atual de Valor Custo Apurado e o mesmo período do ano anterior.
+	measure 'Valor Custo Apurado Var R$' = [Valor Custo Apurado] - [Valor Custo Apurado Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajuste de Custo\Variações
+		lineageTag: c9e3d53c-caaa-4dce-b9fe-d37eaab7f317
+
+	/// Variação percentual de Valor Custo Apurado em relação ao mesmo período do ano anterior.
+	measure 'Valor Custo Apurado Var %' = DIVIDE([Valor Custo Apurado Var R$], [Valor Custo Apurado Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Ajuste de Custo\Variações
+		lineageTag: b340486a-a4c1-45bd-8663-947710f7c3a4
+
+	/// Diferença absoluta entre o valor atual de Valor Ajuste Gerencial e o mesmo período do ano anterior.
+	measure 'Valor Ajuste Gerencial Var R$' = [Valor Ajuste Gerencial] - [Valor Ajuste Gerencial Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: 56047336-ad2e-4635-8aee-19cbe2b7adfb
+
+	/// Variação percentual de Valor Ajuste Gerencial em relação ao mesmo período do ano anterior.
+	measure 'Valor Ajuste Gerencial Var %' = DIVIDE([Valor Ajuste Gerencial Var R$], [Valor Ajuste Gerencial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: d3770057-cae1-48b7-96fe-566457eb18e8
+
+	/// Diferença absoluta entre o valor atual de Valor Ajuste Margem Contribuição e o mesmo período do ano anterior.
+	measure 'Valor Ajuste Margem Contribuição Var R$' = [Valor Ajuste Margem Contribuição] - [Valor Ajuste Margem Contribuição Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: ae4b27d1-f07f-47ff-9931-6a41785d63ed
+
+	/// Variação percentual de Valor Ajuste Margem Contribuição em relação ao mesmo período do ano anterior.
+	measure 'Valor Ajuste Margem Contribuição Var %' = DIVIDE([Valor Ajuste Margem Contribuição Var R$], [Valor Ajuste Margem Contribuição Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: b172e700-672a-40f4-8ce5-3ab9963f9969
+
+	/// Diferença absoluta entre o valor atual de Valor Ajuste Margem PDV e o mesmo período do ano anterior.
+	measure 'Valor Ajuste Margem PDV Var R$' = [Valor Ajuste Margem PDV] - [Valor Ajuste Margem PDV Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: 489cf423-6013-4b2f-b43b-554741a7cfd9
+
+	/// Variação percentual de Valor Ajuste Margem PDV em relação ao mesmo período do ano anterior.
+	measure 'Valor Ajuste Margem PDV Var %' = DIVIDE([Valor Ajuste Margem PDV Var R$], [Valor Ajuste Margem PDV Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: 4c73d438-8c0a-4115-b390-21f6b3e6187b
+
+	/// Diferença absoluta entre o valor atual de Valor Ajuste Perda Gerencial e o mesmo período do ano anterior.
+	measure 'Valor Ajuste Perda Gerencial Var R$' = [Valor Ajuste Perda Gerencial] - [Valor Ajuste Perda Gerencial Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: 7567b33a-cc0a-49e3-bfae-78d1c159ed1b
+
+	/// Variação percentual de Valor Ajuste Perda Gerencial em relação ao mesmo período do ano anterior.
+	measure 'Valor Ajuste Perda Gerencial Var %' = DIVIDE([Valor Ajuste Perda Gerencial Var R$], [Valor Ajuste Perda Gerencial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Ajustes Gerenciais\Variações
+		lineageTag: 3e320868-ca0c-424b-b5ba-580ed904f0a4
+
+	/// Diferença absoluta entre o valor atual de Meta Venda (Até Ontem) e o mesmo período do ano anterior.
+	measure 'Meta Venda (Até Ontem) Var R$' = [Meta Venda (Até Ontem)] - [Meta Venda (Até Ontem) Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: 9539c98d-6a1f-454b-9ebc-41211f37f345
+
+	/// Variação percentual de Meta Venda (Até Ontem) em relação ao mesmo período do ano anterior.
+	measure 'Meta Venda (Até Ontem) Var %' = DIVIDE([Meta Venda (Até Ontem) Var R$], [Meta Venda (Até Ontem) Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: 928ea8f6-abd8-4da8-ae7c-b28a1677383a
+
+	/// Diferença absoluta entre o valor atual de Meta Embalagem e o mesmo período do ano anterior.
+	measure 'Meta Embalagem Var Abs' = [Meta Embalagem (Até Ontem)] - [Meta Embalagem Ano Anterior (Até Ontem)]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Metas\Metas de Volume\Variações
+		lineageTag: 057b7b6e-d127-4ac8-bbc6-342d4c51735c
+
+	/// Variação percentual de Meta Embalagem em relação ao mesmo período do ano anterior.
+	measure 'Meta Embalagem Var %' = DIVIDE([Meta Embalagem Var Abs], [Meta Embalagem Ano Anterior (Até Ontem)])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Metas\Metas de Volume\Variações
+		lineageTag: 8194e3c7-ce1e-4428-9869-bd970a9945cf
+
+	/// Diferença absoluta entre o valor atual de Meta Categoria - Qtd Tonelagem e o mesmo período do ano anterior.
+	measure 'Meta Categoria - Qtd Tonelagem Var Abs' = [Meta Categoria - Qtd Tonelagem (Até Ontem)] - [Meta Categoria - Qtd Tonelagem Ano Anterior (Até Ontem)]
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Metas\Metas de Volume\Variações
+		lineageTag: 5fd9c99c-e923-492c-9703-717a9ce0e535
+
+	/// Variação percentual de Meta Categoria - Qtd Tonelagem em relação ao mesmo período do ano anterior.
+	measure 'Meta Categoria - Qtd Tonelagem Var %' = DIVIDE([Meta Categoria - Qtd Tonelagem Var Abs], [Meta Categoria - Qtd Tonelagem Ano Anterior (Até Ontem)])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Metas\Metas de Volume\Variações
+		lineageTag: bf25d39e-56e8-45b9-9554-9b96996f331c
+
+	/// Diferença absoluta entre o valor atual de Valor Embalagem e o mesmo período do ano anterior.
+	measure 'Valor Embalagem Var R$' = [Valor Embalagem] - [Valor Embalagem Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Participação de Embalagem\Variações
+		lineageTag: e492e134-0454-4ef1-82e1-143d3ce8cede
+
+	/// Variação percentual de Valor Embalagem em relação ao mesmo período do ano anterior.
+	measure 'Valor Embalagem Var %' = DIVIDE([Valor Embalagem Var R$], [Valor Embalagem Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Participação de Embalagem\Variações
+		lineageTag: 60995ed4-c758-4c55-8193-b8e826f0e777
+
+	/// Diferença absoluta entre o valor atual de Quantidade Perda e o mesmo período do ano anterior.
+	measure 'Quantidade Perda Var Abs' = [Quantidade Perda] - [Quantidade Perda Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Perdas por Produto\Variações
+		lineageTag: 245720f6-d42d-4374-a1a8-8d7f843905be
+
+	/// Variação percentual de Quantidade Perda em relação ao mesmo período do ano anterior.
+	measure 'Quantidade Perda Var %' = DIVIDE([Quantidade Perda Var Abs], [Quantidade Perda Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Perdas por Produto\Variações
+		lineageTag: 34d3e5c7-6197-4d48-9deb-3c81d21e6add
+
+	/// Diferença absoluta entre o valor atual de Valor Total Perda e o mesmo período do ano anterior.
+	measure 'Valor Total Perda Var R$' = [Valor Total Perda] - [Valor Total Perda Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Perdas por Produto\Variações
+		lineageTag: 3d01c466-fadb-4df6-a917-8820fe8c05b1
+
+	/// Variação percentual de Valor Total Perda em relação ao mesmo período do ano anterior.
+	measure 'Valor Total Perda Var %' = DIVIDE([Valor Total Perda Var R$], [Valor Total Perda Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Perdas por Produto\Variações
+		lineageTag: f0531d57-90d5-445c-bd3a-d1fff98f52b5
+
+	/// Diferença absoluta entre o valor atual de Quantidade Vendida e o mesmo período do ano anterior.
+	measure 'Quantidade Vendida Var Abs' = [Quantidade Vendida] - [Quantidade Vendida Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: d5ad3823-1f70-4c63-8774-f98db59ed5e7
+
+	/// Variação percentual de Quantidade Vendida em relação ao mesmo período do ano anterior.
+	measure 'Quantidade Vendida Var %' = DIVIDE([Quantidade Vendida Var Abs], [Quantidade Vendida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 1424d7ac-a2d0-42b2-b7be-08e19563c916
+
+	/// Diferença absoluta entre o valor atual de Quantidade Líquida Vendida e o mesmo período do ano anterior.
+	measure 'Quantidade Líquida Vendida Var Abs' = [Quantidade Líquida Vendida] - [Quantidade Líquida Vendida Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 631ca303-f86d-4770-87d0-5fbdd3a61cd8
+
+	/// Variação percentual de Quantidade Líquida Vendida em relação ao mesmo período do ano anterior.
+	measure 'Quantidade Líquida Vendida Var %' = DIVIDE([Quantidade Líquida Vendida Var Abs], [Quantidade Líquida Vendida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 3c564908-2af1-45f5-98dc-06b13ad740da
+
+	/// Diferença absoluta entre o valor atual de Quantidade Devolvida e o mesmo período do ano anterior.
+	measure 'Quantidade Devolvida Var Abs' = [Quantidade Devolvida] - [Quantidade Devolvida Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 5a3e3e9f-1ffc-41fa-966b-a56486c6f4f4
+
+	/// Variação percentual de Quantidade Devolvida em relação ao mesmo período do ano anterior.
+	measure 'Quantidade Devolvida Var %' = DIVIDE([Quantidade Devolvida Var Abs], [Quantidade Devolvida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 03ea5a18-db38-4db1-87c7-0413cff3ab05
+
+	/// Diferença absoluta entre o valor atual de Tonelagem Vendida e o mesmo período do ano anterior.
+	measure 'Tonelagem Vendida Var Abs' = [Tonelagem Vendida] - [Tonelagem Vendida Ano Anterior]
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: ab56f6ee-a2f3-4eba-af87-4eaa480a0d96
+
+	/// Variação percentual de Tonelagem Vendida em relação ao mesmo período do ano anterior.
+	measure 'Tonelagem Vendida Var %' = DIVIDE([Tonelagem Vendida Var Abs], [Tonelagem Vendida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: f2498e09-248b-49d5-82ba-d50620193c9c
+
+	/// Diferença absoluta entre o valor atual de Tonelagem Devolvida e o mesmo período do ano anterior.
+	measure 'Tonelagem Devolvida Var Abs' = [Tonelagem Devolvida] - [Tonelagem Devolvida Ano Anterior]
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 2f04888a-9327-4019-91c3-33129803d817
+
+	/// Variação percentual de Tonelagem Devolvida em relação ao mesmo período do ano anterior.
+	measure 'Tonelagem Devolvida Var %' = DIVIDE([Tonelagem Devolvida Var Abs], [Tonelagem Devolvida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 4dce3c90-3741-4c21-a50d-7ec97d2374dd
+
+	/// Diferença absoluta entre o valor atual de Tonelagem Líquida Vendida e o mesmo período do ano anterior.
+	measure 'Tonelagem Líquida Vendida Var Abs' = [Tonelagem Líquida Vendida] - [Tonelagem Líquida Vendida Ano Anterior]
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: e81d2729-ba3a-41d9-92b0-4a709751a92e
+
+	/// Variação percentual de Tonelagem Líquida Vendida em relação ao mesmo período do ano anterior.
+	measure 'Tonelagem Líquida Vendida Var %' = DIVIDE([Tonelagem Líquida Vendida Var Abs], [Tonelagem Líquida Vendida Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Volume\Variações
+		lineageTag: 0e2cf656-cc5e-46c4-99e7-8db23a2c45ca
+
+	/// Diferença absoluta entre o valor atual de Faturamento Bruto e o mesmo período do ano anterior.
+	measure 'Faturamento Bruto Var R$' = [Faturamento Bruto] - [Faturamento Bruto Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: 023094bf-c6a1-4a03-b543-6f25be16665a
+
+	/// Variação percentual de Faturamento Bruto em relação ao mesmo período do ano anterior.
+	measure 'Faturamento Bruto Var %' = DIVIDE([Faturamento Bruto Var R$], [Faturamento Bruto Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: a559265d-38d2-47ff-939d-47452ca6a4b2
+
+	/// Diferença absoluta entre o valor atual de Valor Devolvido e o mesmo período do ano anterior.
+	measure 'Valor Devolvido Var R$' = [Valor Devolvido] - [Valor Devolvido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: 4771be3a-105e-49a8-8713-6caec7f62886
+
+	/// Variação percentual de Valor Devolvido em relação ao mesmo período do ano anterior.
+	measure 'Valor Devolvido Var %' = DIVIDE([Valor Devolvido Var R$], [Valor Devolvido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: edad86e0-8822-4b4c-a961-d17cace9fa5c
+
+	/// Diferença absoluta entre o valor atual de Faturamento Líquido e o mesmo período do ano anterior.
+	measure 'Faturamento Líquido Var R$' = [Faturamento Líquido] - [Faturamento Líquido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: 1fdea22c-0f08-4e58-99bf-eb76c544c4d0
+
+	/// Variação percentual de Faturamento Líquido em relação ao mesmo período do ano anterior.
+	measure 'Faturamento Líquido Var %' = DIVIDE([Faturamento Líquido Var R$], [Faturamento Líquido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: a694995c-f23a-4215-ac89-625101145349
+
+	/// Diferença absoluta entre o valor atual de Custo Bruto e o mesmo período do ano anterior.
+	measure 'Custo Bruto Var R$' = [Custo Bruto] - [Custo Bruto Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: 5fe240a7-3e3b-47b6-9f06-7fc19ad8166c
+
+	/// Variação percentual de Custo Bruto em relação ao mesmo período do ano anterior.
+	measure 'Custo Bruto Var %' = DIVIDE([Custo Bruto Var R$], [Custo Bruto Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: ef24af39-534e-495b-8498-94d1e1490a1a
+
+	/// Diferença absoluta entre o valor atual de Custo Devolvido e o mesmo período do ano anterior.
+	measure 'Custo Devolvido Var R$' = [Custo Devolvido] - [Custo Devolvido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: cb878663-7c4e-48ef-86da-a6591a74719a
+
+	/// Variação percentual de Custo Devolvido em relação ao mesmo período do ano anterior.
+	measure 'Custo Devolvido Var %' = DIVIDE([Custo Devolvido Var R$], [Custo Devolvido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: cb4572d1-7b72-4a54-bfae-0c5ef35a35e1
+
+	/// Diferença absoluta entre o valor atual de Custo Líquido e o mesmo período do ano anterior.
+	measure 'Custo Líquido Var R$' = [Custo Líquido] - [Custo Líquido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: e610979d-380f-40a8-ba37-95a8c14c5fbe
+
+	/// Variação percentual de Custo Líquido em relação ao mesmo período do ano anterior.
+	measure 'Custo Líquido Var %' = DIVIDE([Custo Líquido Var R$], [Custo Líquido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Custos\Variações
+		lineageTag: 011fad31-99a6-4a14-9e85-32ba3127ef07
+
+	/// Diferença absoluta entre o valor atual de ICMS Bruto e o mesmo período do ano anterior.
+	measure 'ICMS Bruto Var R$' = [ICMS Bruto] - [ICMS Bruto Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 5cbe9553-2bf1-4af3-8ecc-d6a6f2358aae
+
+	/// Variação percentual de ICMS Bruto em relação ao mesmo período do ano anterior.
+	measure 'ICMS Bruto Var %' = DIVIDE([ICMS Bruto Var R$], [ICMS Bruto Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 1cc0d67b-a5b7-4e87-8c41-c4f521b75bec
+
+	/// Diferença absoluta entre o valor atual de ICMS Devolvido e o mesmo período do ano anterior.
+	measure 'ICMS Devolvido Var R$' = [ICMS Devolvido] - [ICMS Devolvido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: c830b9a8-d55e-4ca3-86b6-5e600998bfda
+
+	/// Variação percentual de ICMS Devolvido em relação ao mesmo período do ano anterior.
+	measure 'ICMS Devolvido Var %' = DIVIDE([ICMS Devolvido Var R$], [ICMS Devolvido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 4a180aa0-5b3a-47e2-9d70-a32bee3200d6
+
+	/// Diferença absoluta entre o valor atual de ICMS Líquido e o mesmo período do ano anterior.
+	measure 'ICMS Líquido Var R$' = [ICMS Líquido] - [ICMS Líquido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 8a1d11b8-a1ab-4f64-97d3-133a925a8fc8
+
+	/// Variação percentual de ICMS Líquido em relação ao mesmo período do ano anterior.
+	measure 'ICMS Líquido Var %' = DIVIDE([ICMS Líquido Var R$], [ICMS Líquido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: eece7ab9-6248-4e4a-bf32-557cc5a6f5be
+
+	/// Diferença absoluta entre o valor atual de PIS COFINS Bruto e o mesmo período do ano anterior.
+	measure 'PIS COFINS Bruto Var R$' = [PIS COFINS Bruto] - [PIS COFINS Bruto Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: ecc21846-b3b7-4702-b9b3-a6b659418da2
+
+	/// Variação percentual de PIS COFINS Bruto em relação ao mesmo período do ano anterior.
+	measure 'PIS COFINS Bruto Var %' = DIVIDE([PIS COFINS Bruto Var R$], [PIS COFINS Bruto Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 97fb18d1-f70c-49ed-82e8-0e2cd4252afe
+
+	/// Diferença absoluta entre o valor atual de PIS COFINS Devolvido e o mesmo período do ano anterior.
+	measure 'PIS COFINS Devolvido Var R$' = [PIS COFINS Devolvido] - [PIS COFINS Devolvido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: b02820f0-45c0-46e5-885d-5a2e86d36fff
+
+	/// Variação percentual de PIS COFINS Devolvido em relação ao mesmo período do ano anterior.
+	measure 'PIS COFINS Devolvido Var %' = DIVIDE([PIS COFINS Devolvido Var R$], [PIS COFINS Devolvido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 0847565b-10e4-48a1-8139-3bdb995b12f0
+
+	/// Diferença absoluta entre o valor atual de PIS COFINS Líquido e o mesmo período do ano anterior.
+	measure 'PIS COFINS Líquido Var R$' = [PIS COFINS Líquido] - [PIS COFINS Líquido Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 756eeb1a-d807-4c81-a318-671f40cdc4cd
+
+	/// Variação percentual de PIS COFINS Líquido em relação ao mesmo período do ano anterior.
+	measure 'PIS COFINS Líquido Var %' = DIVIDE([PIS COFINS Líquido Var R$], [PIS COFINS Líquido Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Impostos\Variações
+		lineageTag: 5f01d564-1388-47a0-9567-86b66f06e7a1
+
+	/// Diferença absoluta entre o valor atual de Quantidade Venda Hora e o mesmo período do ano anterior.
+	measure 'Quantidade Venda Hora Var Abs' = [Quantidade Venda Hora] - [Quantidade Venda Hora Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: 0f86e49a-4f76-4742-867d-a3ba7576f3c8
+
+	/// Variação percentual de Quantidade Venda Hora em relação ao mesmo período do ano anterior.
+	measure 'Quantidade Venda Hora Var %' = DIVIDE([Quantidade Venda Hora Var Abs], [Quantidade Venda Hora Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: bb803165-5da3-477b-875d-b560321df75b
+
+	/// Diferença absoluta entre o valor atual de Valor Desconto Venda Hora e o mesmo período do ano anterior.
+	measure 'Valor Desconto Venda Hora Var R$' = [Valor Desconto Venda Hora] - [Valor Desconto Venda Hora Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: c17a663a-2035-4311-b2d9-526a4209432d
+
+	/// Variação percentual de Valor Desconto Venda Hora em relação ao mesmo período do ano anterior.
+	measure 'Valor Desconto Venda Hora Var %' = DIVIDE([Valor Desconto Venda Hora Var R$], [Valor Desconto Venda Hora Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: b0471a3e-d74c-4653-8323-8ec71bf7ec7d
+
+	/// Diferença absoluta entre o valor atual de Valor Venda Hora e o mesmo período do ano anterior.
+	measure 'Valor Venda Hora Var R$' = [Valor Venda Hora] - [Valor Venda Hora Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: 4eef8b33-83c0-4753-a700-0ece65094be0
+
+	/// Variação percentual de Valor Venda Hora em relação ao mesmo período do ano anterior.
+	measure 'Valor Venda Hora Var %' = DIVIDE([Valor Venda Hora Var R$], [Valor Venda Hora Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Variações
+		lineageTag: 5b10bce4-3ddb-4211-87d4-a8b8fb30548c
+
+	/// Diferença absoluta entre o valor atual de Qtd Embalagens e o mesmo período do ano anterior.
+	measure 'Qtd Embalagens Var Abs' = [Qtd Embalagens] - [Qtd Embalagens Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 12e26b57-ce24-4832-a29c-3d43705a7ae0
+
+	/// Variação percentual de Qtd Embalagens em relação ao mesmo período do ano anterior.
+	measure 'Qtd Embalagens Var %' = DIVIDE([Qtd Embalagens Var Abs], [Qtd Embalagens Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 8822c4fe-cfdd-4c0b-998b-299ae8360316
+
+	/// Diferença absoluta entre o valor atual de Qtd Notas e o mesmo período do ano anterior.
+	measure 'Qtd Notas Var Abs' = [Qtd Notas] - [Qtd Notas Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: cd29a4c1-0299-4d0e-b58b-23ce7a4b800e
+
+	/// Variação percentual de Qtd Notas em relação ao mesmo período do ano anterior.
+	measure 'Qtd Notas Var %' = DIVIDE([Qtd Notas Var Abs], [Qtd Notas Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: c4e821f5-ab26-4a02-8622-1ffc4028df67
+
+	/// Diferença absoluta entre o valor atual de Qtd Embalagens Fornecedor e o mesmo período do ano anterior.
+	measure 'Qtd Embalagens Fornecedor Var Abs' = [Qtd Embalagens Fornecedor] - [Qtd Embalagens Fornecedor Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: aa97cf55-a6d8-45fa-8d85-f09e88b50abf
+
+	/// Variação percentual de Qtd Embalagens Fornecedor em relação ao mesmo período do ano anterior.
+	measure 'Qtd Embalagens Fornecedor Var %' = DIVIDE([Qtd Embalagens Fornecedor Var Abs], [Qtd Embalagens Fornecedor Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 8b0e8636-4295-468f-bdb0-590d36c2da79
+
+	/// Diferença absoluta entre o valor atual de Peso Líquido Dia (Kg) e o mesmo período do ano anterior.
+	measure 'Peso Líquido Dia (Kg) Var Abs' = [Peso Líquido Dia (Kg)] - [Peso Líquido Dia (Kg) Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 492d43cb-2995-46e6-9aea-5ca6bd3b94c7
+
+	/// Variação percentual de Peso Líquido Dia (Kg) em relação ao mesmo período do ano anterior.
+	measure 'Peso Líquido Dia (Kg) Var %' = DIVIDE([Peso Líquido Dia (Kg) Var Abs], [Peso Líquido Dia (Kg) Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: db9e3bd3-8706-4dd7-acd3-d9c1c5153371
+
+	/// Diferença absoluta entre o valor atual de Peso Líquido Total (Kg) e o mesmo período do ano anterior.
+	measure 'Peso Líquido Total (Kg) Var Abs' = [Peso Líquido Total (Kg)] - [Peso Líquido Total (Kg) Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 56cbf230-6289-424f-a91e-845666f4ac73
+
+	/// Variação percentual de Peso Líquido Total (Kg) em relação ao mesmo período do ano anterior.
+	measure 'Peso Líquido Total (Kg) Var %' = DIVIDE([Peso Líquido Total (Kg) Var Abs], [Peso Líquido Total (Kg) Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: ac12adbf-991c-4905-b649-e9ce9d990335
+
+	/// Diferença absoluta entre o valor atual de Total e o mesmo período do ano anterior.
+	measure 'Total Var R$' = [Total] - [Total Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 12c373a8-db16-40f9-b61a-8d65648c8333
+
+	/// Variação percentual de Total em relação ao mesmo período do ano anterior.
+	measure 'Total Var %' = DIVIDE([Total Var R$], [Total Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: bd870580-a749-4173-8f39-8b153cfef890
+
+	/// Diferença absoluta entre o valor atual de ICMS e o mesmo período do ano anterior.
+	measure 'ICMS Var R$' = [ICMS] - [ICMS Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 0d4fd9a4-3a73-4ee9-b67a-6c662ab7064c
+
+	/// Variação percentual de ICMS em relação ao mesmo período do ano anterior.
+	measure 'ICMS Var %' = DIVIDE([ICMS Var R$], [ICMS Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 5ae388fd-6775-413c-a5e7-896d6021ed2a
+
+	/// Diferença absoluta entre o valor atual de PIS/COFINS e o mesmo período do ano anterior.
+	measure 'PIS/COFINS Var R$' = [PIS/COFINS] - [PIS/COFINS Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: c6187105-3262-4420-ba05-1e00e11bd4c0
+
+	/// Variação percentual de PIS/COFINS em relação ao mesmo período do ano anterior.
+	measure 'PIS/COFINS Var %' = DIVIDE([PIS/COFINS Var R$], [PIS/COFINS Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: d0c9c32d-8cab-4145-91bb-82d73fd1bf82
+
+	/// Diferença absoluta entre o valor atual de Base Cálculo ICMS e o mesmo período do ano anterior.
+	measure 'Base Cálculo ICMS Var R$' = [Base Cálculo ICMS] - [Base Cálculo ICMS Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: b647847c-0a73-48a4-b643-a0e3de32b607
+
+	/// Variação percentual de Base Cálculo ICMS em relação ao mesmo período do ano anterior.
+	measure 'Base Cálculo ICMS Var %' = DIVIDE([Base Cálculo ICMS Var R$], [Base Cálculo ICMS Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: a227ee5a-68dd-4857-9a7e-153dcf556d8f
+
+	/// Diferença absoluta entre o valor atual de IPI e o mesmo período do ano anterior.
+	measure 'IPI Var R$' = [IPI] - [IPI Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 6a4cf9bd-0492-4304-81bb-17d763034f17
+
+	/// Variação percentual de IPI em relação ao mesmo período do ano anterior.
+	measure 'IPI Var %' = DIVIDE([IPI Var R$], [IPI Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 41a8e6ed-df3b-4516-9395-6b236d5e2af6
+
+	/// Diferença absoluta entre o valor atual de ST e o mesmo período do ano anterior.
+	measure 'ST Var R$' = [ST] - [ST Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: d07826b7-f5d8-499d-bcb8-f6614714fa1f
+
+	/// Variação percentual de ST em relação ao mesmo período do ano anterior.
+	measure 'ST Var %' = DIVIDE([ST Var R$], [ST Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 5bd0e833-908e-487f-9c91-24d1c0d44b53
+
+	/// Diferença absoluta entre o valor atual de Custo Unitário Médio e o mesmo período do ano anterior.
+	measure 'Custo Unitário Médio Var R$' = [Custo Unitário Médio] - [Custo Unitário Médio Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 9d070ce0-72ca-4723-ae02-df62e96b5cc3
+
+	/// Variação percentual de Custo Unitário Médio em relação ao mesmo período do ano anterior.
+	measure 'Custo Unitário Médio Var %' = DIVIDE([Custo Unitário Médio Var R$], [Custo Unitário Médio Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 330c0861-038d-40b7-9674-bc996beb1692
+
+	/// Diferença absoluta entre o valor atual de Preço Unitário Médio e o mesmo período do ano anterior.
+	measure 'Preço Unitário Médio Var R$' = [Preço Unitário Médio] - [Preço Unitário Médio Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 8805747c-f846-4e38-9f1c-f90e6cd3b04e
+
+	/// Variação percentual de Preço Unitário Médio em relação ao mesmo período do ano anterior.
+	measure 'Preço Unitário Médio Var %' = DIVIDE([Preço Unitário Médio Var R$], [Preço Unitário Médio Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: d31b5b05-3205-4643-bda5-4cf241f55392
+
+	/// Diferença absoluta entre o valor atual de Alíquota ICMS e o mesmo período do ano anterior.
+	measure 'Alíquota ICMS Var R$' = [Alíquota ICMS] - [Alíquota ICMS Ano Anterior]
+		formatString: #,##0.00"%";-#,##0.00"%";0.00"%"
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Variações
+		lineageTag: 08fbaee5-92d8-49f9-9eb7-b159b2d0601c
+
+	/// Variação percentual de Alíquota ICMS em relação ao mesmo período do ano anterior.
+	measure 'Alíquota ICMS Var %' = DIVIDE([Alíquota ICMS Var R$], [Alíquota ICMS Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Variações
+		lineageTag: e1f198bf-0323-4c4d-9682-49b5d63bd28e
+
+	/// Diferença absoluta entre o valor atual de Alíquota PIS/COFINS e o mesmo período do ano anterior.
+	measure 'Alíquota PIS/COFINS Var R$' = [Alíquota PIS/COFINS] - [Alíquota PIS/COFINS Ano Anterior]
+		formatString: #,##0.00"%";-#,##0.00"%";0.00"%"
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Variações
+		lineageTag: 6acb7fe9-8996-4b80-bb79-5c4866a7cd10
+
+	/// Variação percentual de Alíquota PIS/COFINS em relação ao mesmo período do ano anterior.
+	measure 'Alíquota PIS/COFINS Var %' = DIVIDE([Alíquota PIS/COFINS Var R$], [Alíquota PIS/COFINS Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Apoio\Variações
+		lineageTag: ff67993b-7ba2-42fb-b924-f46850c55095
+
+	/// Média diária de Faturamento Líquido considerando os dias decorridos até ontem no mês.
+	measure 'Venda Média Dia' = ```
+			VAR _DiasDecorridos = 
+			    CALCULATE(
+			        COUNTROWS('Calendário'),
+			        KEEPFILTERS('Calendário'[Flag Data Passada] = 1),
+			        ALLEXCEPT('Calendário', 'Calendário'[COD_MES])
+			    )
+			
+			RETURN
+			    DIVIDE(
+			        [Faturamento Líquido],
+			        _DiasDecorridos
+			    )
+			```
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: 32108e98-ac9e-4421-9a19-50bf2c42c17e
+
+	/// Venda Média Dia para o mesmo período do ano anterior, limitada estritamente até o dia de hoje.
+	measure 'Venda Média Dia Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Venda Média Dia],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento\Ano Anterior
+		lineageTag: 18671c13-909c-4b75-89dc-9e5d8ea5b7ea
+
+	/// Soma do Custo Líquido do mesmo período do ano anterior com os Ajustes Gerenciais do PDV do ano anterior (ex: Estoque Negativo, Verba Custo Mês Anterior, Diferença Custo CD, Acordo Comercial, etc.).
+	measure 'Custo Líquido com Ajuste Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Custo Líquido com Ajuste],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Custos\Ano Anterior
+		lineageTag: 796cb2a4-cae6-43bc-b1e5-cc54ecb000e4
+
+	/// Calcula a Margem Comercial do mesmo período do ano anterior.
+	measure 'Margem Comercial Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Comercial],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem Comercial\Ano Anterior
+		lineageTag: 7fc5b7b0-7672-4af7-ac81-40e30c30ce7b
+
+	/// Calcula a Margem de Contribuição do mesmo período do ano anterior.
+	measure 'Margem Contribuição Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Contribuição],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem de Contribuição\Ano Anterior
+		lineageTag: f57de761-177f-4bba-b954-48d0d0920b27
+
+	/// Soma do Custo Líquido do período atual com os Ajustes Gerenciais do PDV (ex: Estoque Negativo, Verba Custo Mês Anterior, Diferença Custo CD, Acordo Comercial, etc.).
+	measure 'Custo Líquido com Ajuste' = [Custo Líquido] + [Valor Custo Apurado]
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Custos
+		lineageTag: 7426abc7-f748-4b1e-a0e7-8fb57bdff346
+
+	/// Calcula a Margem Comercial do período atual (Faturamento Líquido deduções de ICMS Líquido, PIS/COFINS Líquido e Custo Líquido com Ajuste).
+	measure 'Margem Comercial' = ```
+			
+			    [Faturamento Líquido] 
+			    - [ICMS Líquido] 
+			    - [PIS COFINS Líquido] 
+			    - [Custo Líquido com Ajuste]
+			
+			```
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem Comercial
+		lineageTag: b00edd0c-320d-4009-8f02-69e82b0cee34
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	/// Calcula a Margem de Contribuição do período atual (Margem Comercial deduções de Embalagem e Perdas Totais).
+	measure 'Margem Contribuição' = ```
+			
+			    [Margem Comercial] 
+			    - [Valor Embalagem] 
+			    - [Valor Total Perda]
+			
+			```
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem de Contribuição
+		lineageTag: c0ca6a16-8eda-4a51-bac0-f95e939e049c
+
+	/// Margem de Contribuição do período atual somada aos Ajustes de Margem de Contribuição e Verbas.
+	measure 'Margem Contribuição Ajustada' = ```
+			
+			    [Margem Contribuição] 
+			    + [Valor Ajuste Margem Contribuição] 
+			    + [Valor Verba]
+			
+			```
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem de Contribuição
+		lineageTag: fc2ad4a2-ccad-4578-b0f0-6ea45077d317
+
+	/// Margem de Contribuição do mesmo período do ano anterior somada aos Ajustes de Margem de Contribuição e Verbas do ano anterior.
+	measure 'Margem Contribuição Ajustada Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Contribuição Ajustada],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem de Contribuição\Ano Anterior
+		lineageTag: 3f9a3912-8028-4128-bcab-f8c0453129e8
+
+	/// Margem Comercial do período atual somada aos Ajustes Gerenciais e Verbas.
+	measure 'Margem Comercial Ajustada' = ```
+			
+			    [Margem Comercial] 
+			    + [Valor Ajuste Gerencial] 
+			    + [Valor Verba]
+			
+			```
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem Comercial
+		lineageTag: c53c74fd-1443-4b52-8329-bf33afd2753f
+
+	/// Margem Comercial do mesmo período do ano anterior somada aos Ajustes Gerenciais e Verbas do ano anterior.
+	measure 'Margem Comercial Ajustada Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Comercial Ajustada],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Margem Comercial\Ano Anterior
+		lineageTag: 1347d8a2-eb31-49ef-a7e6-2aeabe571607
+
+	/// Retorna o valor de Margem Comercial Meta (Até Ontem) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Margem Comercial Meta (Até Ontem) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Comercial Meta (Até Ontem)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Ano Anterior
+		lineageTag: a2e9f431-1c41-4290-8a68-2217e91f210b
+
+	/// Retorna o valor de Margem Contribuição Meta (Até Ontem) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Margem Contribuição Meta (Até Ontem) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Contribuição Meta (Até Ontem)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Ano Anterior
+		lineageTag: b1c939de-343e-4d1d-8456-9fe2dc2e143f
+
+	/// Retorna o valor de Meta Perda (Até Ontem) para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Meta Perda (Até Ontem) Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Meta Perda (Até Ontem)],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Ano Anterior
+		lineageTag: 675cc3f0-4001-4b32-8edd-7e30db62019f
+
+	/// Diferença absoluta entre o valor atual de Margem Comercial Meta (Até Ontem) e o mesmo período do ano anterior.
+	measure 'Margem Comercial Meta (Até Ontem) Var R$' = [Margem Comercial Meta (Até Ontem)] - [Margem Comercial Meta (Até Ontem) Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: 8472cb5b-7a83-4c4c-9a9c-481ce265be1f
+
+	/// Variação percentual de Margem Comercial Meta em relação ao mesmo período do ano anterior.
+	measure 'Margem Comercial Meta (Até Ontem) Var %' = DIVIDE([Margem Comercial Meta (Até Ontem) Var R$], [Margem Comercial Meta (Até Ontem) Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: 329b1d4d-7cc7-4b5b-b45a-5c9da58899ca
+
+	/// Diferença absoluta entre o valor atual de Margem Contribuição Meta (Até Ontem) e o mesmo período do ano anterior.
+	measure 'Margem Contribuição Meta (Até Ontem) Var R$' = [Margem Contribuição Meta (Até Ontem)] - [Margem Contribuição Meta (Até Ontem) Ano Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: 473db7f7-d65c-4d49-8be7-7ef0db2d743f
+
+	/// Variação percentual de Margem Contribuição Meta em relação ao mesmo período do ano anterior.
+	measure 'Margem Contribuição Meta (Até Ontem) Var %' = DIVIDE([Margem Contribuição Meta (Até Ontem) Var R$], [Margem Contribuição Meta (Até Ontem) Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Metas\Metas Financeiras\Variações
+		lineageTag: ecc58792-0881-4a01-af32-c27a58e16588
+
+	/// Quantidade distinta de clientes atendidos na hora por filial.
+	measure 'Qtd Clientes Hora Filial' = DISTINCTCOUNTNOBLANK('Vendas por Hora'[COD_CLIENTE])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento
+		lineageTag: 0651d9b6-6d4b-413e-a082-58cbc24d986b
+
+	/// Quantidade distinta de cupons/tickets emitidos na hora por filial.
+	measure 'Qtd Tickets Hora Filial' = DISTINCTCOUNTNOBLANK('Vendas por Hora'[COD_CUPOM_VENDA])
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento
+		lineageTag: b21df289-4140-413f-9614-b47dc9541073
+
+	/// Quantidade de clientes no mesmo período do ano anterior (considerando apenas dias passados).
+	measure 'Qtd Clientes Hora Filial Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Clientes Hora Filial],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento\Ano Anterior
+		lineageTag: c3756d11-bad7-4d37-a553-1ba0b910ca77
+
+	/// Quantidade de tickets no mesmo período do ano anterior (considerando apenas dias passados).
+	measure 'Qtd Tickets Hora Filial Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Tickets Hora Filial],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento\Ano Anterior
+		lineageTag: 81d135f5-b85d-40b8-b4fa-32ffb88f7e22
+
+	/// Variação absoluta de clientes atendidos em relação ao ano anterior.
+	measure 'Qtd Clientes Hora Filial Var Abs' = [Qtd Clientes Hora Filial] - [Qtd Clientes Hora Filial Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento\Variações
+		lineageTag: aaa72894-3902-46be-a31c-6b4ff728ecfe
+
+	/// Variação percentual de clientes atendidos em relação ao ano anterior.
+	measure 'Qtd Clientes Hora Filial Var %' = DIVIDE([Qtd Clientes Hora Filial Var Abs], [Qtd Clientes Hora Filial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Atendimento\Variações
+		lineageTag: b0b39f1c-a2e0-4bb1-b75b-bc9392a10388
+
+	/// Variação absoluta de tickets emitidos em relação ao ano anterior.
+	measure 'Qtd Tickets Hora Filial Var Abs' = [Qtd Tickets Hora Filial] - [Qtd Tickets Hora Filial Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Vendas por Hora\Atendimento\Variações
+		lineageTag: 4d78ec41-aa8e-492c-b12e-ab685ec61d60
+
+	/// Variação percentual de tickets emitidos em relação ao ano anterior.
+	measure 'Qtd Tickets Hora Filial Var %' = DIVIDE([Qtd Tickets Hora Filial Var Abs], [Qtd Tickets Hora Filial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Atendimento\Variações
+		lineageTag: 779776b2-16cc-4b52-bc6d-b6f3a3a9ef8f
+
+	/// Medida de acompanhamento da Matriz do Relatório Executivo.
+	measure 'Vlr Sobra/falta' = [Faturamento Líquido] - [Meta Venda (Até Ontem)]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: 94d34d79-0697-4694-95a8-f19ba5070725
+
+	/// Medida de acompanhamento da Matriz do Relatório Executivo.
+	measure 'Sobra/Falta - dias' = DIVIDE([Vlr Sobra/falta], [Venda Média Dia], 0)
+		formatString: #,##0.00;-#,##0.00;0.00
+		displayFolder: Vendas Diárias\Faturamento
+		lineageTag: eaa8bcc1-5b68-42dd-8b1b-31b358371dfc
+
+	/// Medida de acompanhamento da Matriz do Relatório Executivo.
+	measure 'Real x Meta' = DIVIDE([Faturamento Líquido] - [Meta Venda (Até Ontem)], [Meta Venda (Até Ontem)], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: a45224c0-ec74-4f88-922c-2a0d5e573921
+
+	/// Medida de acompanhamento da Matriz do Relatório Executivo.
+	measure 'Ano-1 (%)' = DIVIDE([Faturamento Líquido] - [Faturamento Líquido Ano Anterior], [Faturamento Líquido Ano Anterior], 0)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Faturamento\Variações
+		lineageTag: 33e08583-be8b-43a0-bc83-14f36d01d019
+
+	/// Calcula a variação percentual da Margem Comercial Ajustada comparada ao Ano Anterior.
+	measure 'Real x Ano-1 Ajustado' = ```
+			// Calcula a variação percentual da Margem Comercial Ajustada em relação ao ano anterior
+			DIVIDE(
+			    [Margem Comercial Ajustada], 
+			    [Margem Comercial Ajustada Ano Anterior]
+			) - 1
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Variações
+		lineageTag: a58cf052-2fb9-47d2-a3aa-7e52bcb78d74
+
+	/// Calcula a variação percentual da Margem Comercial Ajustada em relação à Meta.
+	measure 'Real Ajustado X Meta' =
+			// Calcula a variação percentual entre a Margem Comercial Ajustada e a Meta
+			DIVIDE(
+			    [Margem Comercial Ajustada] - [Margem Comercial Meta (Até Ontem)],
+			    [Margem Comercial Meta (Até Ontem)]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Variações
+		lineageTag: 75a9a830-8764-49dc-9194-8ecd1280b6e5
+
+	/// Calcula o percentual da Margem Comercial Ajustada em relação ao Faturamento Líquido para o Ano Anterior.
+	measure 'MG (%) Ano-1 Ajustado' = ```
+			// Calcula o percentual de Margem Comercial Ajustada do Ano Anterior sobre o Faturamento Líquido do Ano Anterior
+			DIVIDE(
+			    [Margem Comercial Ajustada Ano Anterior], 
+			    [Faturamento Líquido Ano Anterior]
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Ano Anterior
+		lineageTag: 902e1581-ff1c-4bcb-9920-04e13100597f
+
+	/// Calcula o percentual da Margem Comercial Ajustada atual em relação ao Faturamento Líquido atual.
+	measure 'MG (%) Ajustado' = ```
+			// Calcula o percentual de Margem Comercial Ajustada atual sobre o Faturamento Líquido atual
+			DIVIDE(
+			    [Margem Comercial Ajustada], 
+			    [Faturamento Líquido]
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Variações
+		lineageTag: 7fcf171f-3352-49ec-9771-9ac3e19bb6c6
+
+	/// Calcula o percentual da Margem Comercial Meta em relação à Meta de Venda.
+	measure 'MG (%) Meta' = ```
+			// Calcula o percentual de Margem Comercial Meta sobre a Meta Venda
+			DIVIDE(
+			    [Margem Comercial Meta (Até Ontem)], 
+			    [Meta Venda (Até Ontem)]
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Variações
+		lineageTag: 8b2d8e58-d117-4743-b822-deddbaba281f
+
+	/// Calcula a variação do valor absoluto de Margem Comercial Ajustada em relação ao ano anterior.
+	measure 'Real x Ano-1 contr. Ajustada' = ```
+			// Calcula a variação percentual da Margem Comercial Ajustada em relação ao ano anterior
+			DIVIDE(
+			    [Margem Contribuição Ajustada], 
+			    [Margem Contribuição Ajustada Ano Anterior]
+			) - 1
+			
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Variações
+		lineageTag: d512d4a5-cb63-437b-a28c-6121ba5cbeb6
+
+	/// Calcula o percentual de Margem Comercial Ajustada do período do ano anterior em relação ao Faturamento Líquido do ano anterior.
+	measure 'MG(%) Ano-1 contr. Ajustada' = ```
+			// Calcula o percentual de Margem Comercial Ajustada do Ano Anterior sobre o Faturamento Líquido do Ano Anterior
+			DIVIDE(
+			    [Margem Contribuição Ajustada Ano Anterior], 
+			    [Faturamento Líquido Ano Anterior]
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Ano Anterior
+		lineageTag: dca4cf99-34d4-46ea-a1bd-cd4f3e114e30
+
+	/// Calcula o percentual da Meta de Margem Comercial Ajustada em relação à Meta de Faturamento Líquido.
+	measure 'MG(%) Meta contr. Ajustada' = ```
+			// Calcula o percentual de Margem Comercial Meta sobre a Meta Venda
+			DIVIDE(
+			    [Margem Contribuição Meta (Até Ontem)], 
+			    [Meta Venda (Até Ontem)]
+			)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Variações
+		lineageTag: 88f8ef53-923e-4f32-a338-399b2b7f5005
+
+	/// Calcula o desvio ou variação absoluta entre a Margem Comercial Ajustada realizada e a Meta estipulada.
+	measure 'Real contr. Ajustada x Meta' = ```
+			// Calcula a variação percentual entre a Margem Comercial Ajustada e a Meta
+			DIVIDE(
+			    [Margem Contribuição Ajustada] - [Margem Contribuição Meta (Até Ontem)],
+			    [Margem Contribuição Meta (Até Ontem)]
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Variações
+		lineageTag: 45aa810b-d383-4235-b09d-10b82c443af2
+
+	/// Calcula o percentual da Margem Comercial Ajustada atual em relação ao Faturamento Líquido atual.
+	measure 'MG(%) contr. Ajustada' = ```
+			// Calcula o percentual de Margem Comercial Ajustada atual sobre o Faturamento Líquido atual
+			DIVIDE(
+			    [Margem Contribuição Ajustada], 
+			    [Faturamento Líquido]
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Variações
+		lineageTag: 61996573-87a7-4de0-a601-5f64be1f458c
+
+	/// Métrica consolidada final de Valor da Agenda de Compra.
+	measure 'Valor Agenda de Compra' =
+			// Consolidação total do valor financeiro das agendas de compra normais e PAA
+			[Valor_Agenda_Compra_Atualiza_Custo] + [Valor_Agenda_Compra_Nao_Atualiza_Custo]
+		formatString: "R$" #,##0;-"R$" #,##0;"R$" * -
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: b1102883-0b33-41f2-8060-9dbd0d31c6c4
+
+	/// Quantidade de agendas de compras regulares usando os filtros de auditoria de estoque.
+	measure 'Qtd Agenda Compra Atualiza Custo' =
+			// Filtros aplicados utilizando as novas colunas com nomes amigáveis e ocultas
+			CALCULATE(
+			    [Qtd Notas],
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agenda - Cadastro'[Atualiza Estoque] = 1,
+			    'Agenda - Cadastro'[Sentido da Agenda] = "E",
+			    'Agenda - Cadastro'[Tipo de Notas] = "C",
+			    'Agenda - Cadastro'[Dobra Automática] <> "S",
+			    'Produto'[Tipo de Fornecedor] = "F",
+			    NOT('Agendamentos (Dia)'[COD_AGENDA] IN {974, 30, 129, 530})
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 52ff4e1a-0833-43d1-86d2-5b4495ca8f43
+
+	/// Quantidade de agendas de compra PAA / Importação (Código 16).
+	measure 'Qtd Agenda Compra Nao Atualiza Custo' =
+			// Filtra estritamente a agenda de compra PAA/Importação (Código 16) da Empresa 1
+			CALCULATE(
+			    [Qtd Notas],
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agendamentos (Dia)'[COD_AGENDA] = 16
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 752637a5-cd53-4cab-9552-47a7a205b8f7
+
+	/// Métrica consolidada final de Quantidade de Agenda de Compra.
+	measure 'Qtd Agenda de Compra' =
+			// Consolidação total do volume das agendas de compra normais e PAA
+			[Qtd Agenda Compra Atualiza Custo] + [Qtd Agenda Compra Nao Atualiza Custo]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 59ebe458-ddb1-4150-9f1d-a765908463e1
+
+	/// Valor total das agendas de compras regulares usando os filtros de auditoria de estoque.
+	measure Valor_Agenda_Compra_Atualiza_Custo =
+			// Filtros financeiros aplicados utilizando as novas colunas com nomes amigáveis e ocultas
+			CALCULATE(
+			    [Total],
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agenda - Cadastro'[Atualiza Estoque] = 1,
+			    'Agenda - Cadastro'[Sentido da Agenda] = "E",
+			    'Agenda - Cadastro'[Tipo de Notas] = "C",
+			    'Agenda - Cadastro'[Dobra Automática] <> "S",
+			    'Produto'[Tipo de Fornecedor] = "F",
+			    NOT('Agendamentos (Dia)'[COD_AGENDA] IN {974, 30, 129, 530})
+			)
+		formatString: "R$" #,##0;-"R$" #,##0;"R$" * -
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 4ecab286-0dc3-464b-93e8-3d10641de292
+
+	/// Valor total das agendas de compra PAA / Importação (Código 16).
+	measure Valor_Agenda_Compra_Nao_Atualiza_Custo =
+			// Filtra estritamente o valor total da agenda de compra PAA/Importação (Código 16) da Empresa 1
+			CALCULATE(
+			    [Total],
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agendamentos (Dia)'[COD_AGENDA] = 16
+			)
+		formatString: "R$" #,##0;-"R$" #,##0;"R$" * -
+		displayFolder: Movimento de Agendas\Métricas Financeiras
+		lineageTag: 87bdcabb-6b70-4d80-8707-ac8f7c7c082b
+
+	/// Retorna o valor de Qtd Agenda de Compra para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Qtd Agenda de Compra Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Qtd Agenda de Compra],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: af47f3f4-bfef-4ffc-88f4-172d8849ca9f
+
+	/// Variação absoluta da quantidade de agendas de compra em relação ao mesmo período do ano anterior (Ano Atual - Ano Anterior).
+	measure 'Qtd Agenda de Compra Var Abs' = [Qtd Agenda de Compra] - [Qtd Agenda de Compra Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 6efdeae4-38a9-41ea-9ff3-505e9a80c4dd
+
+	/// Variação percentual da quantidade de agendas de compra comparando o ano atual contra o mesmo período do ano anterior.
+	measure 'Qtd Agenda de Compra Var %' = DIVIDE([Qtd Agenda de Compra Var Abs], [Qtd Agenda de Compra Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: b055ff29-9db6-4351-a951-dca2a6c6b2a6
+
+	/// Retorna o valor de Valor Agenda de Compra para o mesmo período do ano anterior, limitado estritamente até o dia de hoje.
+	measure 'Valor Agenda de Compra Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Valor Agenda de Compra],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: "R$" #,##0;-"R$" #,##0;"R$" * -
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Ano Anterior
+		lineageTag: 65e42058-a423-4830-a89b-d723cf935720
+
+	/// Variação absoluta do valor financeiro das agendas de compra em relação ao mesmo período do ano anterior (Ano Atual - Ano Anterior).
+	measure 'Valor Agenda de Compra Var Abs' = [Valor Agenda de Compra] - [Valor Agenda de Compra Ano Anterior]
+		formatString: "R$" #,##0;-"R$" #,##0;"R$" * -
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: 9304750b-102d-488e-a29f-6d87c28da789
+
+	/// Variação percentual do valor financeiro das agendas de compra comparando o ano atual contra o mesmo período do ano anterior.
+	measure 'Valor Agenda de Compra Var %' = DIVIDE([Valor Agenda de Compra Var Abs], [Valor Agenda de Compra Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas Financeiras\Variações
+		lineageTag: f23359a3-2354-4d14-a627-efe1863cba30
+
+	/// Tonelagem de agendas de compras regulares usando os filtros de auditoria de estoque.
+	measure 'Tonelagem Agenda Compra Atualiza Custo' =
+			CALCULATE(
+			    SUMX('Agendamentos (Dia)', 'Agendamentos (Dia)'[QTD_NOTA] * 'Agendamentos (Dia)'[QTD_PESO_LIQUIDO]),
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agenda - Cadastro'[Atualiza Estoque] = 1,
+			    'Agenda - Cadastro'[Sentido da Agenda] = "E",
+			    'Agenda - Cadastro'[Tipo de Notas] = "C",
+			    'Agenda - Cadastro'[Dobra Automática] <> "S",
+			    'Produto'[Tipo de Fornecedor] = "F",
+			    NOT('Agendamentos (Dia)'[COD_AGENDA] IN {974, 30, 129, 530})
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: ff9c9a8f-2374-4728-8f34-1f8113a4c87a
+
+	/// Tonelagem de agendas de compra PAA / Importação (Código 16).
+	measure 'Tonelagem Agenda Compra Nao Atualiza Custo' =
+			CALCULATE(
+			    SUMX('Agendamentos (Dia)', 'Agendamentos (Dia)'[QTD_NOTA] * 'Agendamentos (Dia)'[QTD_PESO_LIQUIDO]),
+			    'Agenda - Cadastro'[COD_EMPRESA] = 1,
+			    'Agendamentos (Dia)'[COD_AGENDA] = 16
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 99f09d5d-2bbf-4b36-a988-5e437829d888
+
+	/// Métrica consolidada final de Tonelagem de Agenda de Compra.
+	measure 'Tonelagem Agenda de Compra' = [Tonelagem Agenda Compra Atualiza Custo] + [Tonelagem Agenda Compra Nao Atualiza Custo]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume
+		lineageTag: 5dd726dd-d1e1-4a82-b58f-59539dd85ce9
+
+	/// Retorna o valor de Tonelagem Agenda de Compra para o mesmo período do ano anterior.
+	measure 'Tonelagem Agenda de Compra Ano Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Tonelagem Agenda de Compra],
+			        SAMEPERIODLASTYEAR('Calendário'[Dia])
+			    )
+			)
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Ano Anterior
+		lineageTag: 22a6b300-01d6-4108-ae54-235419927ba6
+
+	/// Variação absoluta da tonelagem de agendas de compra em relação ao mesmo período do ano anterior (Ano Atual - Ano Anterior).
+	measure 'Tonelagem Agenda de Compra Var Abs' = [Tonelagem Agenda de Compra] - [Tonelagem Agenda de Compra Ano Anterior]
+		formatString: #,##0;-#,##0;0
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 28994e8c-63dd-4182-8163-4f80f2e2cfa6
+
+	/// Variação percentual da tonelagem de agendas de compra comparando o ano atual contra o mesmo período do ano anterior.
+	measure 'Tonelagem Agenda de Compra Var %' = DIVIDE([Tonelagem Agenda de Compra Var Abs], [Tonelagem Agenda de Compra Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Movimento de Agendas\Métricas de Volume\Variações
+		lineageTag: 1a2f17ef-4f37-4c79-9fac-ea921b9066a7
+
+	/// Calcula dinamicamente a participação do cliente dependendo do nível ativo na hierarquia de produtos.
+	measure 'Part % Clientes Hora Filial' =
+			DIVIDE(
+			    [Qtd Clientes Hora Filial],
+			    SWITCH(
+			        TRUE(),
+			        ISINSCOPE('Produto'[Produto Completo]), CALCULATE([Qtd Clientes Hora Filial], ALLSELECTED('Produto'[Produto Completo])),
+			        ISINSCOPE('Produto'[Subsegmento]), CALCULATE([Qtd Clientes Hora Filial], ALLSELECTED('Produto'[Subsegmento])),
+			        ISINSCOPE('Produto'[Segmento]), CALCULATE([Qtd Clientes Hora Filial], ALLSELECTED('Produto'[Segmento])),
+			        ISINSCOPE('Produto'[Subcategoria]), CALCULATE([Qtd Clientes Hora Filial], ALLSELECTED('Produto'[Subcategoria])),
+			        CALCULATE([Qtd Clientes Hora Filial], ALLSELECTED('Produto'[Categoria]))
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração
+		lineageTag: f98d3aa4-5e2f-4903-8c39-b8bd70d691b4
+
+	/// Calcula dinamicamente a participação do ticket dependendo do nível ativo na hierarquia de produtos.
+	measure 'Part % Tickets Hora Filial' =
+			DIVIDE(
+			    [Qtd Tickets Hora Filial],
+			    SWITCH(
+			        TRUE(),
+			        ISINSCOPE('Produto'[Produto Completo]), CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Produto Completo])),
+			        ISINSCOPE('Produto'[Subsegmento]), CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Subsegmento])),
+			        ISINSCOPE('Produto'[Segmento]), CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Segmento])),
+			        ISINSCOPE('Produto'[Subcategoria]), CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Subcategoria])),
+			        CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Categoria]))
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração
+		lineageTag: e062f4e8-a37c-4f4b-a568-11f30b1477bb
+
+	/// Calcula a participação percentual de tickets travada no nível de Categoria de Produtos.
+	measure 'Part % Ticket Categoria' = DIVIDE([Qtd Tickets Hora Filial], CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Categoria])))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 8fa820cf-8b05-4d43-9050-04f077729fc7
+
+	/// Retorna a participação percentual de tickets no nível de Categoria para o mesmo período do ano anterior.
+	measure 'Part % Ticket Categoria Ano-1' = CALCULATE([Part % Ticket Categoria], SAMEPERIODLASTYEAR('Calendário'[Dia]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: ac4192ee-da92-4725-92c8-8635e4f1f18d
+
+	/// Variação percentual entre a participação de tickets atual e a do ano anterior no nível de Categoria.
+	measure 'Var% Part Ticket Categoria' = [Part % Ticket Categoria] - [Part % Ticket Categoria Ano-1]
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 051d5af6-ac29-40e6-9938-982e2b0041ab
+
+	/// Calcula a participação percentual de tickets travada no nível de Subsegmento de Produtos.
+	measure 'Part % Ticket Subsegmento' = DIVIDE([Qtd Tickets Hora Filial], CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Subsegmento])))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 3a6aaf5b-a055-4a13-988a-32d5d65f5fa2
+
+	/// Retorna a participação percentual de tickets no nível de Subsegmento para o mesmo período do ano anterior.
+	measure 'Part % Ticket Subsegmento Ano-1' = CALCULATE([Part % Ticket Subsegmento], SAMEPERIODLASTYEAR('Calendário'[Dia]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 9de50971-1c77-4055-bfe8-4d068b7cb06e
+
+	/// Variação percentual entre a participação de tickets atual e a do ano anterior no nível de Subsegmento.
+	measure 'Var% Part Ticket Subsegmento' = [Part % Ticket Subsegmento] - [Part % Ticket Subsegmento Ano-1]
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 4b8ebdfc-f68a-40c5-9191-5697f4ee17ec
+
+	/// Calcula a participação percentual de tickets travada no nível de Produto Completo.
+	measure 'Part % Ticket Produto Completo' = DIVIDE([Qtd Tickets Hora Filial], CALCULATE([Qtd Tickets Hora Filial], ALLSELECTED('Produto'[Produto Completo])))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 5f08fea1-76ec-4951-a9f9-715c69ee3298
+
+	/// Retorna a participação percentual de tickets no nível de Produto Completo para o mesmo período do ano anterior.
+	measure 'Part % Ticket Produto Completo Ano-1' = CALCULATE([Part % Ticket Produto Completo], SAMEPERIODLASTYEAR('Calendário'[Dia]))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: accfef06-55b9-44d6-adc1-d5e5dd348591
+
+	/// Variação percentual entre a participação de tickets atual e a do ano anterior no nível de Produto Completo.
+	measure 'Var% Part Ticket Produto Completo' = [Part % Ticket Produto Completo] - [Part % Ticket Produto Completo Ano-1]
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Dica de Ferramenta
+		lineageTag: 5e5b7e1b-2b0e-4189-9e0c-851edf01857f
+
+	/// Métrica de penetração de tickets calculada para o período equivalente do ano anterior.
+	measure 'Part % Tickets Hora Filial Ano Anterior' = DIVIDE([Qtd Tickets Hora Filial Ano Anterior], SWITCH(TRUE(), ISINSCOPE('Produto'[Produto Completo]), CALCULATE([Qtd Tickets Hora Filial Ano Anterior], ALLSELECTED('Produto'[Produto Completo])), ISINSCOPE('Produto'[Subsegmento]), CALCULATE([Qtd Tickets Hora Filial Ano Anterior], ALLSELECTED('Produto'[Subsegmento])), ISINSCOPE('Produto'[Segmento]), CALCULATE([Qtd Tickets Hora Filial Ano Anterior], ALLSELECTED('Produto'[Segmento])), ISINSCOPE('Produto'[Subcategoria]), CALCULATE([Qtd Tickets Hora Filial Ano Anterior], ALLSELECTED('Produto'[Subcategoria])), CALCULATE([Qtd Tickets Hora Filial Ano Anterior], ALLSELECTED('Produto'[Categoria]))))
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Ano Anterior
+		lineageTag: c04c76ab-1df4-4a4e-b3e8-f544132f478e
+
+	/// Percentual de variação anual da penetração de tickets.
+	measure 'Part % Tickets Hora Filial Var %' = DIVIDE([Part % Tickets Hora Filial] - [Part % Tickets Hora Filial Ano Anterior], [Part % Tickets Hora Filial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Variações
+		lineageTag: 73d5d1fb-bf6e-4bb2-b178-5f68a5ef930e
+
+	/// Métrica de penetração de clientes calculada para o período equivalente do ano anterior.
+	measure 'Part % Clientes Hora Filial Ano Anterior' = ```
+			DIVIDE([Qtd Clientes Hora Filial Ano Anterior], 
+			SWITCH(TRUE(), ISINSCOPE('Produto'[Produto Completo]), 
+			CALCULATE([Qtd Clientes Hora Filial Ano Anterior], ALLSELECTED('Produto'[Produto Completo])), 
+			ISINSCOPE('Produto'[Subsegmento]), CALCULATE([Qtd Clientes Hora Filial Ano Anterior],
+			 ALLSELECTED('Produto'[Subsegmento])), ISINSCOPE('Produto'[Segmento]), 
+			 CALCULATE([Qtd Clientes Hora Filial Ano Anterior], ALLSELECTED('Produto'[Segmento])), 
+			 ISINSCOPE('Produto'[Subcategoria]), CALCULATE([Qtd Clientes Hora Filial Ano Anterior], ALLSELECTED('Produto'[Subcategoria])), 
+			 CALCULATE([Qtd Clientes Hora Filial Ano Anterior], ALLSELECTED('Produto'[Categoria]))))
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Ano Anterior
+		lineageTag: 78d29d66-51a4-4c03-97ed-bae8471712b2
+
+	/// Percentual de variação anual da penetração de clientes.
+	measure 'Part % Clientes Hora Filial Var %' = DIVIDE([Part % Clientes Hora Filial] - [Part % Clientes Hora Filial Ano Anterior], [Part % Clientes Hora Filial Ano Anterior])
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas por Hora\Penetração\Variações
+		lineageTag: f3633bb7-78bb-453b-bf3b-77f9042469f3
+
+	/// Medida mestre com formatação dinâmica ativada por métrica.
+	measure Realizado =
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Faturamento Líquido],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Quantidade", [Quantidade Líquida Vendida],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Tonelagem", [Tonelagem Líquida Vendida],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (Valor)", [Margem Comercial],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (%)", [MG (%) Ajustado],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (Valor)", [Margem Contribuição],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (%)", [MG(%) contr. Ajustada],
+			        _GrupoSelecao = "Acordos" && _MetricaSelecao = "Valor", [Valor Verba],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Quantidade", [Qtd Tickets Hora Filial],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Penetração", [Part % Tickets Hora Filial],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Quantidade", [Qtd Clientes Hora Filial],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Penetração", [Part % Clientes Hora Filial],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Valor", [Valor Agenda de Compra],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Quantidade", [Qtd Agenda de Compra],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Tonelagem", [Tonelagem Agenda de Compra],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Valor", [Valor Total Perda],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Quantidade", [Quantidade Perda],
+			        BLANK()
+			    )
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: e61f21d6-038d-4361-82bf-d0d27c923aca
+
+		formatStringDefinition = ```
+				VAR _M = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador]) 
+				RETURN 
+				    SWITCH(
+				        TRUE(),
+				        _M = "Penetração" || CONTAINSSTRING(_M, "%"), "0.0%",
+				        _M = "Quantidade" || _M = "Tickets" || _M = "Clientes", "#,##0",
+				        _M = "Tonelagem", "#,##0.00",
+				        "R$ #,##0.00" -- Padrão para Valor ou qualquer outra métrica monetária
+				    )
+				```
+
+	/// Medida mestre com formatação dinâmica ativada por métrica.
+	measure Meta =
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Meta Venda (Até Ontem)],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (Valor)", [Margem Comercial Meta (Até Ontem)],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Valor", [Meta Perda (Até Ontem)],
+			        BLANK()
+			    )
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: b856dea8-2250-4f39-8fa3-b715d5c92438
+
+		formatStringDefinition = ```
+				VAR _M = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador]) 
+				RETURN 
+				    SWITCH(
+				        TRUE(),
+				        _M = "Penetração" || CONTAINSSTRING(_M, "%"), "0.0%",
+				        _M = "Quantidade" || _M = "Tickets" || _M = "Clientes", "#,##0",
+				        _M = "Tonelagem", "#,##0.00",
+				        "R$ #,##0.00" -- Padrão para Valor ou qualquer outra métrica monetária
+				    )
+				```
+
+	/// Medida mestre com formatação dinâmica ativada por métrica.
+	measure 'Ano Anterior' =
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Faturamento Líquido Ano Anterior],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Quantidade", [Quantidade Líquida Vendida Ano Anterior],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Tonelagem", [Tonelagem Líquida Vendida Ano Anterior],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (Valor)", [Margem Comercial Ano Anterior],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (%)", [MG (%) Ano-1 Ajustado],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (Valor)", [Margem Contribuição Ano Anterior],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (%)", [MG(%) Ano-1 contr. Ajustada],
+			        _GrupoSelecao = "Acordos" && _MetricaSelecao = "Valor", [Valor Verba Ano Anterior],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Quantidade", [Qtd Tickets Hora Filial Ano Anterior],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Penetração", [Part % Tickets Hora Filial Ano Anterior],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Quantidade", [Qtd Clientes Hora Filial Ano Anterior],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Penetração", [Part % Clientes Hora Filial Ano Anterior],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Valor", [Valor Agenda de Compra Ano Anterior],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Quantidade", [Qtd Agenda de Compra Ano Anterior],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Tonelagem", [Tonelagem Agenda de Compra Ano Anterior],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Valor", [Valor Total Perda Ano Anterior],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Quantidade", [Quantidade Perda Ano Anterior],
+			        BLANK()
+			    )
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: cfe532f7-3851-4452-81a9-5b21e7d16799
+
+		formatStringDefinition = ```
+				VAR _M = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador]) 
+				RETURN 
+				    SWITCH(
+				        TRUE(),
+				        _M = "Penetração" || CONTAINSSTRING(_M, "%"), "0.0%",
+				        _M = "Quantidade" || _M = "Tickets" || _M = "Clientes", "#,##0",
+				        _M = "Tonelagem", "#,##0.00",
+				        "R$ #,##0.00" -- Padrão para Valor ou qualquer outra métrica monetária
+				    )
+				```
+
+	/// Medida mestre com formatação dinâmica ativada por métrica.
+	measure 'Var %' =
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Faturamento Líquido Var %],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Quantidade", [Quantidade Líquida Vendida Var %],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Tonelagem", [Tonelagem Líquida Vendida Var %],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (Valor)", [Real x Ano-1 Ajustado],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (Valor)", [Real x Ano-1 contr. Ajustada],
+			        _GrupoSelecao = "Acordos" && _MetricaSelecao = "Valor", [Valor Verba Var %],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Penetração", [Part % Tickets Hora Filial Var %],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Penetração", [Part % Clientes Hora Filial Var %],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Valor", [Valor Agenda de Compra Var %],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Quantidade", [Qtd Agenda de Compra Var %],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Tonelagem", [Tonelagem Agenda de Compra Var %],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Valor", [Valor Total Perda Var %],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Quantidade", [Quantidade Perda Var %],
+			        BLANK()
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: da4c6a7b-b731-4143-9d8a-839f01a0e93d
+
+	/// Medida mestre com formatação dinâmica ativada por métrica.
+	measure 'Realizado x Meta' =
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Real x Meta],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (%)", [Real Ajustado X Meta],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (%)", [Real contr. Ajustada x Meta],
+			        BLANK()
+			    )
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: e2013fc9-dc69-4cba-b60d-d2fb224b6410
+
+	/// Retorna o valor de Faturamento Líquido para o mesmo período do mês anterior, limitado estritamente até o dia de hoje.
+	measure 'Faturamento Líquido Mês Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Faturamento Líquido],
+			        DATEADD('Calendário'[Dia], -1, MONTH)
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Mês Anterior
+		lineageTag: fdd4d98a-dbfc-4167-ac89-f4a15a875cc6
+
+	/// Diferença absoluta entre o Faturamento Líquido atual e o do mês anterior (MoM).
+	measure 'Faturamento Líquido Var R$ MoM' = [Faturamento Líquido] - [Faturamento Líquido Mês Anterior]
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Mês Anterior
+		lineageTag: 82ecc04f-8d9a-4524-b821-815358cac3c5
+
+	/// Variação percentual do Faturamento Líquido em relação ao mês anterior (MoM).
+	measure 'Faturamento Líquido Var % MoM' =
+			DIVIDE(
+			    [Faturamento Líquido] - [Faturamento Líquido Mês Anterior],
+			    [Faturamento Líquido Mês Anterior]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Mês Anterior
+		lineageTag: 24cd0c38-eb9d-49a6-a472-17cea2a7c132
+
+	/// Retorna o valor de Margem Comercial Ajustada para o mesmo período do mês anterior, limitado estritamente até o dia de hoje.
+	measure 'Margem Comercial Ajustada Mês Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Margem Comercial Ajustada],
+			        DATEADD('Calendário'[Dia], -1, MONTH)
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0;R$ 0
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Mês Anterior
+		lineageTag: 92d00eac-1a15-42f2-b566-d23a747a8ecb
+
+	/// Variação percentual da Margem Comercial Ajustada em relação ao mês anterior (MoM).
+	measure 'Margem Comercial Ajustada Var % MoM' =
+			DIVIDE(
+			    [Margem Comercial Ajustada] - [Margem Comercial Ajustada Mês Anterior],
+			    [Margem Comercial Ajustada Mês Anterior]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Mês Anterior
+		lineageTag: ccc3fc15-1a51-4ea0-b19e-5161a66ed38e
+
+	/// Retorna o valor de Faturamento Líquido para os mesmos dias da semana anterior (deslocamento de 7 dias), limitado estritamente até o dia de hoje.
+	measure 'Faturamento Líquido Semana Anterior' =
+			IF(
+			    CALCULATE(MAX('Calendário'[Flag Data Passada])) = 1,
+			    CALCULATE(
+			        [Faturamento Líquido],
+			        DATEADD('Calendário'[Dia], -7, DAY)
+			    )
+			)
+		formatString: R$ #,##0;-R$ #,##0; -
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Semana Anterior
+		lineageTag: 032ebdf7-1944-49ca-b6e2-0a69872a586c
+
+	/// Variação percentual do Faturamento Líquido em relação à semana anterior (WoW, deslocamento de 7 dias).
+	measure 'Faturamento Líquido Var % WoW' =
+			DIVIDE(
+			    [Faturamento Líquido] - [Faturamento Líquido Semana Anterior],
+			    [Faturamento Líquido Semana Anterior]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Comparativos Curto Prazo\Semana Anterior
+		lineageTag: 8690ae82-0228-434e-9846-2d1c753f9dec
+
+	/// Retorna um código de cor hexadecimal para formatação condicional de visuais por mês (cores alternadas par/impar).
+	measure 'Cor Mes' =
+			VAR NumeroMes =
+			    MONTH(MAX('Calendário'[Dia]))
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISINSCOPE('Calendário'[Mês]) && MOD(NumeroMes, 2) = 0, "#FFF4B3",
+			        ISINSCOPE('Calendário'[Mês]) && MOD(NumeroMes, 2) <> 0, "#D9F7D9",
+			        "#FFFFFF"
+			    )
+		isHidden
+		lineageTag: 933867ca-5797-44a3-aadb-fe376e7dd091
+
+	/// Título dinâmico geral para o cabeçalho do painel.
+	measure Titulo_Painel_Mestre =
+			VAR _Grupo = SELECTEDVALUE('Menu Grupo'[Grupo Macro], "Geral")
+			VAR _Metrica = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Indicadores")
+			RETURN
+			    UPPER("Análise de " & _Grupo & " - " & _Metrica)
+		formatString: General
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: 2749317c-5f49-4f80-be08-b1d2986a586f
+
+	/// Medida com escala logarítmica baseada no Realizado para suavizar a proporção visual das barras de dados.
+	measure Desempenho_Grafico = IF([Realizado] > 0, LOG([Realizado]), 0)
+		formatString: 0.00
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: 585848bf-5ed7-4c16-aac1-7dd7767e10ce
+
+	/// Métrica de participação percentual da filial sobre o total filtrado na tela.
+	measure Participacao_Filial =
+			VAR ValorLinha = [Realizado]
+			VAR TotalGeralFilial = CALCULATE([Realizado], ALLSELECTED('Lojas'[Filial]))
+			RETURN
+			    DIVIDE(ValorLinha, TotalGeralFilial)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: 7059963c-9053-4482-950a-a8be9189f1ac
+
+	/// Métrica de participação percentual do fornecedor sobre o total filtrado na tela.
+	measure Participacao_Fornecedor =
+			VAR ValorLinha = [Realizado]
+			VAR TotalGeralForn = CALCULATE([Realizado], ALLSELECTED('Produto'[Fornecedor Master]))
+			RETURN
+			    DIVIDE(ValorLinha, TotalGeralForn)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: 76870e14-2ec1-4039-a007-7694f20ce685
+
+	/// Calcula a variação percentual da Margem Comercial Ajustada do período atual em relação ao Ano Anterior.
+	measure 'Var % MGC%' = DIVIDE([MG (%) Ajustado], [MG (%) Ano-1 Ajustado]) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem Comercial\Variações
+		lineageTag: 4690887f-e6c8-4ffc-a1ae-2336931e24f0
+
+	/// Calcula a variação percentual da Margem de Contribuição Ajustada do período atual em relação ao Ano Anterior.
+	measure 'Var % MG Contribuicao%' = DIVIDE([MG(%) contr. Ajustada], [MG(%) Ano-1 contr. Ajustada]) - 1
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Vendas Diárias\Margem de Contribuição\Variações
+		lineageTag: d104fae1-f0a2-497b-a5bd-7d41f681a474
+
+	/// Medida pura de Realizado duplicada para uso exclusivo em Barras de Dados sem distorção logarítmica.
+	measure Realizado_Barra =
+			/* Medida criada exclusivamente para renderização de Barras de Dados */
+			VAR _GrupoSelecao = SELECTEDVALUE('Menu Grupo'[Grupo Macro])
+			VAR _MetricaSelecao = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador], "Valor")
+			
+			RETURN
+			    SWITCH(TRUE(),
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Valor", [Faturamento Líquido],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Quantidade", [Quantidade Líquida Vendida],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Tonelagem", [Tonelagem Líquida Vendida],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (Valor)", [Margem Comercial],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem Comercial (%)", [MG (%) Ajustado],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (Valor)", [Margem Contribuição],
+			        _GrupoSelecao = "Venda" && _MetricaSelecao = "Margem de Contribuição (%)", [MG(%) contr. Ajustada],
+			        _GrupoSelecao = "Acordos" && _MetricaSelecao = "Valor", [Valor Verba],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Quantidade", [Qtd Tickets Hora Filial],
+			        _GrupoSelecao = "Ticket" && _MetricaSelecao = "Penetração", [Part % Tickets Hora Filial],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Quantidade", [Qtd Clientes Hora Filial],
+			        _GrupoSelecao = "Cliente" && _MetricaSelecao = "Penetração", [Part % Clientes Hora Filial],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Valor", [Valor Agenda de Compra],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Quantidade", [Qtd Agenda de Compra],
+			        _GrupoSelecao = "Compra" && _MetricaSelecao = "Tonelagem", [Tonelagem Agenda de Compra],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Valor", [Valor Total Perda],
+			        _GrupoSelecao = "Perda" && _MetricaSelecao = "Quantidade", [Quantidade Perda],
+			        BLANK()
+			    )
+		displayFolder: Menu Cascata Inteligente
+		lineageTag: 1bf926fc-ef66-46a1-b13c-edaaa9a34b41
+
+		formatStringDefinition = ```
+				VAR _M = SELECTEDVALUE('Menu Métrica'[Métrica Fatiador]) 
+				RETURN 
+				    SWITCH(
+				        TRUE(),
+				        _M = "Penetração" || CONTAINSSTRING(_M, "%"), "0.0%",
+				        _M = "Quantidade" || _M = "Tickets" || _M = "Clientes", "#,##0",
+				        _M = "Tonelagem", "#,##0.00",
+				        "R$ #,##0.00" -- Padrão para Valor ou qualquer outra métrica monetária
+				    )
+				```
+
+	/// Medida dinâmica para formatação condicional de cores (Vermelho se < 0, Verde se >= 0).
+	measure Cor_Condicional_Dax =
+			VAR _Valor = [Var %]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(_Valor), "#000000",
+			    _Valor < 0, "#FF0000",   -- Vermelho para negativos
+			    _Valor >= 0, "#008000",  -- Verde para positivos
+			    "#000000"
+			)
+		formatString: @
+		isHidden
+		lineageTag: e66694c2-1eff-4eb7-93f9-5c49f5c4fc34
+
+	column Dummy
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		lineageTag: ceed2a8e-270a-4efd-ab3d-a4dafffe76d9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Medidas = calculated
+		mode: import
+		source = ROW("Dummy", BLANK())
+
+	annotation PBI_Id = ececf2b2e77b44ffa94eff7960790f87
+

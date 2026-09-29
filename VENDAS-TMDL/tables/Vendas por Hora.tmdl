@@ -1,0 +1,210 @@
+/// Tabela fato auxiliar com fluxo de vendas fracionado por faixas horárias.
+table 'Vendas por Hora'
+	lineageTag: b8860da7-a0dc-4a61-ba13-fd3bd85eaf94
+	sourceLineageTag: [bi_vendas].[FAT_VENDAS_HORA]
+
+	/// Data civil completa do registro/evento.
+	column DESC_DIA
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		isAvailableInMdx: false
+		sourceProviderType: date
+		lineageTag: 9d75c5ed-f0d3-4298-a974-d23829e4728a
+		sourceLineageTag: DESC_DIA
+		summarizeBy: none
+		sourceColumn: DESC_DIA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CANAL_VENDA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 035c111d-d2b7-43b4-9915-3cb3dcfc4242
+		sourceLineageTag: COD_CANAL_VENDA
+		summarizeBy: none
+		sourceColumn: COD_CANAL_VENDA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_TIPO_ENTREGA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 01fcd3eb-b4e5-47e9-b49e-12eaaf05c9ee
+		sourceLineageTag: COD_TIPO_ENTREGA
+		summarizeBy: none
+		sourceColumn: COD_TIPO_ENTREGA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column QTD_VENDA_HORA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 5873c77e-b09e-4062-abda-adcd99df70be
+		sourceLineageTag: QTD_VENDA_HORA
+		summarizeBy: sum
+		sourceColumn: QTD_VENDA_HORA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_VENDA_HORA
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 214e1f48-36af-4853-a322-150887bfab21
+		sourceLineageTag: VLR_VENDA_HORA
+		summarizeBy: sum
+		sourceColumn: VLR_VENDA_HORA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VLR_DESCONTO
+		dataType: decimal
+		isHidden
+		isAvailableInMdx: false
+		sourceProviderType: decimal(38, 6)
+		lineageTag: 7450dee6-e1e6-4a8b-9058-c889b786919a
+		sourceLineageTag: VLR_DESCONTO
+		summarizeBy: sum
+		sourceColumn: VLR_DESCONTO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column COD_HORA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 7dc68859-f00f-4b06-8fd4-53e2a5f4f3c0
+		sourceLineageTag: COD_HORA
+		summarizeBy: sum
+		sourceColumn: COD_HORA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CLIENTE
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 7c49dba0-0651-4e65-a33d-e6bd5e177163
+		sourceLineageTag: COD_CLIENTE
+		summarizeBy: sum
+		sourceColumn: COD_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_CUPOM_VENDA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 9e7229e9-812c-48d4-85dd-47720ee7440a
+		sourceLineageTag: COD_CUPOM_VENDA
+		summarizeBy: sum
+		sourceColumn: COD_CUPOM_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_PRODUTO_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 1f696dd0-2d37-4742-b6ff-40cdd35b1335
+		sourceLineageTag: KEY_PRODUTO_INT
+		summarizeBy: sum
+		sourceColumn: KEY_PRODUTO_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_SUBFILIAL_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 611bedf1-a5df-4952-9f33-d536d9ad4aef
+		sourceLineageTag: KEY_SUBFILIAL_INT
+		summarizeBy: sum
+		sourceColumn: KEY_SUBFILIAL_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_REPRESENTANTE_INT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 6114ceec-4d4f-4ad3-8884-d4b600599fbf
+		sourceLineageTag: KEY_REPRESENTANTE_INT
+		summarizeBy: sum
+		sourceColumn: KEY_REPRESENTANTE_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_SUBFILIAL
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: e0ad9cfc-7767-4cb5-ad4b-0de0dade74c2
+		sourceLineageTag: COD_SUBFILIAL
+		summarizeBy: sum
+		sourceColumn: COD_SUBFILIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Vendas por Hora' = entity
+		mode: directLake
+		source
+			entityName: FAT_VENDAS_HORA
+			schemaName: bi_vendas
+			expressionSource: DatabaseQuery
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

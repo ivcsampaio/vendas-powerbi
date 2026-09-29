@@ -1,0 +1,102 @@
+/// Dimensão informativa contendo o cadastro e parâmetros das agendas.
+table 'Agenda - Cadastro'
+	lineageTag: d44a08c5-df90-4b57-a20c-1a49b81a9cd2
+	sourceLineageTag: [bi_wh_corporativo].[DIM_CAD_AGENDA]
+
+	/// Identificador técnico da agenda.
+	column 'Código Agenda'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 22753e60-56f8-4338-873f-1a500c8da29b
+		sourceLineageTag: COD_AGENDA
+		summarizeBy: none
+		sourceColumn: COD_AGENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição legível da agenda logística.
+	column Agenda
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: ef673f40-f19c-4e28-82ff-8de48a7e6952
+		sourceLineageTag: DESC_AGENDA
+		summarizeBy: none
+		sourceColumn: DESC_AGENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column COD_EMPRESA
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: smallint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 413edc83-029a-45b4-a14a-38ef51ca58ad
+		sourceLineageTag: COD_EMPRESA
+		summarizeBy: sum
+		sourceColumn: COD_EMPRESA
+
+		annotation SummarizationSetBy = Automatic
+
+	column KEY_AGENDA_INT
+		dataType: int64
+		isHidden
+		isKey
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: bigint
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: f57f4d71-acda-4f4f-888e-7285e1d97d04
+		sourceLineageTag: KEY_AGENDA_INT
+		summarizeBy: sum
+		sourceColumn: KEY_AGENDA_INT
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Flag indicador se a agenda atualiza o estoque físico de mercadorias (1 = Sim, 0 = Não). 
+	column 'Atualiza Estoque'
+		dataType: int64
+		isHidden
+		isAvailableInMdx: false
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 25963f77-8e2f-4c87-af42-9c1e4768dba8
+		sourceColumn: FLG_ATUALIZA_ESTOQUE
+
+	/// Indica se o fluxo do agendamento é de Entrada (E) ou Saída (S). 
+	column 'Sentido da Agenda'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 3e9e0f22-702c-4cb7-8e4b-f825c1a4fac8
+		sourceColumn: FLG_ENTRADA_SAIDA
+
+	/// Classificação do tipo de nota fiscal associada ao agendamento (Ex: C = Compra). 
+	column 'Tipo de Notas'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 057b1ab7-f54f-411a-a4bd-00b980418f06
+		sourceColumn: FLG_TIPO_NOTA
+
+	/// Sinaliza se o processo possui rotina de dobra automática de agendamentos. 
+	column 'Dobra Automática'
+		dataType: string
+		isHidden
+		isAvailableInMdx: false
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 52e6d794-5802-471a-b551-18990d9842b3
+		sourceColumn: FLG_DOBRA_AUTOMATICA
+
+	partition 'Agenda - Cadastro' = entity
+		mode: directLake
+		source
+			entityName: DIM_CAD_AGENDA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

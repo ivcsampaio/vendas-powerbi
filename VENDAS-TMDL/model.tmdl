@@ -1,0 +1,54 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop","MCP-PBIModeling"]
+
+annotation BestPracticeAnalyzer_IgnoreRules = {"RuleIDs":["REDUCE_USAGE_OF_CALCULATED_TABLES","PERCENTAGE_FORMATTING","RELATIONSHIP_COLUMNS_SHOULD_BE_OF_INTEGER_DATA_TYPE","INTEGER_FORMATTING","ENSURE_TABLES_HAVE_RELATIONSHIPS","UNNECESSARY_COLUMNS","MARK_PRIMARY_KEYS"]}
+
+annotation __LastRPTime = 134342052741883453
+
+annotation TabularEditor_SerializeOptions = {"IgnoreInferredObjects":true,"IgnoreInferredProperties":true,"IgnoreTimestamps":true,"SplitMultilineStrings":true,"PrefixFilenames":false,"LocalTranslations":false,"LocalPerspectives":false,"SortArrays":false,"LocalRelationships":false,"Levels":["Data Sources","Perspectives","Relationships","Roles","Shared Expressions","Tables","Tables/Calculation Items","Tables/Columns","Tables/Hierarchies","Tables/Measures","Tables/Partitions","Translations"]}
+
+annotation __TEdtr = 1
+
+annotation __BNorm = 1
+
+ref table Representantes
+ref table 'Tipos de Entrega'
+ref table 'Perdas de Produtos (Dia)'
+ref table Calendário
+ref table 'Vendas por Hora'
+ref table 'Metas (Dia)'
+ref table 'Agenda - Cadastro'
+ref table 'Ajustes Gerenciais (Dia)'
+ref table 'Participação de Embalagens (Dia)'
+ref table 'Ajustes de Custo (Dia)'
+ref table 'Tipo de Ajustes Gerenciais'
+ref table 'Vendas (Dia)'
+ref table 'Canais de Venda'
+ref table 'Verbas e Acordos (Dia)'
+ref table 'Agenda - Fornecedor Destino'
+ref table 'Agenda - Fornecedor Origem'
+ref table 'Agenda - Subfilial Destino'
+ref table 'Agenda - Subfilial Origem'
+ref table 'Agendamentos (Dia)'
+ref table Lojas
+ref table Medidas
+ref table Produto
+ref table 'Visão Agrupamento'
+ref table 'Grupo de Lojas'
+ref table 'Lojas Agrupadas'
+ref table 'Menu Grupo'
+ref table 'Menu Métrica'
+

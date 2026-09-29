@@ -1,0 +1,64 @@
+/// Tabela dimensional de parametrização contendo o cadastro e detalhamento das submétricas vinculadas a cada grupo do menu.
+table 'Menu Métrica'
+	lineageTag: db3baf9a-660a-47e8-b3f4-857650079993
+	sourceLineageTag: [bi_wh_corporativo].[DIM_MENU_METRICA]
+
+	/// Identificador único numérico da submétrica parametrizada.
+	column 'ID Métrica'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cfe0bccf-c193-43cb-994a-9e1069060ec5
+		sourceLineageTag: ID_METRICA
+		summarizeBy: none
+		sourceColumn: ID_METRICA
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Chave técnica de ligação com a tabela Menu Grupo para o efeito cascata.
+	column 'ID Grupo Pai'
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		lineageTag: e5c1ce84-912d-4ab0-aafa-e4172ac390a7
+		sourceLineageTag: ID_GRUPO
+		summarizeBy: none
+		sourceColumn: ID_GRUPO
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Nome amigável da métrica que aparecerá listada nos fatiadores.
+	column 'Métrica Fatiador'
+		dataType: string
+		sourceProviderType: varchar(100)
+		lineageTag: 51a23b71-e1bf-42e6-a96d-de5e0d06b4bd
+		sourceLineageTag: DS_METRICA
+		summarizeBy: none
+		sourceColumn: DS_METRICA
+		sortByColumn: 'Ordem Métrica'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Número sequencial de ordenação para os botões secundários do menu.
+	column 'Ordem Métrica'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 37f6cb76-786e-49f1-b5e8-58a228fe322e
+		sourceLineageTag: NU_ORDEM_METRICA
+		summarizeBy: none
+		sourceColumn: NU_ORDEM_METRICA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Menu Métrica' = entity
+		mode: directLake
+		source
+			entityName: DIM_MENU_METRICA
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

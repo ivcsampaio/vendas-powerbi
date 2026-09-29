@@ -1,0 +1,108 @@
+/// Dimensão auxiliar com o catálogo e motivos das regras de ajustes gerenciais.
+table 'Tipo de Ajustes Gerenciais'
+	lineageTag: 6c7e5f47-a9e3-45ea-b82b-24c06f15cb87
+	sourceLineageTag: [bi_wh_corporativo].[DIM_AJUSTE_GERENCIAL]
+
+	/// Identificador do tipo de ajuste gerencial.
+	column 'Código Ajuste Gerencial'
+		dataType: int64
+		isKey
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5c79934c-34da-4dff-8e61-baab5e817765
+		sourceLineageTag: COD_TIPO_AJUSTE_GERENCIAL
+		summarizeBy: none
+		sourceColumn: COD_TIPO_AJUSTE_GERENCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Descrição do motivo ou tipo de ajuste gerencial.
+	column 'Ajuste Gerencial - Tipo'
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 54fe9ac7-9d19-44ae-b1d2-3ced6a0341ae
+		sourceLineageTag: DESC_TIPO_AJUSTE_GERENCIAL
+		summarizeBy: none
+		sourceColumn: DESC_TIPO_AJUSTE_GERENCIAL
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_ATUALIZA_MC_CONT
+		dataType: int64
+		isHidden
+		formatString: 0
+		isAvailableInMdx: false
+		sourceProviderType: int
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 3dae70fb-f91b-46f6-b497-a0c09aed51e2
+		sourceLineageTag: FLG_ATUALIZA_MC_CONT
+		summarizeBy: none
+		sourceColumn: FLG_ATUALIZA_MC_CONT
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_MARGEM_CONTRIBUICAO
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isAvailableInMdx: false
+		sourceProviderType: bit
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 7ab30155-1bae-4459-804d-7c7194e08106
+		sourceLineageTag: FLG_MARGEM_CONTRIBUICAO
+		summarizeBy: none
+		sourceColumn: FLG_MARGEM_CONTRIBUICAO
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_MARGEM_PDV
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isAvailableInMdx: false
+		sourceProviderType: bit
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b8e54a90-9f61-4210-86b8-3ae1f2593f2c
+		sourceLineageTag: FLG_MARGEM_PDV
+		summarizeBy: none
+		sourceColumn: FLG_MARGEM_PDV
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_PERDA
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isAvailableInMdx: false
+		sourceProviderType: bit
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: 5b495d06-2ff4-4632-b987-2533660e2c54
+		sourceLineageTag: FLG_PERDA
+		summarizeBy: none
+		sourceColumn: FLG_PERDA
+
+		annotation SummarizationSetBy = Automatic
+
+	column FLG_VENDA
+		dataType: boolean
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		isAvailableInMdx: false
+		sourceProviderType: bit
+		displayFolder: _Chaves e Código Técnico
+		lineageTag: b40a8862-c722-4fdc-9e5c-45cfac656b33
+		sourceLineageTag: FLG_VENDA
+		summarizeBy: none
+		sourceColumn: FLG_VENDA
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tipo de Ajustes Gerenciais' = entity
+		mode: directLake
+		source
+			entityName: DIM_AJUSTE_GERENCIAL
+			schemaName: bi_wh_corporativo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+

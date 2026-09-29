@@ -7996,6 +7996,14 @@
             "formatString": "@",
             "isHidden": true,
             "lineageTag": "e66694c2-1eff-4eb7-93f9-5c49f5c4fc34"
+          },
+          {
+            "name": "Faturamento Líquido copy",
+            "description": "TESTE LOCAL GIT - Faturamento real da empresa (Faturamento Bruto menos Valor Devolvido).",
+            "expression": "SUM('Vendas (Dia)'[VLR_VENDA_TOTAL_C_IMP]) - SUM('Vendas (Dia)'[VLR_DEVOLUCAO_TOTAL_C_IMP])",
+            "formatString": "R$ #,##0;(R$ #,##0); -",
+            "displayFolder": "Vendas Diárias\\Faturamento",
+            "lineageTag": "cfc4e96e-0fb8-440d-b690-35e584cd9453"
           }
         ],
         "annotations": [
